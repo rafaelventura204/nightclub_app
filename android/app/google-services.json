@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "426286815584",
+    "project_id": "locali-intrattenimento-tesi",
+    "storage_bucket": "locali-intrattenimento-tesi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:426286815584:android:160167033abdc24ae52605",
+        "android_client_info": {
+          "package_name": "com.example.bar_pub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "426286815584-ualuedidg4ec70v7fd34f5mchml337fv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlitorRQ9IutFGY-WZCWu65PmjHdpqD8U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "426286815584-ualuedidg4ec70v7fd34f5mchml337fv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

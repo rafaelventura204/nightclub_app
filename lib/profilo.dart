@@ -43,7 +43,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
   }
 
   /// Get from Camera
-  _getFromCamera() async {
+  /*_getFromCamera() async {
     PickedFile pickedFile = await ImagePicker().getImage(
       source: ImageSource.camera,
       maxWidth: 1800,
@@ -54,7 +54,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         imageFile = File(pickedFile.path);
       });
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   ),
                 ),*/
               ),
-              /* KING CESA*/
               Container(
                 padding: EdgeInsets.all(10.0),
                 width: MediaQuery.of(context).size.width / 2,

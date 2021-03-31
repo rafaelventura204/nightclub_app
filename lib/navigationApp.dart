@@ -1,4 +1,4 @@
-import 'package:bar_pub/home.dart';
+import 'package:bar_pub/screens/home/home.dart';
 import 'package:bar_pub/profilo.dart';
 import 'package:bar_pub/search.dart';
 import 'package:flutter/cupertino.dart';

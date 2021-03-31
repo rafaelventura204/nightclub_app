@@ -1,6 +1,6 @@
 import 'package:bar_pub/registrazione.dart';
 import 'package:flutter/material.dart';
-import 'package:bar_pub/home.dart';
+import 'package:bar_pub/screens/home/home.dart';
 
 void main() => runApp(MyLogin());
 
