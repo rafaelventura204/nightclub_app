@@ -6,7 +6,7 @@ class AuthService {
 
   //create user object base on FirebaseUser
   MyUser _userFromFirebaseUser(User user) {
-    return user != null ? MyUser(uId: user.uid) : null;
+    return user != null ? MyUser(uId: user.uid, nameUser: user.email) : null;
   }
 
   //auth change user stream ->ogni utente lo mappa nel mio tipo di utente
@@ -26,9 +26,34 @@ class AuthService {
       return null;
     }
   }
+
   //sign in wiht email & password
+  Future signInWithEmailPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user;
+
+      return _userFromFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   //register in wiht email & password
+  Future registerWithEmailPassword(String email, String password) async {
+    try {
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      User user = result.user;
+
+      return _userFromFirebaseUser(user);
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
 
   //sign out
   Future signOut() async {

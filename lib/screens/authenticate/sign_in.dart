@@ -12,10 +12,12 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   FocusNode myFocusNode = FocusNode();
+  final _formKey = GlobalKey<FormState>();
 
   //text field state
   String email = "";
   String password = "";
+  String error = "";
 
   @override
   Widget build(BuildContext context) {
@@ -36,77 +38,104 @@ class _SignInState extends State<SignIn> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(
-              onChanged: (val) {
-                setState(() => email = val);
-              },
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.7)),
+          Form(
+            key: _formKey,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextFormField(
+                    validator: (val) => val.isEmpty ? 'Inserisci email' : null,
+                    onChanged: (val) {
+                      setState(() => email = val);
+                    },
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25.7)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple[300]),
+                          borderRadius: BorderRadius.circular(25.7),
+                        ),
+                        labelText: 'Username',
+                        labelStyle: TextStyle(
+                            color: myFocusNode.hasFocus
+                                ? Colors.purple[300]
+                                : Colors.black54),
+                        icon:
+                            Icon(Icons.account_box, color: Colors.purple[300])),
+                    cursorColor: Colors.purple[300],
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple[300]),
-                    borderRadius: BorderRadius.circular(25.7),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: TextFormField(
+                    validator: (val) => val.length < 6
+                        ? 'Inserisci password con più di 6 caratteri'
+                        : null,
+                    onChanged: (val) {
+                      setState(() => password = val);
+                    },
+                    obscureText: true,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25.7)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple[300]),
+                          borderRadius: BorderRadius.circular(25.7),
+                        ),
+                        labelText: 'Password',
+                        labelStyle: TextStyle(
+                            color: myFocusNode.hasFocus
+                                ? Colors.purple[300]
+                                : Colors.black54),
+                        icon: Icon(Icons.visibility_off,
+                            color: Colors.purple[300])),
+                    cursorColor: Colors.purple[300],
                   ),
-                  labelText: 'Username',
-                  labelStyle: TextStyle(
-                      color: myFocusNode.hasFocus
-                          ? Colors.purple[300]
-                          : Colors.black54),
-                  icon: Icon(Icons.account_box, color: Colors.purple[300])),
-              cursorColor: Colors.purple[300],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: TextField(
-              onChanged: (val) {
-                setState(() => password = val);
-              },
-              obscureText: true,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.7)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.purple[300]),
-                    borderRadius: BorderRadius.circular(25.7),
-                  ),
-                  labelText: 'Password',
-                  labelStyle: TextStyle(
-                      color: myFocusNode.hasFocus
-                          ? Colors.purple[300]
-                          : Colors.black54),
-                  icon: Icon(Icons.visibility_off, color: Colors.purple[300])),
-              cursorColor: Colors.purple[300],
+                ),
+              ],
             ),
           ),
           ElevatedButton(
             onPressed: () async {
-              print(email);
-              print(password);
+              if (_formKey.currentState.validate()) {
+                print("validaaaaaaaaaaaa");
+                print(email);
+                print(password);
+                dynamic result =
+                    await _auth.signInWithEmailPassword(email, password);
+
+                if (result == null) {
+                  setState(
+                      () => error = "Email non registrata oppure non corretta");
+                }
+              }
             },
             child: Text('Login'),
             style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
           ),
-          /*ElevatedButton(
-            onPressed: () {},
-            child: Text('Registrati'),
-            style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
-          ),*/
-          ElevatedButton(
-            onPressed: () => {},
-            child: Text('Non ora!'),
-            style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
-          ),
+          SizedBox(height: 12.0),
+          Text(
+            error,
+            style: TextStyle(color: Colors.red, fontSize: 14.0),
+          )
         ],
       ),
     );
   }
 }
-
+/*ElevatedButton(
+            onPressed: () {},
+            child: Text('Registrati'),
+            style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
+          ),
+          ElevatedButton(
+            onPressed: () => {},
+            child: Text('Non ora!'),
+            style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
+          ),*/
 /*Container(
         padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
         child: ElevatedButton(

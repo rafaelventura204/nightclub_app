@@ -1,4 +1,4 @@
-import 'package:bar_pub/registrazione.dart';
+//import 'package:bar_pub/registrazione.dart';
 import 'package:flutter/material.dart';
 import 'package:bar_pub/screens/home/home.dart';
 
@@ -12,7 +12,7 @@ class MyLogin extends StatelessWidget {
         home: MyLoginPage(title: 'Login'),
         routes: {
           '/home': (context) => MyHome(),
-          '/registration': (context) => MyRegistration(),
+          //'/registration': (context) => MyRegistration(),
         });
   }
 }
@@ -85,8 +85,8 @@ class _MyLoginPageState extends State<MyLoginPage> {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MyRegistration()));
+              /*Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MyRegistration()));*/
             },
             child: Text('Registrati'),
             style: ElevatedButton.styleFrom(primary: Colors.purple[300]),

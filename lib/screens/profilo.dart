@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:bar_pub/login.dart';
+import 'package:bar_pub/NO_login.dart';
+import 'package:bar_pub/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,6 +28,7 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   /// Variables
   File imageFile;
+  final AuthService _auth = AuthService();
 
   //Get from Gallery
   _getFromGallery() async {
@@ -63,12 +65,18 @@ class _MyProfilePageState extends State<MyProfilePage> {
         title: Text('Profilo'),
         backgroundColor: Colors.purple[300],
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.login),
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => MyLogin()));
+          TextButton.icon(
+            onPressed: () async {
+              await _auth.signOut();
             },
+            icon: Icon(
+              Icons.person,
+              color: Color(0XFF000000),
+            ),
+            label: Text(
+              'Logout',
+              style: TextStyle(color: Color(0XFF000000)),
+            ),
           )
         ],
       ),

@@ -1,5 +1,7 @@
-import 'package:bar_pub/login.dart';
-import 'package:bar_pub/services/auth.dart';
+import 'package:bar_pub/NO_login.dart';
+import 'package:bar_pub/screens/homeScreen.dart';
+import 'package:bar_pub/screens/profilo.dart';
+import 'package:bar_pub/screens/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,50 +25,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final AuthService _auth = AuthService();
+  int _selectIndex = 0;
+
+  final List<Widget> _widgetsPage = [MyHomeScreen(), MySearch(), MyProfile()];
+
+  void myOnTap(int _index) {
+    setState(() {
+      _selectIndex = _index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Home (Inserire nome utente)'),
-        backgroundColor: Colors.purple[300],
-        elevation: 0.0,
-        actions: <Widget>[
-          TextButton.icon(
-              onPressed: () async {
-                await _auth.signOut();
-              },
-              icon: Icon(Icons.person),
-              label: Text('Logout'))
-        ],
-      ),
-      body: Center(
-        child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              const ListTile(
-                leading: Icon(Icons.wine_bar),
-                title: Text('NOME LOCALE/DISCOTECA'),
-                subtitle: Text('AGGIUNGERE PICCOLA DESCRIZIONE'),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  TextButton(
-                    child: const Text('AGGIUNGI PREFERITI'),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyLogin()));
-                    },
-                  ),
-                  const SizedBox(width: 8),
-                ],
-              ),
-            ],
+      body: _widgetsPage.elementAt(_selectIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.shifting,
+        selectedItemColor: Colors.purple[300],
+        unselectedItemColor: Colors.grey,
+        currentIndex: _selectIndex,
+        onTap: myOnTap,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-        ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Cerca',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_circle),
+            label: 'Profilo',
+          ),
+        ],
       ),
     );
   }
