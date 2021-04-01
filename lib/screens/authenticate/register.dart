@@ -1,17 +1,19 @@
 import 'package:bar_pub/services/auth.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatefulWidget {
+class Register extends StatefulWidget {
   final Function toggleView;
-  SignIn({this.toggleView});
+  Register({this.toggleView});
 
   @override
-  _SignInState createState() => _SignInState();
+  _RegisterState createState() => _RegisterState();
 }
 
-class _SignInState extends State<SignIn> {
+class _RegisterState extends State<Register> {
   final AuthService _auth = AuthService();
   FocusNode myFocusNode = FocusNode();
+  /*Associo ai dati della form una global key univoca, in modo da avere utenti univoci*/
+  final _formKey = GlobalKey<FormState>();
 
   //text field state
   String email = "";
@@ -23,22 +25,24 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.purple[300],
         elevation: 0.0,
-        title: Text('Login!'),
+        title: Text('Registrati!'),
         actions: <Widget>[
           TextButton.icon(
               onPressed: () {
                 widget.toggleView();
               },
               icon: Icon(Icons.person),
-              label: Text('Registrati'))
+              label: Text('Login'))
         ],
       ),
       body: Column(
+        key: _formKey,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(16),
-            child: TextField(
+            child: TextFormField(
+              validator: (val) => val.isEmpty ? 'Inserisci email' : null,
               onChanged: (val) {
                 setState(() => email = val);
               },
@@ -61,7 +65,10 @@ class _SignInState extends State<SignIn> {
           ),
           Padding(
             padding: const EdgeInsets.all(16),
-            child: TextField(
+            child: TextFormField(
+              validator: (val) => val.length < 6
+                  ? 'Inserisci password con più di 6 caratteri'
+                  : null,
               onChanged: (val) {
                 setState(() => password = val);
               },
@@ -85,17 +92,20 @@ class _SignInState extends State<SignIn> {
           ),
           ElevatedButton(
             onPressed: () async {
-              print(email);
-              print(password);
+              //controlla se ciò che + dentro al form è valido o no
+              if (_formKey.currentState.validate()) {
+                print(email);
+                print(password);
+              }
             },
-            child: Text('Login'),
+            child: Text('Registrati'),
             style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
           ),
-          /*ElevatedButton(
+          ElevatedButton(
             onPressed: () {},
             child: Text('Registrati'),
             style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
-          ),*/
+          ),
           ElevatedButton(
             onPressed: () => {},
             child: Text('Non ora!'),
@@ -106,19 +116,3 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-
-/*Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        child: ElevatedButton(
-            child: Text('Entra senza registrazione'),
-            onPressed: () async {
-              dynamic result = await _auth.signInAnnon();
-              if (result == null) {
-                print("Errore accesso come anonimo!");
-              } else {
-                print("Benvenuto utente ANONIMO");
-                print(result); //ID USER
-
-              }
-            }),
-      ),*/

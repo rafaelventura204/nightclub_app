@@ -1,3 +1,4 @@
+import 'package:bar_pub/login.dart';
 import 'package:bar_pub/services/auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ class MyHome extends StatelessWidget {
     return MaterialApp(
         title: 'Locali Intrattenimento',
         home: MyHomePage(title: 'Home'),
-        routes: {'/home': (context) => MyHome()});
+        routes: {'/login': (context) => MyLogin()});
   }
 }
 
@@ -55,7 +56,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   TextButton(
                     child: const Text('AGGIUNGI PREFERITI'),
-                    onPressed: () => {},
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => MyLogin()));
+                    },
                   ),
                   const SizedBox(width: 8),
                 ],
