@@ -1,4 +1,4 @@
-import 'package:bar_pub/models/user.dart';
+  import 'package:bar_pub/models/user.dart';
 import 'package:bar_pub/screens/wrapper.dart';
 import 'package:bar_pub/services/auth.dart';
 import 'package:firebase_core/firebase_core.dart';

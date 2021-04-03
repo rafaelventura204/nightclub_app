@@ -33,6 +33,14 @@ dependencies:
   cloud_firestore: ^1.0.3
   firebase_core: ^1.0.2
   provider: ^5.0.0
+  geolocator: ^7.0.1
+  google_maps_flutter:
+  google_map_polyline:
+  permission:
+  #google_maps_flutter: '2.0.2'
+  #polyline_builder: ^0.0.10
+  #flutter_polyline_points: ^0.2.6
+  
 
 dev_dependencies:
   flutter_test:
