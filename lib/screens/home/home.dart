@@ -1,3 +1,4 @@
+import 'package:bar_pub/screens/barlist.dart';
 import 'package:bar_pub/screens/homeScreen.dart';
 import 'package:bar_pub/screens/profilo.dart';
 import 'package:bar_pub/screens/search.dart';
@@ -8,7 +9,7 @@ class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Locali Intrattenimento',
+      title: 'Home',
       home: MyHomePage(title: 'Home'),
     );
   }
@@ -26,7 +27,12 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectIndex = 0;
 
-  final List<Widget> _widgetsPage = [MyHomeScreen(), MySearch(), MyProfile()];
+  final List<Widget> _widgetsPage = [
+    MyHomeScreen(),
+    MySearch(),
+    MyBarList(),
+    MyProfile()
+  ];
 
   void myOnTap(int _index) {
     setState(() {
@@ -51,7 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Cerca',
+            label: 'Mappa',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'BarList',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
