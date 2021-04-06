@@ -126,28 +126,3 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
-/*ElevatedButton(
-            onPressed: () {},
-            child: Text('Registrati'),
-            style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
-          ),
-          ElevatedButton(
-            onPressed: () => {},
-            child: Text('Non ora!'),
-            style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
-          ),*/
-/*Container(
-        padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-        child: ElevatedButton(
-            child: Text('Entra senza registrazione'),
-            onPressed: () async {
-              dynamic result = await _auth.signInAnnon();
-              if (result == null) {
-                print("Errore accesso come anonimo!");
-              } else {
-                print("Benvenuto utente ANONIMO");
-                print(result); //ID USER
-
-              }
-            }),
-      ),*/

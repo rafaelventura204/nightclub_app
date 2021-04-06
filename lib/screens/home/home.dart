@@ -1,4 +1,3 @@
-import 'package:bar_pub/NO_login.dart';
 import 'package:bar_pub/screens/homeScreen.dart';
 import 'package:bar_pub/screens/profilo.dart';
 import 'package:bar_pub/screens/search.dart';
@@ -9,9 +8,9 @@ class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Locali Intrattenimento',
-        home: MyHomePage(title: 'Home'),
-        routes: {'/login': (context) => MyLogin()});
+      title: 'Locali Intrattenimento',
+      home: MyHomePage(title: 'Home'),
+    );
   }
 }
 

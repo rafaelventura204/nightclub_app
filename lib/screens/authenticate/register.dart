@@ -97,24 +97,12 @@ class _RegisterState extends State<Register> {
                 ),
               ],
             ),
-
-            /*ElevatedButton(
-            onPressed: () {},
-            child: Text('Registrati'),
-            style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
-          ),
-          ElevatedButton(
-            onPressed: () => {},
-            child: Text('Non ora!'),
-            style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
-          ),*/
           ),
           ElevatedButton(
             onPressed: () async {
-              //controlla se ciò che + dentro al form è valido o no
               if (_formKey.currentState.validate()) {
-                /*print(email);
-                print(password);*/
+                //print(email);
+                //print(password);
                 dynamic result =
                     await _auth.registerWithEmailPassword(email, password);
                 if (result == null) {

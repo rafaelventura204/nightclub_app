@@ -51,7 +51,3 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
     );
   }
 }
-
-/**/
-
-/**/

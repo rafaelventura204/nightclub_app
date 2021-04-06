@@ -1,11 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:google_map_polyline/google_map_polyline.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
-//import 'package:permission/permission.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 class MySearch extends StatelessWidget {
@@ -30,7 +27,6 @@ class _MySearchPageState extends State<MySearchPage> {
   /*POSIZIONE ATTUALE*/
   bool mapToggle = false;
   var currentLocation;
-  //GoogleMapController mapController;
 
   /*Posizione destinazione*/
   double _destinationlatitude = 45.46477482199611;
@@ -38,9 +34,9 @@ class _MySearchPageState extends State<MySearchPage> {
 
   /*Posizione origine*/
   double _originelatitude = 45.42578603176514;
-  double _originelongitude = 9.20251086235185;
+  double _originlongitude = 9.20251086235185;
 
-  /*marker*/
+  /*Marker*/
   Map<MarkerId, Marker> markers = {};
 
   /*POLYLINE*/
@@ -48,32 +44,13 @@ class _MySearchPageState extends State<MySearchPage> {
   Map<PolylineId, Polyline> polylines = {};
 
   /* Google map controller*/
-  // Google Maps controller
   Completer<GoogleMapController> _controller = Completer();
 
-  /*POLYLINE */
-  //final Set<Polyline> polyline = {};
   //Set di coordinalte
-  List<LatLng> routeCoords;
-  /*GoogleMapPolyline googleMapPolyline =
-      new GoogleMapPolyline(apiKey: "AIzaSyDlitorRQ9IutFGY-WZCWu65PmjHdpqD8U");*/
-
-  /*getSomePoints() async {
-    var permissions =
-        await Permission.getPermissionsStatus([PermissionName.Location]);
-    if (permissions[0].permissionStatus == PermissionStatus.notAgain) {
-      var askpermission =
-          await Permission.requestPermissions([PermissionName.Location]);
-    } else {
-      routeCoords = await googleMapPolyline.getCoordinatesWithLocation(
-          origin: LatLng(currentLocation.latitude, currentLocation.longitude),
-          destination: LatLng(45.432083533092786, 9.19928841039524),
-          mode: RouteMode.driving);
-    }
-  }*/
+  //List<LatLng> routeCoords;
 
   void initState() {
-    //super.initState();
+    /*Set della posizione attuale attraverso la geolocalizzazione*/
     Geolocator.getCurrentPosition().then((currloc) {
       setState(() {
         currentLocation = currloc;
@@ -81,18 +58,16 @@ class _MySearchPageState extends State<MySearchPage> {
       });
     });
 
-    /*//getSomePoints();*/
     _addMarker(
-      LatLng(_originelatitude, _originelongitude),
+      LatLng(_originelatitude, _originlongitude),
       "origin",
       BitmapDescriptor.defaultMarker,
     );
 
-    // Add destination marker
     _addMarker(
       LatLng(_destinationlatitude, _destinationlongitude),
       "destination",
-      BitmapDescriptor.defaultMarkerWithHue(90),
+      BitmapDescriptor.defaultMarker,
     );
 
     _getPolyline();
@@ -116,14 +91,6 @@ class _MySearchPageState extends State<MySearchPage> {
                 width: double.infinity,
                 child: mapToggle
                     ? GoogleMap(
-                        /*onMapCreated: onMapCreated,
-                        //polylines: polyline,
-                        initialCameraPosition: CameraPosition(
-                            //NEL TARGET è possibile passare un punto diverso
-                            target: LatLng(currentLocation.latitude,
-                                currentLocation.longitude),
-                            zoom: 15.0),
-                        mapType: MapType.normal,*/
                         mapType: MapType.normal,
                         initialCameraPosition: CameraPosition(
                             target: LatLng(currentLocation.latitude,
@@ -153,7 +120,6 @@ class _MySearchPageState extends State<MySearchPage> {
     );
   }
 
-/*Serve per aggiungere il marker in base alla latitude e longitudine */
   _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
     MarkerId markerId = MarkerId(id);
     Marker marker =
@@ -167,6 +133,7 @@ class _MySearchPageState extends State<MySearchPage> {
       polylineId: id,
       points: polylineCoordinates,
       width: 8,
+      color: Colors.purple[300],
     );
     polylines[id] = polyline;
     setState(() {});
@@ -177,7 +144,7 @@ class _MySearchPageState extends State<MySearchPage> {
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       "AIzaSyDlitorRQ9IutFGY-WZCWu65PmjHdpqD8U",
-      PointLatLng(_originelatitude, _originelongitude),
+      PointLatLng(_originelatitude, _originlongitude),
       PointLatLng(_destinationlatitude, _destinationlongitude),
       travelMode: TravelMode.driving,
     );
@@ -190,19 +157,4 @@ class _MySearchPageState extends State<MySearchPage> {
     }
     _addPolyLine(polylineCoordinates);
   }
-
-  /*void onMapCreated(controller) {
-    setState(() {
-      mapController = controller;
-
-      polyline.add(Polyline(
-          polylineId: PolylineId('route1'),
-          visible: true,
-          points: routeCoords,
-          width: 4,
-          color: Colors.purple[300],
-          startCap: Cap.roundCap,
-          endCap: Cap.buttCap));
-    });
-  }*/
 }

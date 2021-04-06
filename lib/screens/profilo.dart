@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:bar_pub/NO_login.dart';
 import 'package:bar_pub/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,11 +8,9 @@ class MyProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Locali Intrattenimento',
-        home: MyProfilePage(title: 'Profilo'),
-        routes: {
-          '/home': (context) => MyLogin(),
-        });
+      title: 'Locali Intrattenimento',
+      home: MyProfilePage(title: 'Profilo'),
+    );
   }
 }
 
@@ -111,15 +108,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
             children: [
               Padding(
                 padding: EdgeInsets.all(20),
-                /*child: Text(
-                  "Profile",
-                  style: TextStyle(
-                    fontSize: 35,
-                    letterSpacing: 1.5,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),*/
               ),
               Container(
                 padding: EdgeInsets.all(10.0),
@@ -130,7 +118,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     shape: BoxShape.circle,
                     color: Colors.white,
                     image: DecorationImage(
-                        image: AssetImage('images/profilo.JPG'))),
+                        image: AssetImage('images/profiloProva.png'))),
               )
             ],
           ),
