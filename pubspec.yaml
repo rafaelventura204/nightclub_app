@@ -34,9 +34,14 @@ dependencies:
   firebase_core: ^1.0.2
   provider: ^5.0.0
   geolocator: ^7.0.1
-  #google_maps_flutter:
   google_maps_flutter: ^2.0.2
   flutter_polyline_points: ^0.2.6
+  flutter_screenutil: ^5.0.0
+  #flutter_screenutil: ^4.0.0-beta1
+  flutter_boost: ^1.17.1
+  google_fonts: ^2.0.0
+  #flutter_screenutil: ^4.0.0-beta2
+  #google_maps_flutter:
   #latlong: ^0.6.1
   #google_map_polyline:
   #polyline_builder: #^0.0.10
