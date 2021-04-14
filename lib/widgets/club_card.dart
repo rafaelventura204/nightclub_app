@@ -1,6 +1,6 @@
 import 'dart:ui';
-
 import 'package:bar_pub/models/property.dart';
+import 'package:bar_pub/screens/single_property_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,13 +13,26 @@ class ClubCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => {},
+      onTap: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => SinglePropertyPage()));
+      },
       child: Container(
         height: ScreenUtil().setHeight(300.0),
-        width: ScreenUtil().setWidth(255.0),
+        width: ScreenUtil().setWidth(300.0),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.0),
-          color: Color(0xFF4F5F6),
+          borderRadius: BorderRadius.circular(24.0),
+          //color: Color(0xFF4F5F6),
+          //color: Color(0xFFBA68C),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.purple.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 1.3,
+              offset: Offset(0, 0), // changes position of shadow
+            ),
+          ],
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +97,7 @@ class ClubCard extends StatelessWidget {
                           child: Icon(
                             Icons.favorite,
                             //color: Constants.primaryColor,
-                            color: Color(0xFFC62828),
+                            color: Color(0xFFBA68C8),
                           ),
                         )
                       ],

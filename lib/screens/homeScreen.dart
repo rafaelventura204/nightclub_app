@@ -1,3 +1,4 @@
+//import 'package:bar_pub/screens/single_property_page.dart';
 import 'package:bar_pub/services/static_data.dart';
 import 'package:bar_pub/widgets/club_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,9 @@ class MyHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomeScreenPage(),
+      /*routes: <String, WidgetBuilder>{
+        "/singlePageClub":(BuildContext context) => new SinglePropertyPage(),
+      },*/
     );
   }
 }
@@ -32,23 +36,26 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
+        padding: EdgeInsets.only(top: 11.5),
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              SafeArea(child: SizedBox()),
+              SafeArea(child: SizedBox(height: 10.0)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  //sistemare la poszione dell'avatar!!!!!!!!!!!!
                   children: <Widget>[
                     CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      radius: 20.0,
-                      backgroundImage: AssetImage("images/profiloProva.png"),
+                      backgroundColor: Colors.purple[300],
+                      radius: 22.0,
+                      child: CircleAvatar(
+                        radius: 20.0,
+                        backgroundImage: AssetImage("images/profiloProva.png"),
+                      ),
                     )
                   ],
                 ),
@@ -67,9 +74,9 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                     )),
               ),
               SizedBox(
-                height: 15.0,
+                height: 55.0,
               ),
-              Padding(
+              /*Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Text(
                   "Popular",
@@ -80,26 +87,32 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              ),
-              SizedBox(
+              ),*/
+              /*SizedBox(
                 height: 10.0,
-              ),
+              ),*/
               Container(
-                  height: ScreenUtil().setHeight(300.0),
-                  //CREA I MODELLI DELLE CARD
+                  height: ScreenUtil().setHeight(400.0),
+                  /*Immagini grandi perchè è bello vedere in primo piano
+                  una bella foto del locale, serve per farsi un'idea di com'è
+                  fatto il locale, così facendo il l'utente rimarrà più tempo 
+                  all'interno dell'applicazione evitando che esca a cerca nel 
+                  web immagini del locale.
+                   */
                   child: ListView.separated(
+                      padding: EdgeInsets.symmetric(horizontal: 24.0),
+                      scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
-                        //Created a property card widget
                         return ClubCard(
                           club: StaticData.properties[index],
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) {
                         return SizedBox(
-                          width: 10.0,
+                          width: 20.0,
                         );
                       },
-                      itemCount: StaticData.properties.length))
+                      itemCount: StaticData.properties.length)),
             ],
           ),
         ),
