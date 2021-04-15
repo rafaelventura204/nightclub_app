@@ -36,7 +36,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 11.5),
+        padding: EdgeInsets.only(top: 0.0),
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,7 +54,8 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                       radius: 22.0,
                       child: CircleAvatar(
                         radius: 20.0,
-                        backgroundImage: AssetImage("images/profiloProva.png"),
+                        backgroundImage:
+                            AssetImage("assets/images/profiloProva.png"),
                       ),
                     )
                   ],

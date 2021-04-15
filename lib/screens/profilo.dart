@@ -118,7 +118,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     shape: BoxShape.circle,
                     color: Colors.white,
                     image: DecorationImage(
-                        image: AssetImage('images/profiloProva.png'))),
+                        image: AssetImage('assets/images/profiloProva.png'))),
               )
             ],
           ),

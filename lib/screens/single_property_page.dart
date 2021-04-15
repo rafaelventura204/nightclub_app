@@ -1,3 +1,4 @@
+import 'package:bar_pub/screens/map_polyline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,7 +15,7 @@ class SinglePropertyPage extends StatelessWidget {
         return Container(
           height: size.height,
           child: Stack(
-            children: [
+            children: <Widget>[
               Positioned(
                 width: size.width,
                 child: Container(
@@ -23,8 +24,21 @@ class SinglePropertyPage extends StatelessWidget {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                     fit: BoxFit.fitHeight,
-                    image: AssetImage("images/profiloProva.png"),
+                    image: AssetImage("assets/images/provaNavi2.png"),
                   )),
+                ),
+              ),
+              Positioned(
+                top: 30.0,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_back_outlined),
+                  color: Colors.white,
+                  tooltip: 'Back',
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  iconSize: 24.0,
+                  //textDirection: TextDirection.ltr,
                 ),
               ),
               Positioned(
@@ -70,9 +84,16 @@ class SinglePropertyPage extends StatelessWidget {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
-                            FlutterIcons.map_pin_fea,
+                          IconButton(
+                            icon: Icon(FlutterIcons.map_pin_fea),
                             color: Color.fromRGBO(138, 150, 190, 1),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MapPolyline()),
+                              );
+                            },
                           ),
                           SizedBox(
                             width: 10.0,

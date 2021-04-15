@@ -1,5 +1,5 @@
-import 'package:bar_pub/screens/barlist.dart';
-import 'package:bar_pub/screens/homeScreen.dart';
+import 'package:bar_pub/screens/bar_list.dart';
+import 'package:bar_pub/screens/home_screen.dart';
 import 'package:bar_pub/screens/profilo.dart';
 import 'package:bar_pub/screens/search.dart';
 import 'package:flutter/cupertino.dart';
