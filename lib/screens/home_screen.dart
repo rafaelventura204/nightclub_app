@@ -68,7 +68,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Text("Trova il tuo\nlocale",
                     style: TextStyle(
-                      fontSize: 26.0,
+                      fontSize: 30.0,
                       height: 1.5,
                       color: Color.fromRGBO(33, 45, 82, 1),
                       fontWeight: FontWeight.w600,
