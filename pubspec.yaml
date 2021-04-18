@@ -40,6 +40,7 @@ dependencies:
   google_fonts: ^2.0.0
   flutter_icons: ^1.1.0
   material_design_icons_flutter: 
+  filter_list: ^0.0.8
   
 
 dev_dependencies:
@@ -63,6 +64,7 @@ flutter:
   assets:
     - assets/images/profiloProva.png
     - assets/images/provaNavi2.png
+    - assets/images/profiloDefault.jpg
     - assets/data.json
     
   #   - images/a_dot_ham.jpeg

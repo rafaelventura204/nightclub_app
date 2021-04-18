@@ -22,5 +22,29 @@
         "placeName" : "Old Fashion",
         "placeItems" : ["Birreria","Enoteca","Divertimento"],
         "minOrder" : 20
-    }
+    },
+    {
+        "placeImage" : "assets/images/profiloProva.png",
+        "placeName" : "Santeria Social Club",
+        "placeItems" : ["Birreria","Enoteca","Divertimento"],
+        "minOrder" : 20
+    },
+    {
+        "placeImage" : "assets/images/profiloProva.png",
+        "placeName" : "The CLub",
+        "placeItems" : ["Birreria","Enoteca","Divertimento"],
+        "minOrder" : 20
+    },
+    {
+        "placeImage" : "assets/images/profiloProva.png",
+        "placeName" : "Amaranta",
+        "placeItems" : ["Birreria","Enoteca","Divertimento"],
+        "minOrder" : 20
+    },
+    {
+        "placeImage" : "assets/images/profiloProva.png",
+        "placeName" : "Old Fashion",
+        "placeItems" : ["Birreria","Enoteca","Divertimento"],
+        "minOrder" : 20
+    }    
 ]

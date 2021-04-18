@@ -9,6 +9,7 @@ class MyProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Locali Intrattenimento',
+      debugShowCheckedModeBanner: false,
       home: MyProfilePage(title: 'Profilo'),
     );
   }
@@ -59,7 +60,11 @@ class _MyProfilePageState extends State<MyProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Profilo'),
+        title: Text(
+          "Inserisci nome",
+          style: TextStyle(color: Colors.black87),
+        ),
+        elevation: 0.0,
         backgroundColor: Colors.purple[300],
         actions: <Widget>[
           TextButton.icon(
@@ -68,76 +73,41 @@ class _MyProfilePageState extends State<MyProfilePage> {
             },
             icon: Icon(
               Icons.person,
-              color: Color(0XFF000000),
+              color: Colors.black87,
             ),
             label: Text(
               'Logout',
-              style: TextStyle(color: Color(0XFF000000)),
+              style: TextStyle(color: Colors.black87),
             ),
           )
         ],
       ),
-      body: Stack(
-        alignment: Alignment.center,
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: 450,
-                width: double.infinity,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text('Inserire nome'),
-                  ],
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SafeArea(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                CustomPaint(
+                  child: Container(
+                    height: 180,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(color: Colors.white, width: 5.0),
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: AssetImage(
+                                'assets/images/profiloDefault.jpg'))),
+                  ),
+                  painter: HeaderCurvedContainer(),
                 ),
-              ),
-            ],
-          ),
-          CustomPaint(
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+                SizedBox(height: 10.0),
+              ],
             ),
-            painter: HeaderCurvedContainer(),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(20),
-              ),
-              Container(
-                padding: EdgeInsets.all(10.0),
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.width / 2,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.white, width: 5),
-                    shape: BoxShape.circle,
-                    color: Colors.white,
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/profiloProva.png'))),
-              )
-            ],
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 270, left: 184),
-            child: CircleAvatar(
-              backgroundColor: Colors.black54,
-              child: IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  _getFromGallery();
-                },
-              ),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
