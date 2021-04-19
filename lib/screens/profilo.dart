@@ -3,6 +3,7 @@ import 'package:bar_pub/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:filter_list/filter_list.dart';
 
 class MyProfile extends StatelessWidget {
   @override
@@ -27,6 +28,59 @@ class _MyProfilePageState extends State<MyProfilePage> {
   /// Variables
   File imageFile;
   final AuthService _auth = AuthService();
+
+  /*SCELTA CATEGORIE */
+  List<String> countList = [
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+    "Eleven",
+    "Tweleve",
+    "Thirteen",
+    "Fourteen",
+    "Fifteen",
+    "Sixteen",
+    "Seventeen",
+    "Eighteen",
+    "Nineteen",
+    "Twenty"
+  ];
+  List<String> selectedCountList = [];
+
+  void _openFilterDialog() async {
+    await FilterListDialog.display(context,
+        listData: countList,
+        selectedListData: selectedCountList,
+        height: 480,
+        headlineText: "Select Count",
+        searchFieldHintText: "Search Here", label: (item) {
+      return item;
+    }, validateSelectedItem: (list, val) {
+      return list.contains(val);
+    }, onItemSearch: (list, text) {
+      if (list.any(
+          (element) => element.toLowerCase().contains(text.toLowerCase()))) {
+        return list
+            .where(
+                (element) => element.toLowerCase().contains(text.toLowerCase()))
+            .toList();
+      }
+    }, onApplyButtonClick: (list) {
+      if (list != null) {
+        setState(() {
+          selectedCountList = List.from(list);
+        });
+      }
+      Navigator.pop(context);
+    });
+  }
 
   //Get from Gallery
   _getFromGallery() async {
@@ -104,6 +158,47 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   painter: HeaderCurvedContainer(),
                 ),
                 SizedBox(height: 10.0),
+                Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: FloatingActionButton(
+                      onPressed: _openFilterDialog,
+                      tooltip: 'Increment',
+                      child: Icon(Icons.add),
+                    )),
+                SafeArea(
+                  child: FilterListWidget(
+                    listData: countList,
+                    hideheaderText: true,
+                    onApplyButtonClick: (list) {
+                      if (list != null) {
+                        print("Selected items count: ${list.length}");
+                      }
+                    },
+                    label: (item) {
+                      /// Used to print text on chip
+                      return item.name;
+                    },
+                    validateSelectedItem: (list, val) {
+                      ///  identify if item is selected or not
+                      return list.contains(val);
+                    },
+                    onItemSearch: (list, text) {
+                      /// When text change in search text field then return list containing that text value
+                      ///
+                      ///Check if list has value which matchs to text
+                      if (list.any((element) => element.name
+                          .toLowerCase()
+                          .contains(text.toLowerCase()))) {
+                        /// return list which contains matches
+                        return list
+                            .where((element) => element.name
+                                .toLowerCase()
+                                .contains(text.toLowerCase()))
+                            .toList();
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
           ),
