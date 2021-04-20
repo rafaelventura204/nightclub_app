@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:bar_pub/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:filter_list/filter_list.dart';
 
 class MyProfile extends StatelessWidget {
@@ -82,34 +81,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
     });
   }
 
-  //Get from Gallery
-  _getFromGallery() async {
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
-  }
-
-  /// Get from Camera
-  /*_getFromCamera() async {
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.camera,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,10 +133,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     padding: EdgeInsets.all(8.0),
                     child: FloatingActionButton(
                       onPressed: _openFilterDialog,
-                      tooltip: 'Increment',
+                      tooltip: 'Category',
                       child: Icon(Icons.add),
                     )),
-                SafeArea(
+                /*SafeArea(
                   child: FilterListWidget(
                     listData: countList,
                     hideheaderText: true,
@@ -198,7 +169,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       }
                     },
                   ),
-                ),
+                ),*/
               ],
             ),
           ),
@@ -223,3 +194,35 @@ class HeaderCurvedContainer extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
+
+/* CODICE PROVVISORIO */
+
+//Get from Gallery
+/*_getFromGallery() async {
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
+  }*/
+
+/// Get from Camera
+/*_getFromCamera() async {
+    PickedFile pickedFile = await ImagePicker().getImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+      });
+    }
+  }*/
+
+/**/
