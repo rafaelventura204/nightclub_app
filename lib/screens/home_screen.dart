@@ -43,7 +43,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               SafeArea(child: SizedBox(height: 10.0)),
-              Padding(
+              /*Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -60,7 +60,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                     )
                   ],
                 ),
-              ),
+              ),*/
               SizedBox(
                 height: 15.0,
               ),

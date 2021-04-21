@@ -22,8 +22,6 @@ class ClubCard extends StatelessWidget {
         width: ScreenUtil().setWidth(300.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(24.0),
-          //color: Color(0xFF4F5F6),
-          //color: Color(0xFFBA68C),
           color: Colors.white,
           boxShadow: [
             BoxShadow(
@@ -43,9 +41,12 @@ class ClubCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage(
+                      image: NetworkImage(
+                          'https://b.zmtcdn.com/data/pictures/8/18221798/623fb2a9f6d540385bb4b0d760a3efec.jpg')
+                      /*AssetImage(
                         club.imagePath,
-                      ))),
+                      )*/
+                      )),
             )),
             Padding(
                 padding: const EdgeInsets.all(12.0),
