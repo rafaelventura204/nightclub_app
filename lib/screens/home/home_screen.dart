@@ -36,11 +36,10 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
 
     return Scaffold(
       body: SingleChildScrollView(
-        padding: EdgeInsets.only(top: 0.0),
         child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.min,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               SafeArea(child: SizedBox(height: 10.0)),
               /*Padding(
@@ -62,7 +61,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                 ),
               ),*/
               SizedBox(
-                height: 15.0,
+                height: 25.0,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
@@ -101,7 +100,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                   web immagini del locale.
                    */
                   child: ListView.separated(
-                      padding: EdgeInsets.symmetric(horizontal: 24.0),
+                      padding: EdgeInsets.symmetric(horizontal: 2.0),
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (BuildContext context, int index) {
                         return ClubCard(
@@ -114,6 +113,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                         );
                       },
                       itemCount: StaticData.properties.length)),
+              SizedBox(height: 10.0)
             ],
           ),
         ),

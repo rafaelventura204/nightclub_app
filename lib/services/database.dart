@@ -8,6 +8,7 @@ class DatabaseService {
   -> crea una "tabella" 
   -> per ogni nuovo utente crea un nuovo record
   */
+
   final CollectionReference usersRecords =
       FirebaseFirestore.instance.collection('User');
   Future updateUsers(String username, int idCategory, String idPub) async {
