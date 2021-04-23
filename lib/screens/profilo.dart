@@ -26,7 +26,7 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   /// Variables
   File imageFile;
-  final AuthService _auth = AuthService();
+  //final AuthService _auth = AuthService();
 
   /*SCELTA CATEGORIE */
   List<String> countList = [
@@ -93,9 +93,10 @@ class _MyProfilePageState extends State<MyProfilePage> {
         backgroundColor: Colors.purple[300],
         actions: <Widget>[
           TextButton.icon(
-            onPressed: () async {
+            onPressed: () => {},
+            /*onPressed: () async {
               await _auth.signOut();
-            },
+            },*/
             icon: Icon(
               Icons.person,
               color: Colors.black87,

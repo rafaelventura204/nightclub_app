@@ -1,9 +1,22 @@
 import 'package:bar_pub/models/user.dart';
 import 'package:bar_pub/services/database.dart';
+import 'package:bar_pub/services/mysql.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  var db = new MySql();
+
+  //register with EmailandPassword
+  Future registerWithEmailPassword(String email, String password) async {
+    db.getConnection().then((conn) {
+      String insertUser =
+          'insert into User (Username, Password, Disable) values (?, ?, ?)';
+      conn.query(insertUser, [email, password, true]);
+    });
+  }
+}
+
+/*final FirebaseAuth _auth = FirebaseAuth.instance;
 
   //create user object base on FirebaseUser
   MyUser _userFromFirebaseUser(User user) {
@@ -15,7 +28,6 @@ class AuthService {
     return _auth.authStateChanges().map(_userFromFirebaseUser);
   }
 
-  //sign in anon->login con anonimo
   Future signInAnnon() async {
     try {
       UserCredential result = await _auth.signInAnonymously();
@@ -67,5 +79,4 @@ class AuthService {
       print(e.toString());
       return null;
     }
-  }
-}
+  }*/

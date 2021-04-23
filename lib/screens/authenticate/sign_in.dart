@@ -99,7 +99,7 @@ class _SignInState extends State<SignIn> {
             ),
           ),
           ElevatedButton(
-            onPressed: () async {
+            /*onPressed: () async {
               if (_formKey.currentState.validate()) {
                 print("validaaaaaaaaaaaa");
                 print(email);
@@ -112,7 +112,7 @@ class _SignInState extends State<SignIn> {
                       () => error = "Email non registrata oppure non corretta");
                 }
               }
-            },
+            },*/
             child: Text('Login'),
             style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
           ),
