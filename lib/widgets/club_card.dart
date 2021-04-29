@@ -14,8 +14,11 @@ class ClubCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => SinglePropertyPage()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SinglePropertyPage(
+                    club.name, club.description, club.imagePath, club.price)));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -82,7 +85,7 @@ class ClubCard extends StatelessWidget {
                           RichText(
                               text: TextSpan(children: [
                             TextSpan(
-                                text: "From\n",
+                                text: "Orario\n",
                                 style: GoogleFonts.inter(
                                   color: Color.fromRGBO(64, 74, 106, 1),
                                   fontWeight: FontWeight.w600,
@@ -95,6 +98,24 @@ class ClubCard extends StatelessWidget {
                                   fontSize: 22.0,
                                 )),
                           ])),
+
+                          RichText(
+                              text: TextSpan(children: [
+                            TextSpan(
+                                text: "Distanza\n",
+                                style: GoogleFonts.inter(
+                                  color: Color.fromRGBO(64, 74, 106, 1),
+                                  fontWeight: FontWeight.w600,
+                                )),
+                            TextSpan(
+                                text: "0.5 km\n",
+                                style: GoogleFonts.inter(
+                                  color: Color.fromRGBO(33, 45, 82, 1),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 22.0,
+                                )),
+                          ])),
+
                           //Like(),
                           /*GestureDetector(
                             onTap: () => {},

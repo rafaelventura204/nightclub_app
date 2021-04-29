@@ -58,11 +58,11 @@ class _MySearchPageState extends State<MySearchPage> {
       });
     });
 
-    _addMarker(
+    /*_addMarker(
       LatLng(_originelatitude, _originlongitude),
       "origin",
       BitmapDescriptor.defaultMarker,
-    );
+    );*/
 
     _addMarker(
       LatLng(_destinationlatitude, _destinationlongitude),
@@ -144,10 +144,11 @@ class _MySearchPageState extends State<MySearchPage> {
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       "AIzaSyDlitorRQ9IutFGY-WZCWu65PmjHdpqD8U",
-      PointLatLng(_originelatitude, _originlongitude),
+      PointLatLng(currentLocation.latitude, currentLocation.longitude),
       PointLatLng(_destinationlatitude, _destinationlongitude),
       travelMode: TravelMode.driving,
     );
+    print("${currentLocation.latitude}POSIZIONEEEEEEEEEEEEEEEEEEEEEE");
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));

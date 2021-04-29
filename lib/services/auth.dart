@@ -2,19 +2,48 @@ import 'package:bar_pub/models/user.dart';
 import 'package:bar_pub/services/database.dart';
 import 'package:bar_pub/services/mysql.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:postgres/postgres.dart';
 
 class AuthService {
-  var db = new MySql();
+  //var db = new MySql();
 
-  //register with EmailandPassword
   Future registerWithEmailPassword(String email, String password) async {
+    var connection = PostgreSQLConnection(
+      '159.149.181.251',
+      5432,
+      'tesidb',
+      username: 'admin',
+      password: 'admin',
+    );
+
+    await connection.open();
+    var query =
+        'INSERT INTO public."User"( "Username", "Password") VALUES (@a, @b);';
+    var results = await connection.query(query,
+        substitutionValues: {
+          'a': email,
+          'b': password,
+        },
+        timeoutInSeconds: 240);
+    var test = results.affectedRowCount == 1;
+    print(test.toString());
+
+    /*await connection.open();
+    print('Connection ok');
+    await connection.query('CREATE TABLE User (Username text, Password text);');
+    print('TABLE CREATED')*/
+  }
+}
+
+//register with EmailandPassword
+/*Future registerWithEmailPassword(String email, String password) async {
     db.getConnection().then((conn) {
       String insertUser =
           'insert into User (Username, Password, Disable) values (?, ?, ?)';
       conn.query(insertUser, [email, password, true]);
     });
   }
-}
+}*/
 
 /*final FirebaseAuth _auth = FirebaseAuth.instance;
 

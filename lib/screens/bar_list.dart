@@ -31,10 +31,10 @@ class _MyBarListState extends State<MyBarList> {
           padding: EdgeInsets.all(2.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.push(
+              /*Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SinglePropertyPage()));
+                      builder: (context) => SinglePropertyPage("PROVAAAA")));*/
             },
             child: Container(
               decoration: BoxDecoration(
