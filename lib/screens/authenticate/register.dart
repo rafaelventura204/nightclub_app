@@ -1,5 +1,4 @@
 import 'package:bar_pub/services/auth.dart';
-import 'package:bar_pub/services/mysql.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {

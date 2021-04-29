@@ -1,12 +1,15 @@
 import 'package:bar_pub/models/user.dart';
-import 'package:bar_pub/services/database.dart';
-import 'package:bar_pub/services/mysql.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:bar_pub/screens/home/home.dart';
+import 'package:bar_pub/services/connectio_db.dart';
 import 'package:postgres/postgres.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
-  //var db = new MySql();
+  //user
+  MyUser user;
+  //ConnectionDb conDb;
 
+  // register with EmailandPassword
   Future registerWithEmailPassword(String email, String password) async {
     var connection = PostgreSQLConnection(
       '159.149.181.251',
@@ -17,33 +20,53 @@ class AuthService {
     );
 
     await connection.open();
+
     var query =
-        'INSERT INTO public."User"( "Username", "Password") VALUES (@a, @b);';
+        'INSERT INTO public."User"( "Username", "Password") VALUES (@email, @psw);';
     var results = await connection.query(query,
         substitutionValues: {
-          'a': email,
-          'b': password,
+          'email': email,
+          'psw': password,
         },
         timeoutInSeconds: 240);
     var test = results.affectedRowCount == 1;
     print(test.toString());
+  }
 
-    /*await connection.open();
-    print('Connection ok');
-    await connection.query('CREATE TABLE User (Username text, Password text);');
-    print('TABLE CREATED')*/
+  //sign in wiht email & password
+  Future signInWithEmailPassword(String email, String password) async {
+    //SELEZIONA ELEMENTO DAL DB E FAI CHECK
+
+    var connection = PostgreSQLConnection(
+      '159.149.181.251',
+      5432,
+      'tesidb',
+      username: 'admin',
+      password: 'admin',
+    );
+
+    await connection.open();
+
+    var query =
+        'SELECT "Username" FROM public."User" WHERE "Username" = @email';
+
+    var results =
+        await connection.query(query, substitutionValues: {'email': email});
+    var test = results.affectedRowCount == 1;
+    print(test.toString());
+    print("Utente LOGGATO");
+  }
+
+  //sign out
+  Future signOut() async {
+    /*try {
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }*/
   }
 }
-
-//register with EmailandPassword
-/*Future registerWithEmailPassword(String email, String password) async {
-    db.getConnection().then((conn) {
-      String insertUser =
-          'insert into User (Username, Password, Disable) values (?, ?, ?)';
-      conn.query(insertUser, [email, password, true]);
-    });
-  }
-}*/
 
 /*final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -100,12 +123,5 @@ class AuthService {
     }
   }
 
-  //sign out
-  Future signOut() async {
-    try {
-      return await _auth.signOut();
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
+
   }*/

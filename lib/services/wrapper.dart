@@ -1,9 +1,7 @@
-import 'package:bar_pub/models/user.dart';
 import 'package:bar_pub/screens/authenticate/autenticate.dart';
 import 'package:bar_pub/screens/home/home.dart';
-import 'package:bar_pub/services/mysql.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -21,8 +19,23 @@ class Wrapper extends StatelessWidget {
     } else {
       return MyHome();
     }
-  }*/
+  }
+  return Authenticate();
+  */
+    String nameUser;
+    Future getValidation() async {
+      SharedPreferences userPreferences = await SharedPreferences.getInstance();
+      var nameUsertemp = userPreferences.getString('name_user');
+      nameUser = nameUsertemp;
+    }
 
-    return Authenticate();
+    getValidation()
+        .whenComplete(() => (nameUser == null ? Authenticate() : MyHome()));
+
+    /*if (nameUser == null) {
+      return Authenticate();
+    } else {
+      return MyHome();
+    }*/
   }
 }

@@ -1,5 +1,7 @@
+import 'package:bar_pub/screens/home/home.dart';
 import 'package:bar_pub/services/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -113,6 +115,24 @@ class _SignInState extends State<SignIn> {
                 }
               }
             },*/
+            onPressed: () async {
+              if (_formKey.currentState.validate()) {
+                print("validaaaaaaaaaaaa");
+                print(email);
+                print(password);
+                dynamic result =
+                    await _auth.signInWithEmailPassword(email, password);
+
+                if (result == null) {
+                  SharedPreferences userPreferences =
+                      await SharedPreferences.getInstance();
+                  userPreferences.setString('name_user', email);
+
+                  setState(
+                      () => error = "Email non registrata oppure non corretta");
+                }
+              }
+            },
             child: Text('Login'),
             style: ElevatedButton.styleFrom(primary: Colors.purple[300]),
           ),
