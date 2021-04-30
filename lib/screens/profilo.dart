@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:bar_pub/services/auth.dart';
+import 'package:bar_pub/services/get_to.dart';
+import 'package:bar_pub/services/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:filter_list/filter_list.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyProfile extends StatelessWidget {
   @override
@@ -26,7 +29,7 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   /// Variables
   File imageFile;
-  //final AuthService _auth = AuthService();
+  final AuthService _auth = AuthService();
 
   /*SCELTA CATEGORIE */
   List<String> countList = [
@@ -93,7 +96,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
         backgroundColor: Colors.purple[300],
         actions: <Widget>[
           TextButton.icon(
-            onPressed: () => {},
+            onPressed: () async {
+              SharedPreferences userPreferences =
+                  await SharedPreferences.getInstance();
+              userPreferences.remove('name_user');
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Wrapper()),
+              );
+            },
             /*onPressed: () async {
               await _auth.signOut();
             },*/

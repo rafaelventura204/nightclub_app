@@ -4,38 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Wrapper extends StatelessWidget {
+  Future getValidation() async {
+    SharedPreferences userPreferences = await SharedPreferences.getInstance();
+    var nameUsertemp = userPreferences.getString('name_user');
+
+    return nameUsertemp;
+  }
+
   @override
   Widget build(BuildContext context) {
-    /* F I R E B A S E*/
-    //return home or authenticate widget
+    /*dynamic temp = getValidation();
 
-    /*String username = "";
+    print("${temp.runtimeType}SONO ANCORA QUAAAAAA");
 
-    final user = Provider.of<MyUser>(context);
-    print("${user}qua");
-
-    if (user == null) {
+    if (temp == null)
       return Authenticate();
-    } else {
-      return MyHome();
-    }
-  }
-  return Authenticate();
-  */
-    String nameUser;
-    Future getValidation() async {
-      SharedPreferences userPreferences = await SharedPreferences.getInstance();
-      var nameUsertemp = userPreferences.getString('name_user');
-      nameUser = nameUsertemp;
-    }
-
-    getValidation()
-        .whenComplete(() => (nameUser == null ? Authenticate() : MyHome()));
-
-    /*if (nameUser == null) {
-      return Authenticate();
-    } else {
-      return MyHome();
-    }*/
+    else
+      return MyHome();*/
+    return Authenticate();
   }
 }

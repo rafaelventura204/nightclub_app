@@ -1,8 +1,10 @@
 import 'package:bar_pub/models/user.dart';
-import 'package:bar_pub/screens/home/home.dart';
-import 'package:bar_pub/services/connectio_db.dart';
 import 'package:postgres/postgres.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+/* 
+UNI:159.149.181.251
+CASA:192.168.1.141
+*/
 
 class AuthService {
   //user
@@ -12,7 +14,7 @@ class AuthService {
   // register with EmailandPassword
   Future registerWithEmailPassword(String email, String password) async {
     var connection = PostgreSQLConnection(
-      '159.149.181.251',
+      '192.168.1.141',
       5432,
       'tesidb',
       username: 'admin',
@@ -31,6 +33,7 @@ class AuthService {
         timeoutInSeconds: 240);
     var test = results.affectedRowCount == 1;
     print(test.toString());
+    print("UTENTE REGISTRATO [AUTHSERVICE]");
   }
 
   //sign in wiht email & password
@@ -38,7 +41,7 @@ class AuthService {
     //SELEZIONA ELEMENTO DAL DB E FAI CHECK
 
     var connection = PostgreSQLConnection(
-      '159.149.181.251',
+      '192.168.1.141',
       5432,
       'tesidb',
       username: 'admin',
@@ -50,11 +53,16 @@ class AuthService {
     var query =
         'SELECT "Username" FROM public."User" WHERE "Username" = @email';
 
-    var results =
+    List<List<dynamic>> results =
         await connection.query(query, substitutionValues: {'email': email});
-    var test = results.affectedRowCount == 1;
-    print(test.toString());
-    print("Utente LOGGATO");
+
+    var utente;
+    for (final row in results) {
+      utente = row[0];
+      print(utente.toString());
+    }
+
+    return utente;
   }
 
   //sign out

@@ -5,15 +5,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_boost/flutter_boost.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+String finalName;
 
 class MyHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyHomeScreenPage(),
-      /*routes: <String, WidgetBuilder>{
-        "/singlePageClub":(BuildContext context) => new SinglePropertyPage(),
-      },*/
     );
   }
 }
@@ -24,8 +24,20 @@ class MyHomeScreenPage extends StatefulWidget {
 }
 
 class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
+  getStringValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    //Return String
+    dynamic stringValue = prefs.getString('name_user');
+    //finalName = stringValue;
+    print("${finalName.toString()}[FUCK THE WORLD1]");
+
+    return stringValue;
+  }
+
   @override
   Widget build(BuildContext context) {
+    finalName = getStringValuesSF();
+    print("$finalName[FUCK THE WORLD2]");
     ScreenUtil.init(
       BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width,
@@ -63,9 +75,10 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
               SizedBox(
                 height: 25.0,
               ),
+              //"Trova il tuo\nlocale",
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: Text("Trova il tuo\nlocale",
+                child: Text("$finalName",
                     style: TextStyle(
                       fontSize: 30.0,
                       height: 1.5,

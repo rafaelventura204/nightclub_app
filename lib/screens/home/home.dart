@@ -5,6 +5,8 @@ import 'package:bar_pub/screens/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+//String finalName;
+
 class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,21 @@ class _MyHomePageState extends State<MyHomePage> {
       _selectIndex = _index;
     });
   }
+
+  /*@override
+  void initState() {
+
+  }*/
+
+  /*Future getValidation() async {
+    SharedPreferences localnameUser = await SharedPreferences.getInstance();
+    var nameUser = localnameUser.getString('name_user');
+    setState(() {
+      finalName = nameUser;
+    });
+    print(finalName);
+
+  }*/
 
   @override
   Widget build(BuildContext context) {

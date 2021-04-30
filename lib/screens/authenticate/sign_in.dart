@@ -21,6 +21,11 @@ class _SignInState extends State<SignIn> {
   String password = "";
   String error = "";
 
+  addStringToSF(String value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name_user', value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,20 +121,24 @@ class _SignInState extends State<SignIn> {
               }
             },*/
             onPressed: () async {
+              //await _auth.signInWithEmailPassword(email, password);
+
               if (_formKey.currentState.validate()) {
-                print("validaaaaaaaaaaaa");
+                print("validaa[SIGN_IN]");
                 print(email);
                 print(password);
-                dynamic result =
+
+                var checkAuth =
                     await _auth.signInWithEmailPassword(email, password);
-
-                if (result == null) {
-                  SharedPreferences userPreferences =
-                      await SharedPreferences.getInstance();
-                  userPreferences.setString('name_user', email);
-
+                if (checkAuth == null) {
                   setState(
                       () => error = "Email non registrata oppure non corretta");
+                } else {
+                  addStringToSF(email);
+                  //setState(() async {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => MyHome()));
+                  //});
                 }
               }
             },
