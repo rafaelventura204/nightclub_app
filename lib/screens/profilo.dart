@@ -97,14 +97,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
         actions: <Widget>[
           TextButton.icon(
             onPressed: () async {
-              SharedPreferences userPreferences =
+              final SharedPreferences userPreferences =
                   await SharedPreferences.getInstance();
               userPreferences.remove('name_user');
 
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => Wrapper()),
-              );
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Wrapper()));
             },
             /*onPressed: () async {
               await _auth.signOut();

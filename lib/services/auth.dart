@@ -7,8 +7,6 @@ CASA:192.168.1.141
 */
 
 class AuthService {
-  //user
-  MyUser user;
   //ConnectionDb conDb;
 
   // register with EmailandPassword
@@ -24,7 +22,7 @@ class AuthService {
     await connection.open();
 
     var query =
-        'INSERT INTO public."User"( "Username", "Password") VALUES (@email, @psw);';
+        'INSERT INTO public."user"( username, password) VALUES (@email, @psw);';
     var results = await connection.query(query,
         substitutionValues: {
           'email': email,
@@ -51,7 +49,7 @@ class AuthService {
     await connection.open();
 
     var query =
-        'SELECT "Username" FROM public."User" WHERE "Username" = @email';
+        'SELECT "username" FROM public."user" WHERE "username" = @email';
 
     List<List<dynamic>> results =
         await connection.query(query, substitutionValues: {'email': email});

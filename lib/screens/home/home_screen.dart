@@ -1,5 +1,7 @@
 //import 'package:bar_pub/screens/single_property_page.dart';
+import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/static_data.dart';
+import 'package:bar_pub/services/wrapper.dart';
 import 'package:bar_pub/widgets/club_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String finalName;
+//String finalName;
 
 class MyHomeScreen extends StatelessWidget {
   @override
@@ -24,20 +26,11 @@ class MyHomeScreenPage extends StatefulWidget {
 }
 
 class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
-  getStringValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    dynamic stringValue = prefs.getString('name_user');
-    //finalName = stringValue;
-    print("${finalName.toString()}[FUCK THE WORLD1]");
-
-    return stringValue;
-  }
-
+  GlobalPreferences gPref = GlobalPreferences();
   @override
   Widget build(BuildContext context) {
-    finalName = getStringValuesSF();
-    print("$finalName[FUCK THE WORLD2]");
+    //finalName = gPref.getStringValuesSF(finalName);
+
     ScreenUtil.init(
       BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width,
@@ -75,10 +68,10 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
               SizedBox(
                 height: 25.0,
               ),
-              //"Trova il tuo\nlocale",
+              //"",${gPref.getNameUser()}
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: Text("$finalName",
+                child: Text('Trova il tuo\nlocale\n$finalOttieniNome',
                     style: TextStyle(
                       fontSize: 30.0,
                       height: 1.5,

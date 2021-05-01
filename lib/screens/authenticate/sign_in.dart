@@ -1,5 +1,6 @@
 import 'package:bar_pub/screens/home/home.dart';
 import 'package:bar_pub/services/auth.dart';
+import 'package:bar_pub/services/global_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,16 +16,11 @@ class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
   FocusNode myFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
-
+  GlobalPreferences gPref = GlobalPreferences();
   //text field state
   String email = "";
   String password = "";
   String error = "";
-
-  addStringToSF(String value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('name_user', value);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +130,7 @@ class _SignInState extends State<SignIn> {
                   setState(
                       () => error = "Email non registrata oppure non corretta");
                 } else {
-                  addStringToSF(email);
+                  gPref.addStringToSF(email);
                   //setState(() async {
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => MyHome()));
