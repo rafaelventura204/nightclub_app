@@ -1,11 +1,9 @@
 import 'dart:io';
-import 'package:bar_pub/services/auth.dart';
-import 'package:bar_pub/services/get_to.dart';
+import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:filter_list/filter_list.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MyProfile extends StatelessWidget {
   @override
@@ -29,34 +27,26 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   /// Variables
   File imageFile;
-  final AuthService _auth = AuthService();
+  GlobalPreferences gPref = GlobalPreferences();
 
   /*SCELTA CATEGORIE */
   List<String> countList = [
-    "One",
-    "Two",
-    "Three",
-    "Four",
-    "Five",
-    "Six",
-    "Seven",
-    "Eight",
-    "Nine",
-    "Ten",
-    "Eleven",
-    "Tweleve",
-    "Thirteen",
-    "Fourteen",
-    "Fifteen",
-    "Sixteen",
-    "Seventeen",
-    "Eighteen",
-    "Nineteen",
-    "Twenty"
+    "Enoteca",
+    "Birreria",
+    "Locale Ampio",
+    "Bar",
+    "Coktail",
+    "Dance Bar",
+    "Elegante",
+    "LGBTQ",
+    "Studentesco",
+    "Pub",
   ];
+
   List<String> selectedCountList = [];
 
   void _openFilterDialog() async {
+    countList.sort();
     await FilterListDialog.display(context,
         listData: countList,
         selectedListData: selectedCountList,
@@ -89,7 +79,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Inserisci nome",
+          finalOttieniNome,
           style: TextStyle(color: Colors.black87),
         ),
         elevation: 0.0,
@@ -97,10 +87,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
         actions: <Widget>[
           TextButton.icon(
             onPressed: () async {
-              final SharedPreferences userPreferences =
-                  await SharedPreferences.getInstance();
-              userPreferences.remove('name_user');
-
+              gPref.removeSF();
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (context) => Wrapper()));
             },

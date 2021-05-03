@@ -1,15 +1,9 @@
-//import 'package:bar_pub/screens/single_property_page.dart';
 import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/static_data.dart';
-import 'package:bar_pub/services/wrapper.dart';
 import 'package:bar_pub/widgets/club_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_boost/flutter_boost.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-//String finalName;
 
 class MyHomeScreen extends StatelessWidget {
   @override
@@ -29,14 +23,10 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
   GlobalPreferences gPref = GlobalPreferences();
   @override
   Widget build(BuildContext context) {
-    //finalName = gPref.getStringValuesSF(finalName);
-
     ScreenUtil.init(
       BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width,
           maxHeight: MediaQuery.of(context).size.height),
-      //designSize: Size(360, 690),
-      //orientation: Orientation.portrait
     );
 
     return Scaffold(
@@ -71,7 +61,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
               //"",${gPref.getNameUser()}
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: Text('Trova il tuo\nlocale\n$finalOttieniNome',
+                child: Text('Trova il tuo\nlocale\n',
                     style: TextStyle(
                       fontSize: 30.0,
                       height: 1.5,

@@ -1,6 +1,5 @@
 import 'package:bar_pub/screens/authenticate/autenticate.dart';
 import 'package:bar_pub/screens/home/home.dart';
-import 'package:bar_pub/services/global_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -2,7 +2,6 @@ import 'package:bar_pub/screens/home/home.dart';
 import 'package:bar_pub/services/auth.dart';
 import 'package:bar_pub/services/global_preferences.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -28,13 +27,13 @@ class _SignInState extends State<SignIn> {
       appBar: AppBar(
         backgroundColor: Colors.purple[300],
         elevation: 0.0,
-        title: Text('Login!'),
+        title: Text('Login'),
         actions: <Widget>[
           TextButton.icon(
               onPressed: () {
                 widget.toggleView();
               },
-              icon: Icon(Icons.person, color: Color(0XFF000000)),
+              icon: Icon(Icons.person, color: Color(0XFFFFFFFF)),
               label: Text('Registrati'))
         ],
       ),
@@ -45,57 +44,64 @@ class _SignInState extends State<SignIn> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: TextFormField(
-                    validator: (val) => val.isEmpty ? 'Inserisci email' : null,
-                    onChanged: (val) {
-                      setState(() => email = val);
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25.7)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple[300]),
-                          borderRadius: BorderRadius.circular(25.7),
-                        ),
-                        labelText: 'Username',
-                        labelStyle: TextStyle(
-                            color: myFocusNode.hasFocus
-                                ? Colors.purple[300]
-                                : Colors.black54),
-                        icon:
-                            Icon(Icons.account_box, color: Colors.purple[300])),
-                    cursorColor: Colors.purple[300],
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: TextFormField(
+                      validator: (val) =>
+                          val.isEmpty ? 'Inserisci email' : null,
+                      onChanged: (val) {
+                        setState(() => email = val);
+                      },
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.7)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[300]),
+                            borderRadius: BorderRadius.circular(25.7),
+                          ),
+                          labelText: 'Username',
+                          labelStyle: TextStyle(
+                              color: myFocusNode.hasFocus
+                                  ? Colors.purple[300]
+                                  : Colors.black54),
+                          icon: Icon(Icons.account_box,
+                              color: Colors.purple[300])),
+                      cursorColor: Colors.purple[300],
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: TextFormField(
-                    validator: (val) => val.length < 6
-                        ? 'Inserisci password con più di 6 caratteri'
-                        : null,
-                    onChanged: (val) {
-                      setState(() => password = val);
-                    },
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25.7)),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.purple[300]),
-                          borderRadius: BorderRadius.circular(25.7),
-                        ),
-                        labelText: 'Password',
-                        labelStyle: TextStyle(
-                            color: myFocusNode.hasFocus
-                                ? Colors.purple[300]
-                                : Colors.black54),
-                        icon: Icon(Icons.visibility_off,
-                            color: Colors.purple[300])),
-                    cursorColor: Colors.purple[300],
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: TextFormField(
+                      validator: (val) => val.length < 6
+                          ? 'Inserisci password con più di 6 caratteri'
+                          : null,
+                      onChanged: (val) {
+                        setState(() => password = val);
+                      },
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(25.7)),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.purple[300]),
+                            borderRadius: BorderRadius.circular(25.7),
+                          ),
+                          labelText: 'Password',
+                          labelStyle: TextStyle(
+                              color: myFocusNode.hasFocus
+                                  ? Colors.purple[300]
+                                  : Colors.black54),
+                          icon: Icon(Icons.visibility_off,
+                              color: Colors.purple[300])),
+                      cursorColor: Colors.purple[300],
+                    ),
                   ),
                 ),
               ],

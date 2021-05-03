@@ -1,29 +1,17 @@
-import 'package:bar_pub/models/user.dart';
+import 'package:bar_pub/services/db_connection.dart';
+import 'package:bar_pub/services/queries.dart';
 import 'package:postgres/postgres.dart';
 
-/* 
-UNI:159.149.181.251
-CASA:192.168.1.141
-*/
-
 class AuthService {
-  //ConnectionDb conDb;
+  PostgreSQLConnection connection;
+  DBconnect dBconnect = DBconnect();
+  Queries queries = Queries();
 
   // register with EmailandPassword
   Future registerWithEmailPassword(String email, String password) async {
-    var connection = PostgreSQLConnection(
-      '192.168.1.141',
-      5432,
-      'tesidb',
-      username: 'admin',
-      password: 'admin',
-    );
+    connection = await dBconnect.dbConnect();
 
-    await connection.open();
-
-    var query =
-        'INSERT INTO public."user"( username, password) VALUES (@email, @psw);';
-    var results = await connection.query(query,
+    var results = await connection.query(queries.registerUserQuery(),
         substitutionValues: {
           'email': email,
           'psw': password,
@@ -31,28 +19,14 @@ class AuthService {
         timeoutInSeconds: 240);
     var test = results.affectedRowCount == 1;
     print(test.toString());
-    print("UTENTE REGISTRATO [AUTHSERVICE]");
   }
 
   //sign in wiht email & password
   Future signInWithEmailPassword(String email, String password) async {
-    //SELEZIONA ELEMENTO DAL DB E FAI CHECK
+    connection = await dBconnect.dbConnect();
 
-    var connection = PostgreSQLConnection(
-      '192.168.1.141',
-      5432,
-      'tesidb',
-      username: 'admin',
-      password: 'admin',
-    );
-
-    await connection.open();
-
-    var query =
-        'SELECT "username" FROM public."user" WHERE "username" = @email';
-
-    List<List<dynamic>> results =
-        await connection.query(query, substitutionValues: {'email': email});
+    List<List<dynamic>> results = await connection
+        .query(queries.loginUserQuery(), substitutionValues: {'email': email});
 
     var utente;
     for (final row in results) {
@@ -61,16 +35,6 @@ class AuthService {
     }
 
     return utente;
-  }
-
-  //sign out
-  Future signOut() async {
-    /*try {
-      return await _auth.signOut();
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }*/
   }
 }
 
@@ -129,5 +93,14 @@ class AuthService {
     }
   }
 
+  //sign out
+  /*Future signOut() async {
+    /*try {
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }*/
+  }*/
 
   }*/

@@ -1,7 +1,8 @@
 import 'package:bar_pub/screens/bar_list.dart';
 import 'package:bar_pub/screens/home/home_screen.dart';
+import 'package:bar_pub/screens/maps/google_maps_client.dart';
 import 'package:bar_pub/screens/profilo.dart';
-import 'package:bar_pub/screens/search.dart';
+import 'package:bar_pub/screens/maps/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,8 +32,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _widgetsPage = [
     MyHomeScreen(),
-    MySearch(),
+    //MySearch(),
     MyBarList(),
+    GoogleMapsClient(),
     MyProfile()
   ];
 
@@ -72,13 +74,17 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
+          /*BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Mappa',
-          ),
+          ),*/
           BottomNavigationBarItem(
             icon: Icon(Icons.list),
             label: 'BarList',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'Map',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),

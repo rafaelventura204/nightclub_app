@@ -18,11 +18,17 @@ class GlobalPreferences {
   }
 
   getStringValuesSF() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String stringValue = prefs.getString('name_user');
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    dynamic stringValue = prefs.getString('name_user');
     finalNameUser = stringValue;
     //myUser.nameUser = finalNameUser;
-    return stringValue;
+    //return stringValue;
+  }
+
+  removeSF() async {
+    final SharedPreferences userPreferences =
+        await SharedPreferences.getInstance();
+    userPreferences.remove('name_user');
   }
 
   String getNameUser() {

@@ -1,8 +1,6 @@
-import 'package:bar_pub/screens/map_polyline.dart';
-import 'package:bar_pub/screens/search.dart';
+import 'package:bar_pub/screens/maps/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SinglePropertyPage extends StatelessWidget {
