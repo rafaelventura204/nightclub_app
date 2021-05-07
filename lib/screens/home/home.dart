@@ -2,7 +2,6 @@ import 'package:bar_pub/screens/bar_list.dart';
 import 'package:bar_pub/screens/home/home_screen.dart';
 import 'package:bar_pub/screens/maps/google_maps_client.dart';
 import 'package:bar_pub/screens/profilo.dart';
-import 'package:bar_pub/screens/maps/search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

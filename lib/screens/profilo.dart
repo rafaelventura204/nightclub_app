@@ -1,9 +1,9 @@
 import 'dart:io';
+import 'package:bar_pub/screens/select_category.dart';
 import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:filter_list/filter_list.dart';
 
 class MyProfile extends StatelessWidget {
   @override
@@ -25,54 +25,9 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
-  /// Variables
-  File imageFile;
+  // Variables
   GlobalPreferences gPref = GlobalPreferences();
-
-  /*SCELTA CATEGORIE */
-  List<String> countList = [
-    "Enoteca",
-    "Birreria",
-    "Locale Ampio",
-    "Bar",
-    "Coktail",
-    "Dance Bar",
-    "Elegante",
-    "LGBTQ",
-    "Studentesco",
-    "Pub",
-  ];
-
-  List<String> selectedCountList = [];
-
-  void _openFilterDialog() async {
-    countList.sort();
-    await FilterListDialog.display(context,
-        listData: countList,
-        selectedListData: selectedCountList,
-        height: 480,
-        headlineText: "Select Count",
-        searchFieldHintText: "Search Here", label: (item) {
-      return item;
-    }, validateSelectedItem: (list, val) {
-      return list.contains(val);
-    }, onItemSearch: (list, text) {
-      if (list.any(
-          (element) => element.toLowerCase().contains(text.toLowerCase()))) {
-        return list
-            .where(
-                (element) => element.toLowerCase().contains(text.toLowerCase()))
-            .toList();
-      }
-    }, onApplyButtonClick: (list) {
-      if (list != null) {
-        setState(() {
-          selectedCountList = List.from(list);
-        });
-      }
-      Navigator.pop(context);
-    });
-  }
+  File imageFile;
 
   @override
   Widget build(BuildContext context) {
@@ -91,9 +46,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
               Navigator.pushReplacement(
                   context, MaterialPageRoute(builder: (context) => Wrapper()));
             },
-            /*onPressed: () async {
-              await _auth.signOut();
-            },*/
             icon: Icon(
               Icons.person,
               color: Colors.black87,
@@ -130,44 +82,16 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 Padding(
                     padding: EdgeInsets.all(8.0),
                     child: FloatingActionButton(
-                      onPressed: _openFilterDialog,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectCategory()),
+                        );
+                      },
                       tooltip: 'Category',
                       child: Icon(Icons.add),
                     )),
-                /*SafeArea(
-                  child: FilterListWidget(
-                    listData: countList,
-                    hideheaderText: true,
-                    onApplyButtonClick: (list) {
-                      if (list != null) {
-                        print("Selected items count: ${list.length}");
-                      }
-                    },
-                    label: (item) {
-                      /// Used to print text on chip
-                      return item.name;
-                    },
-                    validateSelectedItem: (list, val) {
-                      ///  identify if item is selected or not
-                      return list.contains(val);
-                    },
-                    onItemSearch: (list, text) {
-                      /// When text change in search text field then return list containing that text value
-                      ///
-                      ///Check if list has value which matchs to text
-                      if (list.any((element) => element.name
-                          .toLowerCase()
-                          .contains(text.toLowerCase()))) {
-                        /// return list which contains matches
-                        return list
-                            .where((element) => element.name
-                                .toLowerCase()
-                                .contains(text.toLowerCase()))
-                            .toList();
-                      }
-                    },
-                  ),
-                ),*/
               ],
             ),
           ),
@@ -192,35 +116,3 @@ class HeaderCurvedContainer extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
-
-/* CODICE PROVVISORIO */
-
-//Get from Gallery
-/*_getFromGallery() async {
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.gallery,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
-  }*/
-
-/// Get from Camera
-/*_getFromCamera() async {
-    PickedFile pickedFile = await ImagePicker().getImage(
-      source: ImageSource.camera,
-      maxWidth: 1800,
-      maxHeight: 1800,
-    );
-    if (pickedFile != null) {
-      setState(() {
-        imageFile = File(pickedFile.path);
-      });
-    }
-  }*/
-
-/**/

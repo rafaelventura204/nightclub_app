@@ -10,4 +10,9 @@ class Queries {
     query = 'SELECT "username" FROM public."user" WHERE "username" = @email';
     return query;
   }
+
+  String getCategoryQuery() {
+    query = 'SELECT name_category	FROM public.category;';
+    return query;
+  }
 }
