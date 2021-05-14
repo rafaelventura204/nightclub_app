@@ -3,7 +3,7 @@ import 'package:bar_pub/screens/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-String finalOttieniNome;
+String finalName;
 
 class Wrapper extends StatefulWidget {
   @override
@@ -14,7 +14,7 @@ class _WrapperState extends State<Wrapper> {
   @override
   void initState() {
     getValidation().whenComplete(() async {
-      if (finalOttieniNome == null) {
+      if (finalName == null) {
         Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Authenticate()));
       } else {
@@ -26,14 +26,14 @@ class _WrapperState extends State<Wrapper> {
   }
 
   Future getValidation() async {
-    final SharedPreferences sharedPreferences =
+    final SharedPreferences sharedPreferencesName =
         await SharedPreferences.getInstance();
-    var ottieniNoME = sharedPreferences.getString('name_user');
+    var getName = sharedPreferencesName.getString('name_user');
 
     setState(() {
-      finalOttieniNome = ottieniNoME;
+      finalName = getName;
     });
-    print(finalOttieniNome);
+    print(finalName);
   }
 
   @override

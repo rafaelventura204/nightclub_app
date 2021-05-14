@@ -4,12 +4,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 class GlobalPreferences {
   MyUser myUser = MyUser();
   String finalNameUser;
+  List<String> categoriesElement;
 
   //create user object base on Postgress
   MyUser _createdUser(String nameUser) {
     return nameUser != null ? MyUser(nameUser: nameUser) : null;
   }
 
+  /* U S E R*/
   addStringToSF(String value) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('name_user', value);
@@ -35,4 +37,26 @@ class GlobalPreferences {
     getStringValuesSF();
     return finalNameUser;
   }
+
+  /* C A T E G O R Y  U S E R*/
+  addCategoriestoSF(List<String> elements) async {
+    final SharedPreferences categories = await SharedPreferences.getInstance();
+    categories.setString('categories', elements.toString());
+  }
+
+  getCategoriesSF() async {
+    final SharedPreferences categories = await SharedPreferences.getInstance();
+    dynamic elementsValue = categories.getString('categories');
+
+    return elementsValue;
+    /*categoriesElement = elementsValue;
+    for (var item in elementsValue) {
+      print('$item [globla_preferences]');
+    }*/
+  }
+
+  /*List<String> getCategories() {
+    getCategoriesSF();
+    return categoriesElement;
+  }*/
 }

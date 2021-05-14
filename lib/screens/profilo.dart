@@ -27,14 +27,18 @@ class MyProfilePage extends StatefulWidget {
 class _MyProfilePageState extends State<MyProfilePage> {
   // Variables
   GlobalPreferences gPref = GlobalPreferences();
-  File imageFile;
+  SelectCategory selectCategory = SelectCategory();
+  //File imageFile;
+  dynamic tempCategory;
 
   @override
   Widget build(BuildContext context) {
+    tempCategory = gPref.getCategoriesSF();
+    print("$tempCategory [profilo]");
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          finalOttieniNome,
+          finalName,
           style: TextStyle(color: Colors.black87),
         ),
         elevation: 0.0,

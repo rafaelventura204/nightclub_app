@@ -27,14 +27,19 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         backgroundColor: Colors.purple[300],
         elevation: 0.0,
-        title: Text('Registrati!'),
+        title: Text('Registrati'),
         actions: <Widget>[
           TextButton.icon(
               onPressed: () {
                 widget.toggleView();
               },
               icon: Icon(Icons.person, color: Color(0XFFFFFFFF)),
-              label: Text('Login'))
+              label: Text(
+                'Login',
+                style: TextStyle(
+                  color: Color(0XFFFFFFFF),
+                ),
+              ))
         ],
       ),
       body: Column(

@@ -34,7 +34,10 @@ class _SignInState extends State<SignIn> {
                 widget.toggleView();
               },
               icon: Icon(Icons.person, color: Color(0XFFFFFFFF)),
-              label: Text('Registrati'))
+              label: Text(
+                'Registrati',
+                style: TextStyle(color: Color(0XFFFFFFFF)),
+              ))
         ],
       ),
       body: Column(

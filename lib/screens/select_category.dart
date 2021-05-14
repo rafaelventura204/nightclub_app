@@ -1,3 +1,5 @@
+import 'package:bar_pub/services/global_preferences.dart';
+import 'package:bar_pub/services/load_data_user.dart';
 import 'package:flutter/material.dart';
 
 class SelectCategory extends StatefulWidget {
@@ -6,63 +8,35 @@ class SelectCategory extends StatefulWidget {
 }
 
 class _SelectCategoryState extends State<SelectCategory> {
-  
-  getCategories() async {
-    PostgreSQLConnection connection;
-    DBconnect dBconnect = DBconnect();
-    Queries queries = Queries();
-
-    connection = await dBconnect.dbConnect();
-
-    List<List<dynamic>> results = await connection
-        .query(queries.getCategoryQuery());
-
-    for (final row in results) {      
-      print(row);
-    }
-
-  }
-  List<String> elements = [
-    "Uno",
-    "Due",
-    "Tre",
-    "Quatro",
-    "Cinque",
-    "Uno",
-    "Due",
-    "Tre",
-    "Quatro",
-    "Cinque",
-    "Uno",
-    "Due",
-    "Tre",
-    "Quatro",
-    "Cinque",
-    "Uno",
-    "Due",
-    "Tre",
-    "Quatro",
-    "Cinque",
-    "Uno",
-    "Due",
-    "Tre",
-    "Quatro",
-    "Cinque",
-    "Uno",
-    "Due",
-    "Tre",
-    "boooo",
-    "Cinque"
-  ];
   List<int> _selectedItems = List<int>();
+  GlobalPreferences gPref = GlobalPreferences();
+
+  stampaCategory() {
+    List<String> tmp = List<String>();
+    for (var item in _selectedItems) {
+      print(listCategory.elementAt(item));
+      tmp.add(listCategory.elementAt(item).toString());
+    }
+    gPref.addCategoriestoSF(tmp);
+  }
 
   @override
   Widget build(BuildContext context) {
-    getCategories();
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Seleziona categorie'),
+          title: Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  stampaCategory();
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.check, color: Colors.white),
+              ),
+              Text('Seleziona categorie')
+            ],
+          ),
           backgroundColor: Colors.purple[300],
         ),
         body: ListView.builder(
@@ -70,7 +44,7 @@ class _SelectCategoryState extends State<SelectCategory> {
           itemBuilder: (context, index) {
             return Container(
               color: (_selectedItems.contains(index))
-                  ? Colors.blue.withOpacity(0.5)
+                  ? Colors.purple.withOpacity(0.5)
                   : Colors.transparent,
               child: ListTile(
                 onTap: () {
@@ -87,7 +61,10 @@ class _SelectCategoryState extends State<SelectCategory> {
                     });
                   }
                 },
-                title: Text(elements.elementAt(index)),
+                title: Text(listCategory
+                    .elementAt(index)
+                    .replaceAll("[", "")
+                    .replaceAll("]", "")),
               ),
             );
           },
