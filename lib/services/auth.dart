@@ -4,12 +4,11 @@ import 'package:postgres/postgres.dart';
 
 class AuthService {
   PostgreSQLConnection connection;
-  DBconnect dBconnect = DBconnect();
   Queries queries = Queries();
 
   // register with EmailandPassword
   Future registerWithEmailPassword(String email, String password) async {
-    connection = await dBconnect.dbConnect();
+    connection = await await DBconnect.connect;
 
     var results = await connection.query(queries.registerUserQuery(),
         substitutionValues: {
@@ -23,7 +22,7 @@ class AuthService {
 
   //sign in wiht email & password
   Future signInWithEmailPassword(String email, String password) async {
-    connection = await dBconnect.dbConnect();
+    connection = await DBconnect.connect;
 
     List<List<dynamic>> results = await connection
         .query(queries.loginUserQuery(), substitutionValues: {'email': email});

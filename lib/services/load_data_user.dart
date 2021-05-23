@@ -1,10 +1,13 @@
+import 'package:bar_pub/models/category.dart';
 import 'package:bar_pub/services/db_connection.dart';
 import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/queries.dart';
 import 'package:bar_pub/services/wrapper.dart';
 import 'package:postgres/postgres.dart';
 
-final List<String> listCategory = List<String>();
+final List<Category> defaultListCategory = List<Category>();
+final List<String> listUserCategory = List<String>();
+Queries queries = Queries();
 
 class LoadDataUser {
   GlobalPreferences gPref = GlobalPreferences();
@@ -16,23 +19,69 @@ class LoadDataUser {
   }
 
   Future getCategoriesFromDB() async {
-    PostgreSQLConnection connection;
-    DBconnect dBconnect = DBconnect();
-    Queries queries = Queries();
+    PostgreSQLConnection connection = await DBconnect.connect;
 
-    connection = await dBconnect.dbConnect();
+    List<PostgreSQLResultRow> resultQuery =
+        (await connection.query(queries.getCategoryQuery())).toList();
 
-    List<List<dynamic>> results =
-        await connection.query(queries.getCategoryQuery());
+    resultQuery.sort((a, b) {
+      print(a);
+      var aMap = a.asMap();
+      var bMap = b.asMap();
+      return aMap[1].compareTo(bMap[1]);
+    });
 
-    for (var row in results) {
-      listCategory.add(row.toString());
+    Map<int, PostgreSQLResultRow> results = resultQuery.asMap();
+    for (int row in results.keys) {
+      defaultListCategory.add(
+          Category(idCategory: results[row][0], nameCategory: results[row][1]));
     }
+  }
 
-    listCategory.sort();
-    listCategory.toString().replaceAll("[", "").replaceAll("]", "");
-    for (int i = 0; i < listCategory.length; i++) {
-      print(listCategory.elementAt(i));
+  Future loadUserCategoryToDB(String idUser, int idCategory) async {
+    PostgreSQLConnection connection = await DBconnect.connect;
+
+    var results =
+        await connection.query(queries.loadUserCatQuery(), substitutionValues: {
+      'idUser': idUser,
+      'idCatgory': idCategory,
+    });
+    if (results.affectedRowCount == 1)
+      print("Inserted user: SUCCESS!");
+    else
+      print("Inserted user: FAILED!");
+  }
+
+  Future getUserCategoryFromDB(String idUser) async {
+    PostgreSQLConnection connection = await DBconnect.connect;
+
+    List<PostgreSQLResultRow> resultQuery = (await connection.query(
+            queries.getUserCategoryQuery(),
+            substitutionValues: {'idUser': idUser}))
+        .toList();
+
+    for (int i = 0; i < resultQuery.length; i++) {
+      var tempValue = resultQuery.elementAt(i).toString();
+      if (!listUserCategory.contains(tempValue)) {
+        listUserCategory.add(tempValue);
+      }
     }
+  }
+
+  Future removeUserCategoryFromDB(String nameUser, String nameCategory) async {
+    PostgreSQLConnection connection = await DBconnect.connect;
+
+    nameCategory = nameCategory.replaceAll("[", "").replaceAll("]", "");
+    print("{$nameUser - $nameCategory} <= valori passati");
+
+    var results = await connection
+        .query(queries.removeUserCategoryQuery(), substitutionValues: {
+      'idUser': nameUser,
+      'idCategory': nameCategory,
+    });
+    if (results.affectedRowCount == 1)
+      print("remove category: SUCCESS!");
+    else
+      print("remove category: FAILED!");
   }
 }

@@ -58,7 +58,6 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
               SizedBox(
                 height: 25.0,
               ),
-              //"",${gPref.getNameUser()}
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.0),
                 child: Text('Trova il tuo\nlocale\n',

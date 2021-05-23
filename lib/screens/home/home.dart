@@ -6,8 +6,6 @@ import 'package:bar_pub/services/load_data_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-//List<String> finalListCategory = List<String>();
-
 class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,9 +44,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
-    /*if (finalListCategory.isEmpty) {
-      loadDataUser.loadData();
-    }*/
     loadDataUser.loadData();
     super.initState();
   }

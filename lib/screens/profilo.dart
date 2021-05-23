@@ -1,6 +1,6 @@
-import 'dart:io';
 import 'package:bar_pub/screens/select_category.dart';
 import 'package:bar_pub/services/global_preferences.dart';
+import 'package:bar_pub/services/load_data_user.dart';
 import 'package:bar_pub/services/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,13 +28,26 @@ class _MyProfilePageState extends State<MyProfilePage> {
   // Variables
   GlobalPreferences gPref = GlobalPreferences();
   SelectCategory selectCategory = SelectCategory();
-  //File imageFile;
-  dynamic tempCategory;
+  LoadDataUser loadDataUser = LoadDataUser();
+  String tmp = "";
 
   @override
   Widget build(BuildContext context) {
-    tempCategory = gPref.getCategoriesSF();
-    print("$tempCategory [profilo]");
+    loadDataUser.getUserCategoryFromDB(finalName);
+
+    createAlertDialog(BuildContext context, Widget showUserCategory) {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Categorie'),
+            actions: <Widget>[showUserCategory],
+          );
+        },
+        useSafeArea: true,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -82,24 +95,106 @@ class _MyProfilePageState extends State<MyProfilePage> {
                   ),
                   painter: HeaderCurvedContainer(),
                 ),
-                SizedBox(height: 10.0),
-                Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: FloatingActionButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SelectCategory()),
-                        );
-                      },
-                      tooltip: 'Category',
-                      child: Icon(Icons.add),
-                    )),
+                SizedBox(height: 30.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text('Category: '),
+                    SizedBox(
+                      height: 25.0,
+                      width: 55.0,
+                      child: InkWell(
+                        child: Container(
+                          decoration: BoxDecoration(color: Colors.grey[600]),
+                          child: Align(
+                              child: Text(
+                                'Add',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              alignment: Alignment(0.1, 0.1)),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SelectCategory()),
+                          ).then((value) => setState(() => {}));
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25.0,
+                      width: 55.0,
+                      child: InkWell(
+                        child: Container(
+                          decoration: BoxDecoration(color: Colors.grey[600]),
+                          child: Align(
+                              child: Text(
+                                'View',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              alignment: Alignment(0.1, 0.1)),
+                        ),
+                        onTap: () {
+                          createAlertDialog(context, showUserCategory());
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30.0),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget showUserCategory() {
+    return Container(
+      height: 300.0,
+      width: 300.0,
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: listUserCategory.length,
+        itemBuilder: (context, index) {
+          return Container(
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Text(
+                          listUserCategory
+                              .elementAt(index)
+                              .replaceAll("[", "")
+                              .replaceAll("]", ""),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.delete_sweep_outlined),
+                            onPressed: () => {
+                                  tmp = listUserCategory.elementAt(index),
+                                  listUserCategory.remove(tmp),
+                                  loadDataUser.removeUserCategoryFromDB(
+                                      finalName, tmp),
+                                  setState(() {})
+                                })
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

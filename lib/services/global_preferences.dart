@@ -1,10 +1,11 @@
 import 'package:bar_pub/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+List<String> categoriesElement = List<String>();
+
 class GlobalPreferences {
   MyUser myUser = MyUser();
   String finalNameUser;
-  List<String> categoriesElement;
 
   //create user object base on Postgress
   MyUser _createdUser(String nameUser) {
@@ -41,22 +42,19 @@ class GlobalPreferences {
   /* C A T E G O R Y  U S E R*/
   addCategoriestoSF(List<String> elements) async {
     final SharedPreferences categories = await SharedPreferences.getInstance();
-    categories.setString('categories', elements.toString());
+    categories.setStringList('categories', elements);
+    for (int i = 0; i < elements.length; i++) {
+      print("${elements.elementAt(i)}<-global_preferences");
+    }
   }
 
   getCategoriesSF() async {
     final SharedPreferences categories = await SharedPreferences.getInstance();
-    dynamic elementsValue = categories.getString('categories');
-
-    return elementsValue;
-    /*categoriesElement = elementsValue;
-    for (var item in elementsValue) {
-      print('$item [globla_preferences]');
-    }*/
+    categoriesElement = categories.getStringList('categories');
   }
 
-  /*List<String> getCategories() {
+  List<String> getCategories() {
     getCategoriesSF();
     return categoriesElement;
-  }*/
+  }
 }

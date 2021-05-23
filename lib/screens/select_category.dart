@@ -1,5 +1,5 @@
-import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/load_data_user.dart';
+import 'package:bar_pub/services/wrapper.dart';
 import 'package:flutter/material.dart';
 
 class SelectCategory extends StatefulWidget {
@@ -9,15 +9,14 @@ class SelectCategory extends StatefulWidget {
 
 class _SelectCategoryState extends State<SelectCategory> {
   List<int> _selectedItems = List<int>();
-  GlobalPreferences gPref = GlobalPreferences();
+  LoadDataUser loadDataUser = LoadDataUser();
 
-  stampaCategory() {
-    List<String> tmp = List<String>();
-    for (var item in _selectedItems) {
-      print(listCategory.elementAt(item));
-      tmp.add(listCategory.elementAt(item).toString());
+  addUserCategory() {
+    for (int i = 0; i < _selectedItems.length; i++) {
+      int tmpId =
+          defaultListCategory.elementAt(_selectedItems.elementAt(i)).idCategory;
+      loadDataUser.loadUserCategoryToDB(finalName, tmpId);
     }
-    gPref.addCategoriestoSF(tmp);
   }
 
   @override
@@ -29,7 +28,7 @@ class _SelectCategoryState extends State<SelectCategory> {
             children: [
               IconButton(
                 onPressed: () {
-                  stampaCategory();
+                  addUserCategory();
                   Navigator.pop(context);
                 },
                 icon: Icon(Icons.check, color: Colors.white),
@@ -40,7 +39,7 @@ class _SelectCategoryState extends State<SelectCategory> {
           backgroundColor: Colors.purple[300],
         ),
         body: ListView.builder(
-          itemCount: 31,
+          itemCount: defaultListCategory.length,
           itemBuilder: (context, index) {
             return Container(
               color: (_selectedItems.contains(index))
@@ -61,10 +60,14 @@ class _SelectCategoryState extends State<SelectCategory> {
                     });
                   }
                 },
-                title: Text(listCategory
-                    .elementAt(index)
-                    .replaceAll("[", "")
-                    .replaceAll("]", "")),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('$index'),
+                    Text(defaultListCategory.elementAt(index).nameCategory),
+                    Text('${defaultListCategory.elementAt(index).idCategory}'),
+                  ],
+                ),
               ),
             );
           },
