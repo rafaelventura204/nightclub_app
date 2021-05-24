@@ -17,15 +17,12 @@ class GlobalPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('name_user', value);
     myUser = _createdUser(value);
-    print("${prefs.getString('name_user')}[LOGIN->global_preferences]");
   }
 
   getStringValuesSF() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     dynamic stringValue = prefs.getString('name_user');
     finalNameUser = stringValue;
-    //myUser.nameUser = finalNameUser;
-    //return stringValue;
   }
 
   removeSF() async {
@@ -40,12 +37,9 @@ class GlobalPreferences {
   }
 
   /* C A T E G O R Y  U S E R*/
-  addCategoriestoSF(List<String> elements) async {
+  /*addCategoriestoSF(List<String> elements) async {
     final SharedPreferences categories = await SharedPreferences.getInstance();
     categories.setStringList('categories', elements);
-    for (int i = 0; i < elements.length; i++) {
-      print("${elements.elementAt(i)}<-global_preferences");
-    }
   }
 
   getCategoriesSF() async {
@@ -56,5 +50,5 @@ class GlobalPreferences {
   List<String> getCategories() {
     getCategoriesSF();
     return categoriesElement;
-  }
+  }*/
 }

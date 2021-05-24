@@ -1,4 +1,3 @@
-import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/static_data.dart';
 import 'package:bar_pub/widgets/club_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,7 +19,6 @@ class MyHomeScreenPage extends StatefulWidget {
 }
 
 class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
-  GlobalPreferences gPref = GlobalPreferences();
   @override
   Widget build(BuildContext context) {
     ScreenUtil.init(

@@ -72,7 +72,6 @@ class LoadDataUser {
     PostgreSQLConnection connection = await DBconnect.connect;
 
     nameCategory = nameCategory.replaceAll("[", "").replaceAll("]", "");
-    print("{$nameUser - $nameCategory} <= valori passati");
 
     var results = await connection
         .query(queries.removeUserCategoryQuery(), substitutionValues: {

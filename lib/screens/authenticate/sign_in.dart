@@ -129,9 +129,9 @@ class _SignInState extends State<SignIn> {
               //await _auth.signInWithEmailPassword(email, password);
 
               if (_formKey.currentState.validate()) {
-                print("validaa[SIGN_IN]");
+                /*print("validaa[SIGN_IN]");
                 print(email);
-                print(password);
+                print(password);*/
 
                 var checkAuth =
                     await _auth.signInWithEmailPassword(email, password);

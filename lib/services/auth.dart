@@ -8,7 +8,7 @@ class AuthService {
 
   // register with EmailandPassword
   Future registerWithEmailPassword(String email, String password) async {
-    connection = await await DBconnect.connect;
+    connection = await DBconnect.connect;
 
     var results = await connection.query(queries.registerUserQuery(),
         substitutionValues: {
@@ -17,7 +17,7 @@ class AuthService {
         },
         timeoutInSeconds: 240);
     var test = results.affectedRowCount == 1;
-    print(test.toString());
+    print("${test.toString()} [AUTH1]");
   }
 
   //sign in wiht email & password
@@ -30,7 +30,7 @@ class AuthService {
     var utente;
     for (final row in results) {
       utente = row[0];
-      print(utente.toString());
+      print("${utente.toString()} [AUTH2]");
     }
 
     return utente;
