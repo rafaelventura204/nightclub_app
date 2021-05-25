@@ -1,4 +1,5 @@
 import 'package:bar_pub/models/category.dart';
+import 'package:bar_pub/models/nightlife.dart';
 import 'package:bar_pub/services/db_connection.dart';
 import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/queries.dart';
@@ -6,6 +7,7 @@ import 'package:bar_pub/services/wrapper.dart';
 import 'package:postgres/postgres.dart';
 
 final List<Category> defaultListCategory = List<Category>();
+final List<Nightlife> defaultListNightlife = List<Nightlife>();
 final List<String> listUserCategory = List<String>();
 Queries queries = Queries();
 
@@ -25,7 +27,6 @@ class LoadDataUser {
         (await connection.query(queries.getCategoryQuery())).toList();
 
     resultQuery.sort((a, b) {
-      print(a);
       var aMap = a.asMap();
       var bMap = b.asMap();
       return aMap[1].compareTo(bMap[1]);
@@ -82,5 +83,25 @@ class LoadDataUser {
       print("remove category: SUCCESS!");
     else
       print("remove category: FAILED!");
+  }
+
+  Future getNightlifeFromDB() async {
+    PostgreSQLConnection connection = await DBconnect.connect;
+
+    List<PostgreSQLResultRow> resultQuery =
+        (await connection.query(queries.getNightlifeQuery())).toList();
+
+    for (var item in resultQuery) {
+      defaultListNightlife.add(Nightlife(
+          id: item[0],
+          name: item[1],
+          city: item[2],
+          address: item[3],
+          description: item[4],
+          latitudine: item[5],
+          longitutidine: item[6],
+          urlImage: item[7],
+          hour: item[8]));
+    }
   }
 }

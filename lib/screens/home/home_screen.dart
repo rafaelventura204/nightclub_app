@@ -1,3 +1,4 @@
+import 'package:bar_pub/services/load_data_user.dart';
 import 'package:bar_pub/services/static_data.dart';
 import 'package:bar_pub/widgets/club_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,8 +20,11 @@ class MyHomeScreenPage extends StatefulWidget {
 }
 
 class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
+  LoadDataUser loadDataUser = LoadDataUser();
+
   @override
   Widget build(BuildContext context) {
+    loadDataUser.getNightlifeFromDB();
     ScreenUtil.init(
       BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width,

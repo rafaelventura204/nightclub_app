@@ -36,4 +36,9 @@ class Queries {
 
     return query;
   }
+
+  String getNightlifeQuery() {
+    query = 'SELECT * FROM public.nightlife ORDER BY id ASC ';
+    return query;
+  }
 }
