@@ -41,4 +41,17 @@ class Queries {
     query = 'SELECT * FROM public.nightlife ORDER BY id ASC ';
     return query;
   }
+
+  String loadUserNightlifeQuery() {
+    query =
+        'INSERT INTO public.user_nightlife(	id_user, id_nightlife) VALUES (@idUser,@idNightlife);';
+    return query;
+  }
+
+  String removeUserNightlifeQuery() {
+    query =
+        'DELETE FROM public.user_nightlife	WHERE id_user = @idUser AND id_nightlife = @idNightlife;';
+
+    return query;
+  }
 }

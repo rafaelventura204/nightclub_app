@@ -104,4 +104,34 @@ class LoadDataUser {
           hour: item[8]));
     }
   }
+
+  Future loadUserNightlifeToDB(String idUser, int idNightlife) async {
+    PostgreSQLConnection connection = await DBconnect.connect;
+
+    var results = await connection
+        .query(queries.loadUserNightlifeQuery(), substitutionValues: {
+      'idUser': idUser,
+      'idNightlife': idNightlife,
+    });
+
+    if (results.affectedRowCount == 1)
+      print("Inserted nightlife user: SUCCESS!");
+    else
+      print("Inserted nightlife user: FAILED!");
+  }
+
+  Future removeUserNightlifeFromDB(String idUser, int idNightlife) async {
+    PostgreSQLConnection connection = await DBconnect.connect;
+
+    var results = await connection
+        .query(queries.removeUserNightlifeQuery(), substitutionValues: {
+      'idUser': idUser,
+      'idNightlife': idNightlife,
+    });
+
+    if (results.affectedRowCount == 1)
+      print("remvoe nightlife user: SUCCESS!");
+    else
+      print("remove nightlife user: FAILED!");
+  }
 }

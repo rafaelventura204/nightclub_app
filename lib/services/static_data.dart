@@ -9,6 +9,7 @@ class StaticData {
   addNightlife() {
     for (int i = 0; i < defaultListNightlife.length; i++) {
       properties.add(Property(
+        id: defaultListNightlife.elementAt(i).id,
         name: defaultListNightlife.elementAt(i).name,
         description: defaultListNightlife.elementAt(i).description,
         imagePath: defaultListNightlife.elementAt(i).urlImage.toString(),

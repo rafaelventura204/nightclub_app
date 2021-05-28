@@ -25,13 +25,15 @@ class MyHomeScreenPage extends StatefulWidget {
 class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
   LoadDataUser loadDataUser = LoadDataUser();
   StaticData staticData = StaticData();
-  Position _currentPosition;
+  //Position _currentPosition;
 
   @override
   Widget build(BuildContext context) {
-    _getCurrentLocation();
-    myLatitudine = _currentPosition.latitude;
-    myLongitudine = _currentPosition.longitude;
+    // _getCurrentLocation();
+    // myLatitudine = _currentPosition.latitude;
+    // myLongitudine = _currentPosition.longitude;
+    myLatitudine = 45.42573338550383;
+    myLongitudine = 9.202500141406698;
     loadDataUser.getNightlifeFromDB();
     staticData.addNightlife();
     ScreenUtil.init(
@@ -98,18 +100,18 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
     _currentPosition = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);}*/
 
-  _getCurrentLocation() {
-    Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.best,
-            forceAndroidLocationManager: true)
-        .then((Position position) {
-      setState(() {
-        _currentPosition = position;
-      });
-    }).catchError((e) {
-      print(e);
-    });
-  }
+  // _getCurrentLocation() {
+  //   Geolocator.getCurrentPosition(
+  //           desiredAccuracy: LocationAccuracy.best,
+  //           forceAndroidLocationManager: true)
+  //       .then((Position position) {
+  //     setState(() {
+  //       _currentPosition = position;
+  //     });
+  //   }).catchError((e) {
+  //     print(e);
+  //   });
+  // }
 }
 
 /*@override

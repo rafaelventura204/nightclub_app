@@ -1,4 +1,5 @@
 class Property {
+  final int id;
   final String name;
   final String description;
   final String imagePath;
@@ -8,7 +9,8 @@ class Property {
   final double latitudine, longitudine;
 
   Property(
-      {this.name,
+      {this.id,
+      this.name,
       this.description,
       this.imagePath,
       this.hour,
