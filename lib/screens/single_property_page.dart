@@ -1,11 +1,153 @@
+import 'package:bar_pub/models/property.dart';
 import 'package:bar_pub/screens/maps/search.dart';
+import 'package:bar_pub/services/static_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SinglePropertyPage extends StatelessWidget {
-  final String name, description, image, price;
-  SinglePropertyPage(this.name, this.description, this.image, this.price);
+class SinglePropertyPage extends StatefulWidget {
+  final Property club;
+  const SinglePropertyPage({Key key, @required this.club}) : super(key: key);
+
+  @override
+  _SinglePropertyPageState createState() => _SinglePropertyPageState();
+}
+
+class _SinglePropertyPageState extends State<SinglePropertyPage> {
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Scaffold(
+      body: Builder(builder: (BuildContext context) {
+        double heightFromWhiteBg = size.height - 250.0; //Spazio bianco
+        return SingleChildScrollView(
+          child: Container(
+            height: size.height,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  width: size.width,
+                  child: Container(
+                    height: size.height,
+                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                      fit: BoxFit.fitHeight,
+                      image: NetworkImage(widget.club.imagePath),
+                    )),
+                  ),
+                ),
+                Positioned(
+                  top: 30.0,
+                  child: IconButton(
+                    icon: Icon(Icons.arrow_back_outlined),
+                    color: Colors.purple[900],
+                    tooltip: 'Back',
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    iconSize: 26.0,
+                  ),
+                ),
+                Positioned(
+                  top: 270.0,
+                  width: size.width,
+                  child: Container(
+                    height: heightFromWhiteBg,
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 24.0,
+                      vertical: 20.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40.0),
+                        topRight: Radius.circular(40.0),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              widget.club.name,
+                              style: TextStyle(
+                                fontSize: 18.0,
+                                height: 1.5,
+                                color: Color.fromRGBO(35, 45, 82, 1),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Icon(
+                              Icons.favorite_border,
+                              color: Color(0xFFBA68C8),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: Icon(FlutterIcons.map_pin_fea),
+                              color: Color.fromRGBO(138, 150, 190, 1),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      //builder: (context) => MapPolyline()
+                                      builder: (context) => MySearch()),
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            Expanded(
+                              child: Text(
+                                widget.club.address.toString(),
+                                style: GoogleFonts.inter(
+                                  fontSize: 16.0,
+                                  color: Color.fromRGBO(64, 74, 104, 1),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Expanded(
+                          child: Text(
+                            widget.club.description,
+                            style: GoogleFonts.inter(
+                              fontSize: 16.0,
+                              color: Color.fromRGBO(64, 74, 104, 1),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      }),
+    );
+  }
+}
+
+/*class SinglePropertyPage extends StatelessWidget {
+  final String name, description, image, hour, distance, address;
+  final double latitudine, longitudine;
+  SinglePropertyPage(this.name, this.description, this.image, this.hour,
+      this.distance, this.address, this.latitudine, this.longitudine);
 
   @override
   Widget build(BuildContext context) {
@@ -139,7 +281,7 @@ class SinglePropertyPage extends StatelessWidget {
       }),
     );
   }
-}
+}*/
 
 /* 
 class SinglePropertyPage extends StatefulWidget {

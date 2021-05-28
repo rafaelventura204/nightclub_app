@@ -4,6 +4,9 @@ import 'package:bar_pub/widgets/club_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:geolocator/geolocator.dart';
+
+var myLatitudine, myLongitudine;
 
 class MyHomeScreen extends StatelessWidget {
   @override
@@ -21,10 +24,16 @@ class MyHomeScreenPage extends StatefulWidget {
 
 class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
   LoadDataUser loadDataUser = LoadDataUser();
+  StaticData staticData = StaticData();
+  Position _currentPosition;
 
   @override
   Widget build(BuildContext context) {
+    _getCurrentLocation();
+    myLatitudine = _currentPosition.latitude;
+    myLongitudine = _currentPosition.longitude;
     loadDataUser.getNightlifeFromDB();
+    staticData.addNightlife();
     ScreenUtil.init(
       BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width,
@@ -39,24 +48,6 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               SafeArea(child: SizedBox(height: 10.0)),
-              /*Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundColor: Colors.purple[300],
-                      radius: 22.0,
-                      child: CircleAvatar(
-                        radius: 20.0,
-                        backgroundImage:
-                            AssetImage("assets/images/profiloProva.png"),
-                      ),
-                    )
-                  ],
-                ),
-              ),*/
               SizedBox(
                 height: 25.0,
               ),
@@ -73,21 +64,6 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
               SizedBox(
                 height: 55.0,
               ),
-              /*Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
-                child: Text(
-                  "Popular",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    height: 1.5,
-                    color: Color.fromRGBO(33, 45, 82, 1),
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),*/
-              /*SizedBox(
-                height: 10.0,
-              ),*/
               Container(
                   height: ScreenUtil().setHeight(400.0),
                   /*Immagini grandi perchè è bello vedere in primo piano
@@ -116,6 +92,23 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
         ),
       ),
     );
+  }
+
+  /*_getCurrentLocation() async {
+    _currentPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);}*/
+
+  _getCurrentLocation() {
+    Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.best,
+            forceAndroidLocationManager: true)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+    }).catchError((e) {
+      print(e);
+    });
   }
 }
 

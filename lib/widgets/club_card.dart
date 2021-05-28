@@ -18,7 +18,8 @@ class ClubCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => SinglePropertyPage(
-                    club.name, club.description, club.imagePath, club.price)));
+                      club: club,
+                    )));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -45,9 +46,7 @@ class ClubCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
                     image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: NetworkImage(
-                            'https://b.zmtcdn.com/data/pictures/8/18221798/623fb2a9f6d540385bb4b0d760a3efec.jpg')
+                        fit: BoxFit.cover, image: NetworkImage(club.imagePath)
                         /*AssetImage(
                           club.imagePath,
                         )*/
@@ -89,13 +88,14 @@ class ClubCard extends StatelessWidget {
                                 style: GoogleFonts.inter(
                                   color: Color.fromRGBO(64, 74, 106, 1),
                                   fontWeight: FontWeight.w600,
+                                  fontSize: 22.0,
                                 )),
                             TextSpan(
-                                text: club.price,
+                                text: club.hour,
                                 style: GoogleFonts.inter(
                                   color: Color.fromRGBO(33, 45, 82, 1),
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 22.0,
+                                  fontSize: 13.0,
                                 )),
                           ])),
 
@@ -106,13 +106,14 @@ class ClubCard extends StatelessWidget {
                                 style: GoogleFonts.inter(
                                   color: Color.fromRGBO(64, 74, 106, 1),
                                   fontWeight: FontWeight.w600,
+                                  fontSize: 22.0,
                                 )),
                             TextSpan(
-                                text: "0.5 km\n",
+                                text: "${club.distance} km",
                                 style: GoogleFonts.inter(
                                   color: Color.fromRGBO(33, 45, 82, 1),
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 22.0,
+                                  fontSize: 13.0,
                                 )),
                           ])),
 
