@@ -26,8 +26,9 @@ class StaticData {
   String getDayOfWeek(int index) {
     DateTime date = DateTime.now(); //return the of week, start with Monday=1
     int numDay = date.weekday;
+    --numDay;
     List<String> tempOrari = defaultListNightlife.elementAt(index).hour;
-    return tempOrari.elementAt(numDay--);
+    return tempOrari.elementAt(numDay);
   }
 
   String getDistance(int index) {

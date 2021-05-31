@@ -101,7 +101,7 @@ class _MyMapPolylinePageState extends State<MyMapPolylinePage> {
                             target: LatLng(_originelatitude, _originlongitude),
                             // LatLng(currentLocation.latitude,
                             //     currentLocation.longitude),
-                            zoom: 15.0),
+                            zoom: 12.0),
                         myLocationEnabled: true,
                         tiltGesturesEnabled: true,
                         compassEnabled: true,
@@ -154,7 +154,7 @@ class _MyMapPolylinePageState extends State<MyMapPolylinePage> {
       PointLatLng(widget.latitudineNightlife, widget.longitudineNightlife),
       travelMode: TravelMode.driving,
     );
-    print("${currentLocation.latitude}POSIZIONE");
+    //print("${currentLocation.latitude}POSIZIONE");
     if (result.points.isNotEmpty) {
       result.points.forEach((PointLatLng point) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));

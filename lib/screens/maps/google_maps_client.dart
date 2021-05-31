@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:bar_pub/services/load_data_user.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:postgres/postgres.dart';
 
 class GoogleMapsClient extends StatefulWidget {
   GoogleMapsClient();
@@ -16,44 +16,19 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
   static LatLng _center = LatLng(45.464664, 9.188540);
   final Set<Marker> _markers = {};
   Location location = new Location();
+  var filterdis;
 
   void placeAllMarkers() async {
-    /*QuerySnapshot snapshot =
-        await Firestore.instance.collection('club').getDocuments();
-    for (int i = 0; i < snapshot.documents.length; i++) {
-      _addMarkers(
-          snapshot.documents[i]['position'].latitude,
-          snapshot.documents[i]['position'].longitude,
-          snapshot.documents[i]['name'],
-          snapshot.documents[i]['description'],
-          snapshot.documents[i].documentID);
-    }*/
-    var connection = PostgreSQLConnection(
-      '192.168.1.141',
-      5432,
-      'tesidb',
-      username: 'admin',
-      password: 'admin',
-    );
-
-    await connection.open();
-
-    var query = 'SELECT * FROM public.nightlife ORDER BY id ASC ';
-
-    List<List<dynamic>> results = await connection.query(query);
-
     var latitudine, longitudine, clubName, clubDesc, clubID;
 
-    for (final row in results) {
-      clubID = row[0];
-      clubName = row[1];
-      clubDesc = row[4];
-      latitudine = row[5];
-      longitudine = row[6];
+    for (int i = 0; i < defaultListNightlife.length; i++) {
+      clubID = defaultListNightlife.elementAt(i).id;
+      clubName = defaultListNightlife.elementAt(i).name;
+      clubDesc = defaultListNightlife.elementAt(i).description;
+      latitudine = defaultListNightlife.elementAt(i).latitudine;
+      longitudine = defaultListNightlife.elementAt(i).longitutidine;
+      _addMarkers(latitudine, longitudine, clubName, clubDesc, clubID);
     }
-    print("$clubID $clubName $clubDesc $latitudine $longitudine");
-
-    _addMarkers(latitudine, longitudine, clubName, clubDesc, clubID);
   }
 
   void _addMarkers(latitude, longitude, clubName, clubDesc, clubID) {
@@ -64,17 +39,10 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
         position: _nightClubPosition,
         infoWindow: InfoWindow(
           title: clubName,
-          snippet: clubDesc,
-          onTap: () {
-            /*Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => NightClubProfile(
-                          documentID: clubID,
-                        )));*/
-          },
+          // snippet: clubDesc,
+          // onTap: () => {},
         ),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: BitmapDescriptor.defaultMarkerWithHue(270.0),
       ));
     });
   }
@@ -108,6 +76,46 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
     );
   }
 
+  //filter markers based on distance
+  // filterMarkers(dist) {
+  //   for (int i = 0; i < defaultListNightlife.length; i++) {
+  //     var then = Geolocator.distanceBetween(
+  //         45.464664,
+  //         9.188540,
+  //         defaultListNightlife.elementAt(i).latitudine,
+  //         defaultListNightlife.elementAt(i).longitutidine);
+
+  //     if (then / 1000 < double.parse(dist)) {
+  //       print("${then / 1000} distanza");
+  //       print("promossi:${defaultListNightlife.elementAt(i).name}");
+  //       placeFilteredMarker(
+  //           defaultListNightlife.elementAt(i).latitudine,
+  //           defaultListNightlife.elementAt(i).longitutidine,
+  //           defaultListNightlife.elementAt(i).name,
+  //           defaultListNightlife.elementAt(i).id,
+  //           then / 1000);
+  //     }
+  //   }
+  // }
+
+  // placeFilteredMarker(lat, lon, name, id, distance) {
+  //   LatLng _nightClubPosition = LatLng(lat, lon);
+  //   setState(() {
+  //     //_markers.clear();
+  //     print("elementi markers: ${_markers.length}");
+  //     _markers.add(Marker(
+  //       markerId: MarkerId(_nightClubPosition.toString()),
+  //       position: _nightClubPosition,
+  //       infoWindow: InfoWindow(
+  //         title: name,
+  //         snippet: distance.toString(),
+  //         onTap: () => {},
+  //       ),
+  //       icon: BitmapDescriptor.defaultMarkerWithHue(30.0),
+  //     ));
+  //   });
+  // }*/
+
   @override
   Widget build(BuildContext context) {
     placeAllMarkers();
@@ -119,6 +127,16 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
           'Nightlife',
           style: TextStyle(color: Colors.purple[300], fontSize: 30),
         ),
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(Icons.filter_list),
+        //     onPressed: getDistance,
+        //   ),
+        // ],
+        /*title: Text(
+          'Nightlife',
+          style: TextStyle(color: Colors.purple[300], fontSize: 30),
+        ),*/
         backgroundColor: Colors.white,
         elevation: 0.0,
       ),
@@ -126,17 +144,17 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
         child: Stack(children: <Widget>[
           googleMapsCreation(),
           Align(
-            alignment: Alignment.topRight, // aligne les widget en haut à gauche
+            alignment: Alignment.topRight,
             child: Column(
               children: <Widget>[
-                SizedBox(height: 3), // sépare distance entre bouton
+                SizedBox(height: 3),
                 FloatingActionButton(
                   //premier bouton qui recentre la position selon _center centre de paris
                   onPressed: _userPosition,
                   backgroundColor: Colors.white,
                   child: const Icon(
                     Icons.center_focus_weak,
-                    size: 35,
+                    size: 30,
                     color: Color(0xFF7854d3),
                   ),
                 ),
@@ -160,4 +178,35 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
       backgroundColor: Theme.of(context).accentColor,
     );
   }
+
+  // Future<bool> getDistance() {
+  //   return showDialog(
+  //       context: context,
+  //       barrierDismissible: true,
+  //       builder: (context) {
+  //         return AlertDialog(
+  //           title: Text('Enter Distance'),
+  //           contentPadding: EdgeInsets.all(10.0),
+  //           content: TextField(
+  //             decoration: InputDecoration(hintText: 'Enter distance'),
+  //             onChanged: (val) {
+  //               setState(() {
+  //                 filterdis = val;
+  //               });
+  //             },
+  //           ),
+  //           actions: <Widget>[
+  //             FlatButton(
+  //               child: Text('OK'),
+  //               color: Colors.transparent,
+  //               textColor: Colors.purple,
+  //               onPressed: () {
+  //                 filterMarkers(filterdis);
+  //                 Navigator.of(context).pop();
+  //               },
+  //             )
+  //           ],
+  //         );
+  //       });
+  // }
 }
