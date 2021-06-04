@@ -46,6 +46,8 @@ dependencies:
   shared_preferences:
   font_awesome_flutter: ^8.5.0
   location: ^2.3.5
+  circular_profile_avatar: ^2.0.0
+
   
 
 dev_dependencies:

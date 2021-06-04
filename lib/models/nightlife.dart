@@ -1,8 +1,9 @@
 class Nightlife {
-  int id;
-  String name, city, address, description, urlImage;
-  var latitudine, longitutidine;
-  List<String> hour;
+  final int id;
+  final String name, city, address, description, urlImage;
+  final double latitudine, longitutidine;
+  final List<String> hour;
+  final List<String> categories;
 
   Nightlife(
       {this.id,
@@ -13,5 +14,6 @@ class Nightlife {
       this.urlImage,
       this.latitudine,
       this.longitutidine,
-      this.hour});
+      this.hour,
+      this.categories});
 }

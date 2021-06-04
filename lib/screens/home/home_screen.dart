@@ -1,5 +1,6 @@
 import 'package:bar_pub/services/load_data_user.dart';
 import 'package:bar_pub/services/static_data.dart';
+import 'package:bar_pub/services/wrapper.dart';
 import 'package:bar_pub/widgets/club_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
     // _getCurrentLocation();
     // myLatitudine = _currentPosition.latitude;
     // myLongitudine = _currentPosition.longitude;
+    loadDataUser.getUserNightlifeFromDB(finalName);
     myLatitudine = 45.42573338550383;
     myLongitudine = 9.202500141406698;
     loadDataUser.getNightlifeFromDB();

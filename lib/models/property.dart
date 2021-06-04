@@ -7,6 +7,7 @@ class Property {
   final String distance;
   final String address;
   final double latitudine, longitudine;
+  final List<String> categories;
 
   Property(
       {this.id,
@@ -17,5 +18,6 @@ class Property {
       this.distance,
       this.address,
       this.latitudine,
-      this.longitudine});
+      this.longitudine,
+      this.categories});
 }

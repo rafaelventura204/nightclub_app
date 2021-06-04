@@ -9,6 +9,8 @@ import 'package:postgres/postgres.dart';
 final List<Category> defaultListCategory = List<Category>();
 final List<Nightlife> defaultListNightlife = List<Nightlife>();
 final List<String> listUserCategory = List<String>();
+final List<Nightlife> myListNightlifes =
+    List<Nightlife>(); //da rivedere il tipo
 Queries queries = Queries();
 
 class LoadDataUser {
@@ -17,6 +19,8 @@ class LoadDataUser {
   loadData() {
     if (finalName != null) {
       getCategoriesFromDB();
+      getUserCategoryFromDB(finalName);
+      //getUserNightlifeFromDB(finalName);
     }
   }
 
@@ -37,6 +41,7 @@ class LoadDataUser {
       defaultListCategory.add(
           Category(idCategory: results[row][0], nameCategory: results[row][1]));
     }
+    print("ok 1");
   }
 
   Future loadUserCategoryToDB(String idUser, int idCategory) async {
@@ -67,6 +72,7 @@ class LoadDataUser {
         listUserCategory.add(tempValue);
       }
     }
+    print("ok 2");
   }
 
   Future removeUserCategoryFromDB(String nameUser, String nameCategory) async {
@@ -92,7 +98,8 @@ class LoadDataUser {
         (await connection.query(queries.getNightlifeQuery())).toList();
 
     for (var item in resultQuery) {
-      defaultListNightlife.add(Nightlife(
+      defaultListNightlife.add(
+        Nightlife(
           id: item[0],
           name: item[1],
           city: item[2],
@@ -101,7 +108,10 @@ class LoadDataUser {
           latitudine: item[5],
           longitutidine: item[6],
           urlImage: item[7],
-          hour: item[8]));
+          hour: item[8],
+          categories: await getNightCatFromDB(item[0]) as List,
+        ),
+      );
     }
   }
 
@@ -134,4 +144,44 @@ class LoadDataUser {
     else
       print("remove nightlife user: FAILED!");
   }
-}
+
+  Future getNightCatFromDB(int idNightlife) async {
+    PostgreSQLConnection connection = await DBconnect.connect;
+
+    List<String> tmp = List<String>();
+    List<PostgreSQLResultRow> resultQuery = (await connection.query(
+            queries.getNightlifeCategoryQuery(),
+            substitutionValues: {'idNightlife': idNightlife}))
+        .toList();
+
+    for (var item in resultQuery) {
+      tmp.add(item.toString());
+    }
+
+    return tmp;
+  }
+
+  Future getUserNightlifeFromDB(String idUser) async {
+    PostgreSQLConnection connection = await DBconnect.connect;
+
+    List<PostgreSQLResultRow> resultQuery = (await connection.query(
+            queries.getUserNightlifeQuery(),
+            substitutionValues: {'idUser': idUser}))
+        .toList();
+
+    List<String> tmpLocali = List<String>();
+    for (var item in resultQuery) {
+      tmpLocali.add(item.toString().replaceAll('[', '').replaceAll(']', ''));
+    }
+    for (int i = 0; i < tmpLocali.length; i++) {
+      int idlocale = int.parse(tmpLocali.elementAt(i));
+      for (int j = 0; j < defaultListNightlife.length; j++) {
+        if (defaultListNightlife.elementAt(j).id == idlocale) {
+          myListNightlifes.add(defaultListNightlife.elementAt(j));
+        }
+      }
+    }
+    for (var item in myListNightlifes) print("quiqui->${item.name}");
+    print("ok 3");
+  }
+}//closed-class
