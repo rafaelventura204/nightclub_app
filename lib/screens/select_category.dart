@@ -63,9 +63,13 @@ class _SelectCategoryState extends State<SelectCategory> {
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('$index'),
-                    Text(defaultListCategory.elementAt(index).nameCategory),
-                    Text('${defaultListCategory.elementAt(index).idCategory}'),
+                    Text(
+                      defaultListCategory.elementAt(index).nameCategory,
+                      style: TextStyle(
+                        color: Colors.black,
+                        //fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),

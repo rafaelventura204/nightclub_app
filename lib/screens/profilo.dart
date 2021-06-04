@@ -35,6 +35,9 @@ class MyProfilePage extends StatefulWidget {
 }
 
 class _MyProfilePageState extends State<MyProfilePage> {
+  LoadDataUser loadDataUser = LoadDataUser();
+  String tmp = "";
+
   @override
   void initState() {
     setState(() {
@@ -44,6 +47,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
           imagePath: item.urlImage,
           address: item.address,
           categories: item.categories,
+          description: item.description,
+          latitudine: item.latitudine,
+          longitudine: item.longitutidine,
         ));
       }
     });
@@ -52,16 +58,91 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    // for (var item in myListNightlifes) {
-    //   print("-> ${item.name}");
-    // }
+    loadDataUser.getUserCategoryFromDB(finalName);
+    //inizio
+    createAlertDialog(BuildContext context, Widget showUserCategory) {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return Opacity(
+            opacity: 0.70,
+            child: AlertDialog(
+              //title: Text('Categorie'),
+              actions: <Widget>[showUserCategory],
+            ),
+          );
+        },
+        //useSafeArea: true,
+      );
+    }
 
-    print(myListNightlifes.length);
+    //fine
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             StackContainer(),
+            //inizio
+            Container(
+              margin: EdgeInsets.only(top: 30),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    'Category ',
+                    style: TextStyle(
+                      fontSize: 21.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25.0,
+                    width: 55.0,
+                    child: InkWell(
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.grey[600]),
+                        child: Align(
+                            child: Text(
+                              'Add',
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 16.0),
+                            ),
+                            alignment: Alignment(0.1, 0.1)),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectCategory()),
+                        ).then((value) => setState(() => {}));
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25.0,
+                    width: 55.0,
+                    child: InkWell(
+                      child: Container(
+                        decoration: BoxDecoration(color: Colors.grey[600]),
+                        child: Align(
+                            child: Text(
+                              'View',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                            alignment: Alignment(0.1, 0.1)),
+                      ),
+                      onTap: () {
+                        createAlertDialog(context, showUserCategory());
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            //fine
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
@@ -86,4 +167,55 @@ class _MyProfilePageState extends State<MyProfilePage> {
       ),
     );
   }
+
+  //inizio
+  Widget showUserCategory() {
+    return Container(
+      height: 350.0,
+      width: 300.0,
+      color: Colors.black, //.withOpacity(0.25),
+      child: ListView.builder(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        itemCount: listUserCategory.length,
+        itemBuilder: (context, index) {
+          return Container(
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Center(
+                  child: ListTile(
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          listUserCategory
+                              .elementAt(index)
+                              .replaceAll("[", "")
+                              .replaceAll("]", ""),
+                          style: TextStyle(
+                            color: Colors.pink,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        IconButton(
+                            icon: Icon(Icons.delete, color: Colors.white),
+                            onPressed: () => {
+                                  tmp = listUserCategory.elementAt(index),
+                                  listUserCategory.remove(tmp),
+                                  loadDataUser.removeUserCategoryFromDB(
+                                      finalName, tmp),
+                                  setState(() {})
+                                })
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+  //fine
 }

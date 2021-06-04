@@ -8,6 +8,7 @@ import 'package:bar_pub/widgets/club_card.dart';
 import 'package:bar_pub/widgets/club_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:bar_pub/services/load_data_user.dart';
 
 class MyBarList extends StatefulWidget {
   // final Property club;
@@ -40,9 +41,41 @@ class _MyBarListState extends State<MyBarList> {
   void initState() {
     super.initState();
     setState(() {
-      nightlife = StaticData.properties;
+      for (var item in defaultListNightlife) {
+        nightlife.add(Property(
+          id: item.id,
+          name: item.name,
+          description: item.description,
+          imagePath: item.urlImage,
+          categories: item.categories,
+          address: item.address,
+          latitudine: item.latitudine,
+          longitudine: item.longitutidine,
+        ));
+      }
+      //nightlife = StaticData.properties;
       filteredNightlife = nightlife;
     });
+  }
+
+  String setCategories([List<String> categories]) {
+    String s = '';
+    for (int i = 0; i < categories.length; i++) {
+      if (i == 2) {
+        s += categories.elementAt(i).replaceAll('[', '').replaceAll(']', '');
+        s += " ";
+      } else {
+        s += categories.elementAt(i).replaceAll('[', '').replaceAll(']', '');
+        s += ", ";
+      }
+    }
+
+    if (s.length >= 31) {
+      s = s.substring(0, 32);
+      s += "...";
+    }
+
+    return s;
   }
 
   @override
@@ -81,7 +114,8 @@ class _MyBarListState extends State<MyBarList> {
                           .where((e) => (e.name
                                   .toLowerCase()
                                   .contains(string.toLowerCase()) ||
-                              e.address
+                              e.categories
+                                  .toString()
                                   .toLowerCase()
                                   .contains(string.toLowerCase())))
                           .toList();
@@ -120,58 +154,79 @@ class _MyBarListState extends State<MyBarList> {
                                     blurRadius: 5.0,
                                   ),
                                 ]),
-                            margin: EdgeInsets.all(5.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                ClipRRect(
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10.0),
-                                    bottomLeft: Radius.circular(10.0),
+                            margin: EdgeInsets.all(10.0),
+                            child: Expanded(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10.0),
+                                      bottomLeft: Radius.circular(10.0),
+                                    ),
+                                    child: Image.network(
+                                      filteredNightlife
+                                          .elementAt(index)
+                                          .imagePath,
+                                      width: 80,
+                                      height: 80,
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  child: Image.network(
-                                    filteredNightlife
-                                        .elementAt(index)
-                                        .imagePath,
-                                    width: 80,
-                                    height: 80,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                SizedBox(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(filteredNightlife
-                                            .elementAt(index)
-                                            .name),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 2.0, bottom: 2.0),
-                                          child: Text(
-                                              filteredNightlife
+                                  SizedBox(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            filteredNightlife
+                                                .elementAt(index)
+                                                .name,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            softWrap: false,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 4.0, bottom: 4.0),
+                                            child: Text(
+                                              // filteredNightlife
+                                              //     .elementAt(index)
+                                              //     .categories
+                                              //     .toString()
+                                              //     .replaceAll('[', '')
+                                              //     .replaceAll(']', ''),
+
+                                              setCategories(filteredNightlife
                                                   .elementAt(index)
-                                                  .address,
+                                                  .categories),
                                               overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              softWrap: false,
                                               style: TextStyle(
                                                   fontSize: 12.0,
                                                   color: Colors.black54),
-                                              maxLines: 1),
-                                        ),
-                                        Text(
-                                            "${nightlife.elementAt(index).distance} km",
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                color: Colors.black54))
-                                      ],
+                                            ),
+                                          ),
+                                          Text(
+                                              nightlife
+                                                  .elementAt(index)
+                                                  .address,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              softWrap: false,
+                                              style: TextStyle(
+                                                  fontSize: 15.0,
+                                                  color: Colors.black54))
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             )),
                       );
                     }),

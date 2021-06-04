@@ -10,6 +10,26 @@ class CardItem extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  String setCategories([List<String> categories]) {
+    String s = '';
+    for (int i = 0; i < 3; i++) {
+      if (i == 2) {
+        s += categories.elementAt(i).replaceAll('[', '').replaceAll(']', '');
+        s += " ";
+      } else {
+        s += categories.elementAt(i).replaceAll('[', '').replaceAll(']', '');
+        s += ", ";
+      }
+    }
+
+    if (s.length >= 31) {
+      s = s.substring(0, 27);
+      s += "...";
+    }
+
+    return s;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,27 +69,40 @@ class CardItem extends StatelessWidget {
                         fontSize: 18.0,
                       ),
                     ),
+                    Text(
+                      setCategories(viewNightlife.elementAt(index).categories),
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: false,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.0,
+                      ),
+                    ),
                     // SizedBox(
                     //   height: 4.0,
                     // ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
-                      child: Text(
-                        // "this
-                        //     .viewNightlife
-                        //     .elementAt(index)
-                        //     .categories
-                        //     .toString()",
-                        viewNightlife.elementAt(index).categories.toString(),
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: Colors.grey[700],
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0,
-                        ),
-                        maxLines: 1,
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
+                    //   child: Text(
+                    //     viewNightlife
+                    //         .elementAt(index)
+                    //         .categories
+                    //         .toString()
+                    //         .replaceAll('[', '')
+                    //         .replaceAll(']', ''),
+                    //     overflow: TextOverflow.ellipsis,
+                    //     softWrap: false,
+                    //     style: TextStyle(
+                    //       color: Colors.grey[700],
+                    //       fontWeight: FontWeight.bold,
+                    //       fontSize: 12.0,
+                    //     ),
+                    //     maxLines: 1,
+                    //   ),
+                    // ),
+
                     Text(
                       viewNightlife.elementAt(index).address,
                       style: TextStyle(
