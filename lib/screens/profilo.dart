@@ -13,8 +13,6 @@ import 'package:flutter/widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 
-final List<Property> viewNightlife = List<Property>();
-
 class MyProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -39,26 +37,33 @@ class _MyProfilePageState extends State<MyProfilePage> {
   String tmp = "";
 
   @override
-  void initState() {
+  /*void initState() {
     setState(() {
-      for (var item in myListNightlifes) {
-        viewNightlife.add(Property(
-          name: item.name,
-          imagePath: item.urlImage,
-          address: item.address,
-          categories: item.categories,
-          description: item.description,
-          latitudine: item.latitudine,
-          longitudine: item.longitutidine,
-        ));
+      for (int i = 0; i < myListNightlifes.length; i++) {
+        if (!viewNightlife
+            .elementAt(i)
+            .name
+            .contains(myListNightlifes.elementAt(i).name)) {
+          viewNightlife.add(Property(
+            name: myListNightlifes.elementAt(i).name,
+            imagePath: myListNightlifes.elementAt(i).urlImage,
+            address: myListNightlifes.elementAt(i).address,
+            categories: myListNightlifes.elementAt(i).categories,
+            description: myListNightlifes.elementAt(i).description,
+            latitudine: myListNightlifes.elementAt(i).latitudine,
+            longitudine: myListNightlifes.elementAt(i).longitutidine,
+          ));
+        }
       }
     });
     super.initState();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
+    print(viewNightlife.length);
     loadDataUser.getUserCategoryFromDB(finalName);
+    //loadDataUser.getUserNightlifeFromDB(finalName);
     //inizio
     createAlertDialog(BuildContext context, Widget showUserCategory) {
       return showDialog(

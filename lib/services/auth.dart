@@ -14,6 +14,7 @@ class AuthService {
         substitutionValues: {
           'email': email,
           'psw': password,
+          'bf': 'bf',
         },
         timeoutInSeconds: 240);
     var test = results.affectedRowCount == 1;
@@ -24,8 +25,9 @@ class AuthService {
   Future signInWithEmailPassword(String email, String password) async {
     connection = await DBconnect.connect;
 
-    List<List<dynamic>> results = await connection
-        .query(queries.loginUserQuery(), substitutionValues: {'email': email});
+    List<List<dynamic>> results = await connection.query(
+        queries.loginUserQuery(),
+        substitutionValues: {'email': email, 'psw': password});
 
     var utente;
     for (final row in results) {

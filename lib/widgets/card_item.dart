@@ -1,9 +1,11 @@
 import 'package:bar_pub/models/property.dart';
 import 'package:bar_pub/screens/profilo.dart';
+import 'package:bar_pub/services/load_data_user.dart';
 import 'package:flutter/material.dart';
 
 class CardItem extends StatelessWidget {
   // final List<Property> viewNightlife;
+
   final index;
   const CardItem({
     this.index,

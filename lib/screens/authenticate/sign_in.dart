@@ -2,6 +2,7 @@ import 'package:bar_pub/screens/home/home.dart';
 import 'package:bar_pub/services/auth.dart';
 import 'package:bar_pub/services/global_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -111,28 +112,8 @@ class _SignInState extends State<SignIn> {
             ),
           ),
           ElevatedButton(
-            /*onPressed: () async {
-              if (_formKey.currentState.validate()) {
-                print("validaaaaaaaaaaaa");
-                print(email);
-                print(password);
-                dynamic result =
-                    await _auth.signInWithEmailPassword(email, password);
-
-                if (result == null) {
-                  setState(
-                      () => error = "Email non registrata oppure non corretta");
-                }
-              }
-            },*/
             onPressed: () async {
-              //await _auth.signInWithEmailPassword(email, password);
-
               if (_formKey.currentState.validate()) {
-                /*print("validaa[SIGN_IN]");
-                print(email);
-                print(password);*/
-
                 var checkAuth =
                     await _auth.signInWithEmailPassword(email, password);
                 if (checkAuth == null) {

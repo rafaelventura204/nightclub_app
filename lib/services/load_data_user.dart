@@ -1,5 +1,6 @@
 import 'package:bar_pub/models/category.dart';
 import 'package:bar_pub/models/nightlife.dart';
+import 'package:bar_pub/models/property.dart';
 import 'package:bar_pub/services/db_connection.dart';
 import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/queries.dart';
@@ -9,8 +10,8 @@ import 'package:postgres/postgres.dart';
 final List<Category> defaultListCategory = List<Category>();
 final List<Nightlife> defaultListNightlife = List<Nightlife>();
 final List<String> listUserCategory = List<String>();
-final List<Nightlife> myListNightlifes =
-    List<Nightlife>(); //da rivedere il tipo
+final List<Nightlife> myListNightlifes = List<Nightlife>();
+final List<Property> viewNightlife = List<Property>();
 Queries queries = Queries();
 
 class LoadDataUser {
@@ -20,6 +21,7 @@ class LoadDataUser {
     if (finalName != null) {
       getCategoriesFromDB();
       getUserCategoryFromDB(finalName);
+      //getUserNightlifeFromDB(finalName);
       //getUserNightlifeFromDB(finalName);
     }
   }
@@ -97,21 +99,23 @@ class LoadDataUser {
     List<PostgreSQLResultRow> resultQuery =
         (await connection.query(queries.getNightlifeQuery())).toList();
 
-    for (var item in resultQuery) {
-      defaultListNightlife.add(
-        Nightlife(
-          id: item[0],
-          name: item[1],
-          city: item[2],
-          address: item[3],
-          description: item[4],
-          latitudine: item[5],
-          longitutidine: item[6],
-          urlImage: item[7],
-          hour: item[8],
-          categories: await getNightCatFromDB(item[0]) as List,
-        ),
-      );
+    if (resultQuery.length > defaultListNightlife.length) {
+      for (var item in resultQuery) {
+        defaultListNightlife.add(
+          Nightlife(
+            id: item[0],
+            name: item[1],
+            city: item[2],
+            address: item[3],
+            description: item[4],
+            latitudine: item[5],
+            longitutidine: item[6],
+            urlImage: item[7],
+            hour: item[8],
+            categories: await getNightCatFromDB(item[0]) as List,
+          ),
+        );
+      }
     }
   }
 
@@ -169,19 +173,30 @@ class LoadDataUser {
             substitutionValues: {'idUser': idUser}))
         .toList();
 
-    List<String> tmpLocali = List<String>();
-    for (var item in resultQuery) {
-      tmpLocali.add(item.toString().replaceAll('[', '').replaceAll(']', ''));
-    }
-    for (int i = 0; i < tmpLocali.length; i++) {
-      int idlocale = int.parse(tmpLocali.elementAt(i));
-      for (int j = 0; j < defaultListNightlife.length; j++) {
-        if (defaultListNightlife.elementAt(j).id == idlocale) {
-          myListNightlifes.add(defaultListNightlife.elementAt(j));
+    if (resultQuery.length > viewNightlife.length) {
+      viewNightlife.clear();
+      List<String> tmpLocali = List<String>();
+      for (var item in resultQuery) {
+        tmpLocali.add(item.toString().replaceAll('[', '').replaceAll(']', ''));
+      }
+
+      for (int i = 0; i < tmpLocali.length; i++) {
+        int idlocale = int.parse(tmpLocali.elementAt(i));
+        for (int j = 0; j < defaultListNightlife.length; j++) {
+          if (defaultListNightlife.elementAt(j).id == idlocale) {
+            viewNightlife.add(Property(
+              id: defaultListNightlife.elementAt(j).id,
+              name: defaultListNightlife.elementAt(j).name,
+              imagePath: defaultListNightlife.elementAt(j).urlImage,
+              address: defaultListNightlife.elementAt(j).address,
+              categories: defaultListNightlife.elementAt(j).categories,
+              description: defaultListNightlife.elementAt(j).description,
+              latitudine: defaultListNightlife.elementAt(j).latitudine,
+              longitudine: defaultListNightlife.elementAt(j).longitutidine,
+            ));
+          }
         }
       }
     }
-    for (var item in myListNightlifes) print("quiqui->${item.name}");
-    print("ok 3");
   }
 }//closed-class

@@ -1,4 +1,5 @@
 import 'package:bar_pub/services/auth.dart';
+import 'package:bar_pub/services/crypt_psw.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
@@ -14,6 +15,7 @@ class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   FocusNode myFocusNode = FocusNode();
   final AuthService _auth = AuthService();
+  CryptPsw cryptPsw = CryptPsw();
 
   //text field state
   String email = "";

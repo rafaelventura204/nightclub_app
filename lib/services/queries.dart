@@ -3,12 +3,14 @@ class Queries {
 
   String registerUserQuery() {
     query =
-        'INSERT INTO public."user"( username, password) VALUES (@email, @psw);';
+        'INSERT INTO public."user"( username, password) VALUES (@email, crypt(@psw, gen_salt(@bf)));';
+
     return query;
   }
 
   String loginUserQuery() {
-    query = 'SELECT "username" FROM public."user" WHERE "username" = @email';
+    query =
+        'SELECT "username" FROM public."user" WHERE "username" = @email AND password = crypt(@psw, password);';
     return query;
   }
 

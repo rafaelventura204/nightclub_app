@@ -10,19 +10,21 @@ class StaticData {
   final LoadDataUser loadDataUser = LoadDataUser();
 
   addNightlife() {
-    for (int i = 0; i < defaultListNightlife.length; i++) {
-      properties.add(Property(
-        id: defaultListNightlife.elementAt(i).id,
-        name: defaultListNightlife.elementAt(i).name,
-        description: defaultListNightlife.elementAt(i).description,
-        imagePath: defaultListNightlife.elementAt(i).urlImage.toString(),
-        hour: getDayOfWeek(i), //set-orario
-        distance: getDistance(i), //set-distance
-        address: defaultListNightlife.elementAt(i).address.toString(),
-        latitudine: defaultListNightlife.elementAt(i).latitudine,
-        longitudine: defaultListNightlife.elementAt(i).longitutidine,
-        categories: defaultListNightlife.elementAt(i).categories,
-      ));
+    if (properties.length < defaultListNightlife.length) {
+      for (int i = 0; i < defaultListNightlife.length; i++) {
+        properties.add(Property(
+          id: defaultListNightlife.elementAt(i).id,
+          name: defaultListNightlife.elementAt(i).name,
+          description: defaultListNightlife.elementAt(i).description,
+          imagePath: defaultListNightlife.elementAt(i).urlImage.toString(),
+          hour: getDayOfWeek(i), //set-orario
+          distance: getDistance(i), //set-distance
+          address: defaultListNightlife.elementAt(i).address.toString(),
+          latitudine: defaultListNightlife.elementAt(i).latitudine,
+          longitudine: defaultListNightlife.elementAt(i).longitutidine,
+          categories: defaultListNightlife.elementAt(i).categories,
+        ));
+      }
     }
     preferencesNightlife();
   }
