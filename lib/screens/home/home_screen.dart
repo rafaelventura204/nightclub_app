@@ -52,12 +52,12 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              SafeArea(child: SizedBox(height: 10.0)),
+              //SafeArea(child: SizedBox(height: 0.5)),
               SizedBox(
                 height: 25.0,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 5.0),
                 child: Text('Trova il tuo\nlocale\n',
                     style: TextStyle(
                       fontSize: 30.0,

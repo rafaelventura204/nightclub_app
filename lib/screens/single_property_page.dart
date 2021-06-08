@@ -15,7 +15,7 @@ class SinglePropertyPage extends StatefulWidget {
 }
 
 class _SinglePropertyPageState extends State<SinglePropertyPage> {
-  static bool liked = false; //salvare in una varibile sharedpreferences
+  bool liked = false; //salvare in una varibile sharedpreferences
   LoadDataUser loadDataUser = LoadDataUser();
 
   _pressed() {
@@ -33,6 +33,13 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
 
   @override
   Widget build(BuildContext context) {
+    for (var item in viewNightlife) {
+      if (widget.club.id == item.id) {
+        print("wid: ${widget.club.id} night: ${item.id}");
+        liked = true;
+      }
+    }
+
     return Material(
       type: MaterialType.transparency,
       child: LayoutBuilder(
@@ -78,8 +85,8 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(50.0),
-                            topRight: Radius.circular(50.0),
+                            topLeft: Radius.circular(40.0),
+                            topRight: Radius.circular(40.0),
                           )),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,27 +115,29 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
                               ),
                             ],
                           ),
-                          TextButton.icon(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MyMapPolylinePage(
-                                        latitudineNightlife:
-                                            widget.club.latitudine,
-                                        longitudineNightlife:
-                                            widget.club.longitudine)),
-                              );
-                            },
-                            icon: Icon(
-                              FlutterIcons.map_pin_fea,
-                              color: Color.fromRGBO(138, 150, 190, 1),
-                            ),
-                            label: Text(
-                              widget.club.address.toString(),
-                              style: GoogleFonts.inter(
-                                fontSize: 18.0,
-                                color: Color.fromRGBO(64, 74, 104, 1),
+                          SizedBox(
+                            child: TextButton.icon(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyMapPolylinePage(
+                                          latitudineNightlife:
+                                              widget.club.latitudine,
+                                          longitudineNightlife:
+                                              widget.club.longitudine)),
+                                );
+                              },
+                              icon: Icon(
+                                FlutterIcons.map_pin_fea,
+                                color: Color.fromRGBO(138, 150, 190, 1),
+                              ),
+                              label: Text(
+                                widget.club.address.toString(),
+                                style: GoogleFonts.inter(
+                                  fontSize: 18.0,
+                                  color: Color.fromRGBO(64, 74, 104, 1),
+                                ),
                               ),
                             ),
                           ),
@@ -136,13 +145,16 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
                       ),
                     )
                   ]),
-                  Container(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      widget.club.description,
-                      style: GoogleFonts.inter(
-                        fontSize: 18.0,
-                        color: Color.fromRGBO(64, 74, 104, 1),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        widget.club.description,
+                        style: GoogleFonts.inter(
+                          fontSize: 18.0,
+                          color: Color.fromRGBO(64, 74, 104, 1),
+                        ),
                       ),
                     ),
                   ),

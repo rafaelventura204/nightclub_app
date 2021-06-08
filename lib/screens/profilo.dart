@@ -151,16 +151,18 @@ class _MyProfilePageState extends State<MyProfilePage> {
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SinglePropertyPage(
-                                club: viewNightlife.elementAt(index))));
-                  },
-                  child: CardItem(index: index),
-                );
+                return viewNightlife.length > 0
+                    ? new GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SinglePropertyPage(
+                                      club: viewNightlife.elementAt(index))));
+                        },
+                        child: CardItem(index: index),
+                      )
+                    : new Text('Nessuna locale selezionata');
               },
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
@@ -184,40 +186,58 @@ class _MyProfilePageState extends State<MyProfilePage> {
         shrinkWrap: true,
         itemCount: listUserCategory.length,
         itemBuilder: (context, index) {
-          return Container(
-            child: SafeArea(
-              child: SingleChildScrollView(
-                child: Center(
-                  child: ListTile(
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          listUserCategory
-                              .elementAt(index)
-                              .replaceAll("[", "")
-                              .replaceAll("]", ""),
+          return listUserCategory.isNotEmpty
+              ? new Container(
+                  child: SafeArea(
+                    child: SingleChildScrollView(
+                      child: Center(
+                        child: ListTile(
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                listUserCategory
+                                    .elementAt(index)
+                                    .replaceAll("[", "")
+                                    .replaceAll("]", ""),
+                                style: TextStyle(
+                                  color: Colors.pink,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              IconButton(
+                                  icon: Icon(Icons.delete, color: Colors.white),
+                                  onPressed: () => {
+                                        setState(() {
+                                          tmp =
+                                              listUserCategory.elementAt(index);
+                                          listUserCategory.remove(tmp);
+                                          loadDataUser.removeUserCategoryFromDB(
+                                              finalName, tmp);
+                                        })
+                                      })
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : new Container(
+                  child: SafeArea(
+                    child: Center(
+                      child: ListTile(
+                        title: Text(
+                          "Nessuna categoria selezionata",
                           style: TextStyle(
                             color: Colors.pink,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        IconButton(
-                            icon: Icon(Icons.delete, color: Colors.white),
-                            onPressed: () => {
-                                  tmp = listUserCategory.elementAt(index),
-                                  listUserCategory.remove(tmp),
-                                  loadDataUser.removeUserCategoryFromDB(
-                                      finalName, tmp),
-                                  setState(() {})
-                                })
-                      ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-          );
+                );
         },
       ),
     );
