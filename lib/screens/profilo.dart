@@ -1,17 +1,11 @@
-import 'package:bar_pub/models/property.dart';
 import 'package:bar_pub/screens/select_category.dart';
 import 'package:bar_pub/screens/single_property_page.dart';
-import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/load_data_user.dart';
 import 'package:bar_pub/services/wrapper.dart';
 import 'package:bar_pub/widgets/card_item.dart';
-import 'package:bar_pub/widgets/custom_clipper.dart';
 import 'package:bar_pub/widgets/stack_container.dart';
-import 'package:bar_pub/widgets/top_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 
 class MyProfile extends StatelessWidget {
   @override
@@ -37,34 +31,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
   String tmp = "";
 
   @override
-  /*void initState() {
-    setState(() {
-      for (int i = 0; i < myListNightlifes.length; i++) {
-        if (!viewNightlife
-            .elementAt(i)
-            .name
-            .contains(myListNightlifes.elementAt(i).name)) {
-          viewNightlife.add(Property(
-            name: myListNightlifes.elementAt(i).name,
-            imagePath: myListNightlifes.elementAt(i).urlImage,
-            address: myListNightlifes.elementAt(i).address,
-            categories: myListNightlifes.elementAt(i).categories,
-            description: myListNightlifes.elementAt(i).description,
-            latitudine: myListNightlifes.elementAt(i).latitudine,
-            longitudine: myListNightlifes.elementAt(i).longitutidine,
-          ));
-        }
-      }
-    });
-    super.initState();
-  }*/
-
-  @override
   Widget build(BuildContext context) {
     print(viewNightlife.length);
     loadDataUser.getUserCategoryFromDB(finalName);
-    //loadDataUser.getUserNightlifeFromDB(finalName);
-    //inizio
     createAlertDialog(BuildContext context, Widget showUserCategory) {
       return showDialog(
         context: context,
@@ -72,12 +41,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
           return Opacity(
             opacity: 0.70,
             child: AlertDialog(
-              //title: Text('Categorie'),
               actions: <Widget>[showUserCategory],
             ),
           );
         },
-        //useSafeArea: true,
+        useSafeArea: true,
+        barrierColor: Colors.transparent,
       );
     }
 
@@ -162,7 +131,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                         },
                         child: CardItem(index: index),
                       )
-                    : new Text('Nessuna locale selezionata');
+                    : new Text('Nessun locale selezionato');
               },
               shrinkWrap: true,
               scrollDirection: Axis.vertical,
@@ -178,9 +147,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
   //inizio
   Widget showUserCategory() {
     return Container(
-      height: 350.0,
-      width: 300.0,
-      color: Colors.black, //.withOpacity(0.25),
+      height: 450.0,
+      width: 350.0,
+      color: Colors.black,
       child: ListView.builder(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
@@ -195,27 +164,38 @@ class _MyProfilePageState extends State<MyProfilePage> {
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                listUserCategory
-                                    .elementAt(index)
-                                    .replaceAll("[", "")
-                                    .replaceAll("]", ""),
-                                style: TextStyle(
-                                  color: Colors.pink,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                color: Colors.transparent,
+                                width: 195,
+                                child: Text(
+                                  listUserCategory
+                                      .elementAt(index)
+                                      .replaceAll("[", "")
+                                      .replaceAll("]", ""),
+                                  style: TextStyle(
+                                    color: Colors.pink,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              IconButton(
-                                  icon: Icon(Icons.delete, color: Colors.white),
-                                  onPressed: () => {
-                                        setState(() {
-                                          tmp =
-                                              listUserCategory.elementAt(index);
-                                          listUserCategory.remove(tmp);
-                                          loadDataUser.removeUserCategoryFromDB(
-                                              finalName, tmp);
-                                        })
-                                      })
+                              Container(
+                                width: 30,
+                                color: Colors.transparent,
+                                child: IconButton(
+                                    icon:
+                                        Icon(Icons.delete, color: Colors.white),
+                                    onPressed: () => {
+                                          setState(() {
+                                            tmp = listUserCategory
+                                                .elementAt(index);
+                                            listUserCategory.remove(tmp);
+                                            loadDataUser
+                                                .removeUserCategoryFromDB(
+                                                    finalName, tmp);
+                                          })
+                                        }),
+                              )
                             ],
                           ),
                         ),

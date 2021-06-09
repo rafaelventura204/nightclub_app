@@ -11,8 +11,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:bar_pub/services/load_data_user.dart';
 
 class MyBarList extends StatefulWidget {
-  // final Property club;
-  // MyBarList();
   @override
   _MyBarListState createState() => _MyBarListState();
 }
@@ -53,29 +51,8 @@ class _MyBarListState extends State<MyBarList> {
           longitudine: item.longitutidine,
         ));
       }
-      //nightlife = StaticData.properties;
       filteredNightlife = nightlife;
     });
-  }
-
-  String setCategories([List<String> categories]) {
-    String s = '';
-    for (int i = 0; i < categories.length; i++) {
-      if (i == 2) {
-        s += categories.elementAt(i).replaceAll('[', '').replaceAll(']', '');
-        s += " ";
-      } else {
-        s += categories.elementAt(i).replaceAll('[', '').replaceAll(']', '');
-        s += ", ";
-      }
-    }
-
-    if (s.length >= 31) {
-      s = s.substring(0, 32);
-      s += "...";
-    }
-
-    return s;
   }
 
   @override
@@ -103,28 +80,43 @@ class _MyBarListState extends State<MyBarList> {
                   ),
                 ),
               ),
-              TextField(
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(15.0),
-                    hintText: 'Enter name or category'),
-                onChanged: (string) {
-                  _debouncer.run(() {
-                    setState(() {
-                      filteredNightlife = nightlife
-                          .where((e) => (e.name
-                                  .toLowerCase()
-                                  .contains(string.toLowerCase()) ||
-                              e.categories
-                                  .toString()
-                                  .toLowerCase()
-                                  .contains(string.toLowerCase())))
-                          .toList();
+              SizedBox(
+                height: 33.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextField(
+                  cursorColor: Colors.purple,
+                  decoration: InputDecoration(
+                      fillColor: Colors.white,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.purple, width: 2.0),
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                      border: new UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.purple)),
+                      contentPadding: EdgeInsets.all(15.0),
+                      hintText: 'Enter name or category'),
+                  onChanged: (string) {
+                    _debouncer.run(() {
+                      setState(() {
+                        filteredNightlife = nightlife
+                            .where((e) => (e.name
+                                    .toLowerCase()
+                                    .contains(string.toLowerCase()) ||
+                                e.categories
+                                    .toString()
+                                    .toLowerCase()
+                                    .contains(string.toLowerCase())))
+                            .toList();
+                      });
                     });
-                  });
-                },
+                  },
+                ),
               ),
               SizedBox(
-                height: 55.0,
+                height: 33.0,
               ),
               SizedBox(
                 child: ListView.builder(
@@ -155,78 +147,78 @@ class _MyBarListState extends State<MyBarList> {
                                   ),
                                 ]),
                             margin: EdgeInsets.all(10.0),
-                            child: Expanded(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(10.0),
-                                      bottomLeft: Radius.circular(10.0),
-                                    ),
-                                    child: Image.network(
-                                      filteredNightlife
-                                          .elementAt(index)
-                                          .imagePath,
-                                      width: 80,
-                                      height: 80,
-                                      fit: BoxFit.cover,
-                                    ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10.0),
+                                    bottomLeft: Radius.circular(10.0),
                                   ),
-                                  SizedBox(
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
-                                          Text(
-                                            filteredNightlife
-                                                .elementAt(index)
-                                                .name,
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 1,
-                                            softWrap: false,
+                                  child: Image.network(
+                                    filteredNightlife
+                                        .elementAt(index)
+                                        .imagePath,
+                                    width: 80,
+                                    height: 80,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Container(
+                                        width: 250,
+                                        color: Colors.transparent,
+                                        child: Text(
+                                          filteredNightlife
+                                              .elementAt(index)
+                                              .name,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.bold,
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 4.0, bottom: 4.0),
-                                            child: Text(
-                                              // filteredNightlife
-                                              //     .elementAt(index)
-                                              //     .categories
-                                              //     .toString()
-                                              //     .replaceAll('[', '')
-                                              //     .replaceAll(']', ''),
-
-                                              setCategories(filteredNightlife
-                                                  .elementAt(index)
-                                                  .categories),
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              softWrap: false,
-                                              style: TextStyle(
-                                                  fontSize: 12.0,
-                                                  color: Colors.black54),
-                                            ),
-                                          ),
-                                          Text(
-                                              nightlife
-                                                  .elementAt(index)
-                                                  .address,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              softWrap: false,
-                                              style: TextStyle(
-                                                  fontSize: 15.0,
-                                                  color: Colors.black54))
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                ],
-                              ),
+                                      Container(
+                                        width: 250,
+                                        color: Colors.transparent,
+                                        child: Text(
+                                          filteredNightlife
+                                              .elementAt(index)
+                                              .categories
+                                              .toString()
+                                              .replaceAll('[', '')
+                                              .replaceAll(']', ''),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                          style: TextStyle(
+                                              fontSize: 12.0,
+                                              color: Colors.black54),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 250,
+                                        color: Colors.transparent,
+                                        child: Text(
+                                            nightlife.elementAt(index).address,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black54)),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             )),
                       );
                     }),

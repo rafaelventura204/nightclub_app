@@ -47,11 +47,8 @@ class ClubCard extends StatelessWidget {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
                     image: DecorationImage(
-                        fit: BoxFit.cover, image: NetworkImage(club.imagePath)
-                        /*AssetImage(
-                          club.imagePath,
-                        )*/
-                        )),
+                        fit: BoxFit.cover,
+                        image: NetworkImage(club.imagePath))),
               )),
               Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -61,7 +58,7 @@ class ClubCard extends StatelessWidget {
                       Text(
                         club.name,
                         style: TextStyle(
-                          fontSize: 16.0,
+                          fontSize: 20.0,
                           color: Color.fromRGBO(33, 45, 82, 1),
                           fontWeight: FontWeight.w600,
                         ),
@@ -71,6 +68,8 @@ class ClubCard extends StatelessWidget {
                       ),
                       Text(
                         club.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 13.0,
                           color: Color.fromRGBO(128, 150, 190, 1),
@@ -94,7 +93,8 @@ class ClubCard extends StatelessWidget {
                             TextSpan(
                                 text: club.hour,
                                 style: GoogleFonts.inter(
-                                  color: Color.fromRGBO(33, 45, 82, 1),
+                                  //color: Color.fromRGBO(33, 45, 82, 1),
+                                  color: Colors.red,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 13.0,
                                 )),
@@ -112,7 +112,8 @@ class ClubCard extends StatelessWidget {
                             TextSpan(
                                 text: "${club.distance} km",
                                 style: GoogleFonts.inter(
-                                  color: Color.fromRGBO(33, 45, 82, 1),
+                                  //color: Color.fromRGBO(33, 45, 82, 1),
+                                  color: Colors.red,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 13.0,
                                 )),
@@ -145,22 +146,3 @@ class ClubCard extends StatelessWidget {
     );
   }
 }
-
-/*class Like extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => new LikeState();
-}
-
-class LikeState extends State<Like> {
-  bool like = false;
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: IconButton(
-        onPressed: () => {},
-        icon: Icon(false ? Icons.favorite : Icons.favorite_border,
-            color: false ? Colors.purple : Colors.grey),
-      ),
-    );
-  }
-}*/

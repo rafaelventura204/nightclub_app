@@ -12,33 +12,13 @@ class CardItem extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  String setCategories([List<String> categories]) {
-    String s = '';
-    for (int i = 0; i < 3; i++) {
-      if (i == 2) {
-        s += categories.elementAt(i).replaceAll('[', '').replaceAll(']', '');
-        s += " ";
-      } else {
-        s += categories.elementAt(i).replaceAll('[', '').replaceAll(']', '');
-        s += ", ";
-      }
-    }
-
-    if (s.length >= 31) {
-      s = s.substring(0, 27);
-      s += "...";
-    }
-
-    return s;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.all(8.0),
       child: Card(
           child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 21.0),
+        padding: const EdgeInsets.all(8.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -55,60 +35,54 @@ class CardItem extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            // SizedBox(
-            //   height: 24.0,
-            // ),
             SizedBox(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(2.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text(
-                      viewNightlife.elementAt(index).name,
-                      style: TextStyle(
-                        fontSize: 18.0,
+                    Container(
+                      width: 190,
+                      color: Colors.transparent,
+                      child: Text(viewNightlife.elementAt(index).name,
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis),
+                    ),
+                    Container(
+                      width: 190,
+                      color: Colors.transparent,
+                      child: Text(
+                        viewNightlife
+                            .elementAt(index)
+                            .categories
+                            .toString()
+                            .replaceAll('[', '')
+                            .replaceAll(']', ''),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        style: TextStyle(
+                          color: Colors.grey[700],
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.0,
+                        ),
                       ),
                     ),
-                    Text(
-                      setCategories(viewNightlife.elementAt(index).categories),
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: false,
-                      maxLines: 1,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                      ),
-                    ),
-                    // SizedBox(
-                    //   height: 4.0,
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 2.0, bottom: 2.0),
-                    //   child: Text(
-                    //     viewNightlife
-                    //         .elementAt(index)
-                    //         .categories
-                    //         .toString()
-                    //         .replaceAll('[', '')
-                    //         .replaceAll(']', ''),
-                    //     overflow: TextOverflow.ellipsis,
-                    //     softWrap: false,
-                    //     style: TextStyle(
-                    //       color: Colors.grey[700],
-                    //       fontWeight: FontWeight.bold,
-                    //       fontSize: 12.0,
-                    //     ),
-                    //     maxLines: 1,
-                    //   ),
-                    // ),
-
-                    Text(
-                      viewNightlife.elementAt(index).address,
-                      style: TextStyle(
-                        fontSize: 18.0,
+                    Container(
+                      width: 190,
+                      color: Colors.transparent,
+                      child: Text(
+                        viewNightlife.elementAt(index).address,
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black54,
+                        ),
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],

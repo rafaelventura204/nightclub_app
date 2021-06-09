@@ -25,20 +25,26 @@ class _SelectCategoryState extends State<SelectCategory> {
       home: Scaffold(
         appBar: AppBar(
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
                 onPressed: () {
                   addUserCategory();
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.check, color: Colors.white),
+                icon: Icon(Icons.arrow_back, color: Colors.white),
               ),
               Text('Seleziona categorie')
             ],
           ),
           backgroundColor: Colors.purple[300],
         ),
-        body: ListView.builder(
+        body: ListView.separated(
+          separatorBuilder: (context, index) {
+            return Divider(
+              height: 5,
+            );
+          },
           itemCount: defaultListCategory.length,
           itemBuilder: (context, index) {
             return Container(
@@ -67,7 +73,6 @@ class _SelectCategoryState extends State<SelectCategory> {
                       defaultListCategory.elementAt(index).nameCategory,
                       style: TextStyle(
                         color: Colors.black,
-                        //fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],

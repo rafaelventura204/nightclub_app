@@ -163,7 +163,7 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
                     padding: EdgeInsets.all(0.0),
                     child: Wrap(
                         runSpacing: 8.0,
-                        spacing: 8.0,
+                        spacing: 6.0,
                         children: widget.club.categories
                             .map(
                               (category) => Chip(

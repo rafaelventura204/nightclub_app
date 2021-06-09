@@ -39,8 +39,6 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
         position: _nightClubPosition,
         infoWindow: InfoWindow(
           title: clubName,
-          // snippet: clubDesc,
-          // onTap: () => {},
         ),
         icon: BitmapDescriptor.defaultMarkerWithHue(270.0),
       ));
@@ -76,70 +74,10 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
     );
   }
 
-  //filter markers based on distance
-  // filterMarkers(dist) {
-  //   for (int i = 0; i < defaultListNightlife.length; i++) {
-  //     var then = Geolocator.distanceBetween(
-  //         45.464664,
-  //         9.188540,
-  //         defaultListNightlife.elementAt(i).latitudine,
-  //         defaultListNightlife.elementAt(i).longitutidine);
-
-  //     if (then / 1000 < double.parse(dist)) {
-  //       print("${then / 1000} distanza");
-  //       print("promossi:${defaultListNightlife.elementAt(i).name}");
-  //       placeFilteredMarker(
-  //           defaultListNightlife.elementAt(i).latitudine,
-  //           defaultListNightlife.elementAt(i).longitutidine,
-  //           defaultListNightlife.elementAt(i).name,
-  //           defaultListNightlife.elementAt(i).id,
-  //           then / 1000);
-  //     }
-  //   }
-  // }
-
-  // placeFilteredMarker(lat, lon, name, id, distance) {
-  //   LatLng _nightClubPosition = LatLng(lat, lon);
-  //   setState(() {
-  //     //_markers.clear();
-  //     print("elementi markers: ${_markers.length}");
-  //     _markers.add(Marker(
-  //       markerId: MarkerId(_nightClubPosition.toString()),
-  //       position: _nightClubPosition,
-  //       infoWindow: InfoWindow(
-  //         title: name,
-  //         snippet: distance.toString(),
-  //         onTap: () => {},
-  //       ),
-  //       icon: BitmapDescriptor.defaultMarkerWithHue(30.0),
-  //     ));
-  //   });
-  // }*/
-
   @override
   Widget build(BuildContext context) {
     placeAllMarkers();
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        iconTheme: IconThemeData(color: Theme.of(context).primaryColor),
-        title: Text(
-          'Nightlife',
-          style: TextStyle(color: Colors.purple[300], fontSize: 30),
-        ),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: Icon(Icons.filter_list),
-        //     onPressed: getDistance,
-        //   ),
-        // ],
-        /*title: Text(
-          'Nightlife',
-          style: TextStyle(color: Colors.purple[300], fontSize: 30),
-        ),*/
-        backgroundColor: Colors.white,
-        elevation: 0.0,
-      ),
       body: Container(
         child: Stack(children: <Widget>[
           googleMapsCreation(),
@@ -147,27 +85,16 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
             alignment: Alignment.topRight,
             child: Column(
               children: <Widget>[
-                SizedBox(height: 3),
+                SizedBox(height: 10),
                 FloatingActionButton(
-                  //premier bouton qui recentre la position selon _center centre de paris
                   onPressed: _userPosition,
                   backgroundColor: Colors.white,
                   child: const Icon(
-                    Icons.center_focus_weak,
-                    size: 30,
+                    Icons.gps_fixed,
+                    size: 35,
                     color: Color(0xFF7854d3),
                   ),
                 ),
-                SizedBox(height: 30),
-//                FloatingActionButton(
-//                  // deuxieme bouton ajoute un marker au centre de l'appli
-//                  onPressed: _onAddMarkerButtonPressed,
-//                  materialTapTargetSize: MaterialTapTargetSize.padded,
-//                  backgroundColor: Theme
-//                      .of(context)
-//                      .primaryColor,
-//                  child: const Icon(Icons.add_location, size: 50),
-//                ),
               ],
             ),
           ),
@@ -178,35 +105,4 @@ class _GoogleMapsState extends State<GoogleMapsClient> {
       backgroundColor: Theme.of(context).accentColor,
     );
   }
-
-  // Future<bool> getDistance() {
-  //   return showDialog(
-  //       context: context,
-  //       barrierDismissible: true,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           title: Text('Enter Distance'),
-  //           contentPadding: EdgeInsets.all(10.0),
-  //           content: TextField(
-  //             decoration: InputDecoration(hintText: 'Enter distance'),
-  //             onChanged: (val) {
-  //               setState(() {
-  //                 filterdis = val;
-  //               });
-  //             },
-  //           ),
-  //           actions: <Widget>[
-  //             FlatButton(
-  //               child: Text('OK'),
-  //               color: Colors.transparent,
-  //               textColor: Colors.purple,
-  //               onPressed: () {
-  //                 filterMarkers(filterdis);
-  //                 Navigator.of(context).pop();
-  //               },
-  //             )
-  //           ],
-  //         );
-  //       });
-  // }
 }
