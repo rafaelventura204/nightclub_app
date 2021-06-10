@@ -28,7 +28,6 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    loadDataUser.getNightlifeFromDB();
     loadDataUser.getUserNightlifeFromDB(finalName);
     myLatitudine = 45.42573338550383;
     myLongitudine = 9.202500141406698;

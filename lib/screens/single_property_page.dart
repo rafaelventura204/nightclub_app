@@ -94,28 +94,41 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text(
-                                widget.club.name,
-                                style: TextStyle(
-                                  fontSize: 20.0,
-                                  height: 1.5,
-                                  color: Color.fromRGBO(35, 45, 82, 1),
-                                  fontWeight: FontWeight.w600,
+                              Container(
+                                height: 50,
+                                alignment: Alignment.centerLeft,
+                                color: Colors.transparent,
+                                child: Text(
+                                  widget.club.name,
+                                  style: TextStyle(
+                                    fontSize: 20.0,
+                                    height: 1.5,
+                                    color: Color.fromRGBO(35, 45, 82, 1),
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
-                              IconButton(
-                                icon: Icon(
-                                    liked
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    color: liked
-                                        ? Colors.purple
-                                        : Color(0xFFBA68C8)),
-                                onPressed: () => _pressed(),
+                              Container(
+                                color: Colors.transparent,
+                                child: IconButton(
+                                  icon: Icon(
+                                      liked
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
+                                      color: liked
+                                          ? Colors.purple
+                                          : Color(0xFFBA68C8)),
+                                  onPressed: () => _pressed(),
+                                ),
                               ),
                             ],
                           ),
-                          SizedBox(
+                          Container(
+                            color: Colors.transparent,
+                            width: 300,
+                            height: 35,
+                            alignment: Alignment.topLeft,
+                            //height: 150,
                             child: TextButton.icon(
                               onPressed: () {
                                 Navigator.push(

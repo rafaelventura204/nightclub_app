@@ -20,9 +20,8 @@ class LoadDataUser {
   loadData() {
     if (finalName != null) {
       getCategoriesFromDB();
+      getNightlifeFromDB();
       getUserCategoryFromDB(finalName);
-      //getUserNightlifeFromDB(finalName);
-      //getUserNightlifeFromDB(finalName);
     }
   }
 
@@ -43,7 +42,6 @@ class LoadDataUser {
       defaultListCategory.add(
           Category(idCategory: results[row][0], nameCategory: results[row][1]));
     }
-    print("ok 1");
   }
 
   Future loadUserCategoryToDB(String idUser, int idCategory) async {
@@ -74,7 +72,6 @@ class LoadDataUser {
         listUserCategory.add(tempValue);
       }
     }
-    print("ok 2");
   }
 
   Future removeUserCategoryFromDB(String nameUser, String nameCategory) async {

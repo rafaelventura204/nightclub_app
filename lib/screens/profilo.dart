@@ -32,8 +32,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    print(viewNightlife.length);
-    loadDataUser.getUserCategoryFromDB(finalName);
     createAlertDialog(BuildContext context, Widget showUserCategory) {
       return showDialog(
         context: context,
@@ -173,7 +171,7 @@ class _MyProfilePageState extends State<MyProfilePage> {
                                       .replaceAll("[", "")
                                       .replaceAll("]", ""),
                                   style: TextStyle(
-                                    color: Colors.pink,
+                                    color: Colors.pinkAccent,
                                     fontWeight: FontWeight.bold,
                                   ),
                                   overflow: TextOverflow.ellipsis,
