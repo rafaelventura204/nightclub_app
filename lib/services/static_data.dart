@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 class StaticData {
   static final List<Property> properties = List<Property>();
   final LoadDataUser loadDataUser = LoadDataUser();
+  int prefAlgoritm = 0;
 
   addNightlife() {
     if (properties.length < defaultListNightlife.length) {
@@ -52,36 +53,82 @@ class StaticData {
   }
 
   preferencesNightlife() {
-    properties.sort((a, b) => a.distance.compareTo(b.distance));
-    Map<String, int> totalCategories = Map<String, int>();
-    List<String> B = listUserCategory;
+    /*Algoritmo di ordinamento in base a:
+        distance 1 
+        numero di categorie -1
+        neutro 0
+      Utile per possibili implementazioni future, dove sarà l'utente stesso a
+      decidere quale 'algoritmo' applicare
+    */
 
-    for (int i = 0; i < properties.length; i++) {
-      List<String> A = properties.elementAt(i).categories;
-      String tmpIdLocale = properties.elementAt(i).name;
-      int c = calcMatchCategories(A, B);
-      totalCategories[tmpIdLocale] = c;
-    }
+    //NEUTRO
+    if (prefAlgoritm == 0) {
+      properties.sort((a, b) => a.distance.compareTo(b.distance));
+      Map<String, int> totalCategories = Map<String, int>();
+      List<String> B = listUserCategory;
 
-    var sortedKeys = totalCategories.keys.toList(growable: false)
-      ..sort((k1, k2) => totalCategories[k2].compareTo(totalCategories[k1]));
-    LinkedHashMap sortedMap = new LinkedHashMap.fromIterable(sortedKeys,
-        key: (k) => k, value: (k) => totalCategories[k]);
-
-    //Elenco ordinato dei locali con priorità
-    Iterable<dynamic> set = sortedMap.keys;
-    int sup = 0, inf = 0;
-
-    //sistemazione array in base al numero di preferenze
-    for (int i = 0; i < set.length; i++) {
-      for (int j = 0; j < properties.length; j++) {
-        //trova index massimo in properties
-        if (set.elementAt(i) == properties.elementAt(j).name) {
-          sup = j;
-        }
+      for (int i = 0; i < properties.length; i++) {
+        List<String> A = properties.elementAt(i).categories;
+        String tmpIdLocale = properties.elementAt(i).name;
+        int c = calcMatchCategories(A, B);
+        totalCategories[tmpIdLocale] = c;
       }
-      swap(inf, sup);
-      inf++;
+
+      var sortedKeys = totalCategories.keys.toList(growable: false)
+        ..sort((k1, k2) => totalCategories[k2].compareTo(totalCategories[k1]));
+      LinkedHashMap sortedMap = new LinkedHashMap.fromIterable(sortedKeys,
+          key: (k) => k, value: (k) => totalCategories[k]);
+
+      //Elenco ordinato dei locali con priorità
+      Iterable<dynamic> set = sortedMap.keys;
+      int sup = 0, inf = 0;
+
+      //sistemazione array in base al numero di preferenze
+      for (int i = 0; i < set.length; i++) {
+        for (int j = 0; j < properties.length; j++) {
+          //trova index massimo in properties
+          if (set.elementAt(i) == properties.elementAt(j).name) {
+            sup = j;
+          }
+        }
+        swap(inf, sup);
+        inf++;
+      }
+    } else if (prefAlgoritm == 1) {
+      //DISTANCE
+      properties.sort((a, b) => a.distance.compareTo(b.distance));
+    } else {
+      //#CATEGORIES
+      Map<String, int> totalCategories = Map<String, int>();
+      List<String> B = listUserCategory;
+
+      for (int i = 0; i < properties.length; i++) {
+        List<String> A = properties.elementAt(i).categories;
+        String tmpIdLocale = properties.elementAt(i).name;
+        int c = calcMatchCategories(A, B);
+        totalCategories[tmpIdLocale] = c;
+      }
+
+      var sortedKeys = totalCategories.keys.toList(growable: false)
+        ..sort((k1, k2) => totalCategories[k2].compareTo(totalCategories[k1]));
+      LinkedHashMap sortedMap = new LinkedHashMap.fromIterable(sortedKeys,
+          key: (k) => k, value: (k) => totalCategories[k]);
+
+      //Elenco ordinato dei locali con priorità
+      Iterable<dynamic> set = sortedMap.keys;
+      int sup = 0, inf = 0;
+
+      //sistemazione array in base al numero di preferenze
+      for (int i = 0; i < set.length; i++) {
+        for (int j = 0; j < properties.length; j++) {
+          //trova index massimo in properties
+          if (set.elementAt(i) == properties.elementAt(j).name) {
+            sup = j;
+          }
+        }
+        swap(inf, sup);
+        inf++;
+      }
     }
   }
 
