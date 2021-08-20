@@ -8,7 +8,7 @@ import 'package:geolocator/geolocator.dart';
 class StaticData {
   static final List<Property> properties = List<Property>();
   final LoadDataUser loadDataUser = LoadDataUser();
-  int prefAlgoritm = 0;
+  int prefAlgoritm = -1;
 
   addNightlife() {
     if (properties.length < defaultListNightlife.length) {
@@ -98,6 +98,8 @@ class StaticData {
       //DISTANCE
       properties.sort((a, b) => a.distance.compareTo(b.distance));
     } else {
+      //L'algoritmo ordina prima in base alle categorie poi successivamente
+      //in base alla distanza
       //#CATEGORIES
       Map<String, int> totalCategories = Map<String, int>();
       List<String> B = listUserCategory;
@@ -109,16 +111,22 @@ class StaticData {
         totalCategories[tmpIdLocale] = c;
       }
 
+      //Ordinamento dei locali in base al numero di preferenze
+      //locali con almeno una categoria in comune con l'utente sarà nella parte
+      //sinistra dell'array
       var sortedKeys = totalCategories.keys.toList(growable: false)
         ..sort((k1, k2) => totalCategories[k2].compareTo(totalCategories[k1]));
       LinkedHashMap sortedMap = new LinkedHashMap.fromIterable(sortedKeys,
           key: (k) => k, value: (k) => totalCategories[k]);
 
       //Elenco ordinato dei locali con priorità
-      Iterable<dynamic> set = sortedMap.keys;
+      Iterable<dynamic> set = sortedMap.keys; //locali con almeno un match
       int sup = 0, inf = 0;
 
-      //sistemazione array in base al numero di preferenze
+      //sistemazione array in base al numero di categorie.
+      //Locali con maggior numero di categorie in comune saranno posizionati più
+      //a sinistra, quindi sarà ordinato in ordine decrescente
+      //modifica della lista originaria cercando il max
       for (int i = 0; i < set.length; i++) {
         for (int j = 0; j < properties.length; j++) {
           //trova index massimo in properties
@@ -129,7 +137,32 @@ class StaticData {
         swap(inf, sup);
         inf++;
       }
+
+      //applicare algoritmo distance sui locali con zero categorie in comune
+
+      //primo index con zero categorie in comune
+      var foundLst = sortedMap.values;
+      int found;
+      for (int i = 0; i < foundLst.length; i++) {
+        if (foundLst.elementAt(i) == 0) {
+          found = i;
+          break;
+        }
+      }
+
+      //ordina(in base alla distanza) solo una parte di array, cioè quella con
+      // zero categorie in comuni
+      //RISOLVERE PROBLEMA QUA
+      if (foundLst.length > 0) sortSublist(found, properties.length);
     }
+  }
+
+  void sortSublist<Property>(int start, int end) {
+    properties.setRange(
+        start,
+        end,
+        properties.sublist(start, end)
+          ..sort((a, b) => a.distance.compareTo(b.distance)));
   }
 
   swap(int inf, int sup) {
