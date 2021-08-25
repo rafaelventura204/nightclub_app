@@ -37,7 +37,7 @@ class StackContainer extends StatelessWidget {
                   height: 4.0,
                 ),
                 Text(
-                  finalName,
+                  finalName == null ? '' : finalName, //DA VISIONARE!
                   style: TextStyle(
                     fontSize: 21.0,
                     fontWeight: FontWeight.bold,

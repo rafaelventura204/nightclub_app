@@ -1,9 +1,11 @@
 import 'dart:collection';
 
 import 'package:bar_pub/models/property.dart';
-import 'package:bar_pub/screens/home/home_screen.dart';
+/*import 'package:bar_pub/screens/home/home_screen.dart';
+import 'package:bar_pub/screens/Guest/home_screen_Guest.dart';*/
 import 'package:bar_pub/services/load_data_user.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:bar_pub/services/wrapper.dart';
 
 class StaticData {
   static final List<Property> properties = List<Property>();
@@ -11,23 +13,46 @@ class StaticData {
   int prefAlgoritm = -1;
 
   addNightlife() {
-    if (properties.length < defaultListNightlife.length) {
-      for (int i = 0; i < defaultListNightlife.length; i++) {
-        properties.add(Property(
-          id: defaultListNightlife.elementAt(i).id,
-          name: defaultListNightlife.elementAt(i).name,
-          description: defaultListNightlife.elementAt(i).description,
-          imagePath: defaultListNightlife.elementAt(i).urlImage.toString(),
-          hour: getDayOfWeek(i), //set-orario
-          distance: getDistance(i), //set-distance
-          address: defaultListNightlife.elementAt(i).address.toString(),
-          latitudine: defaultListNightlife.elementAt(i).latitudine,
-          longitudine: defaultListNightlife.elementAt(i).longitutidine,
-          categories: defaultListNightlife.elementAt(i).categories,
-        ));
+    /*Algoritmo OSPITE */
+    if (finalName == null) {
+      //OSPITE
+      //Ordinamento locali: Alfabetico!
+      if (properties.length < defaultListNightlife.length) {
+        for (int i = 0; i < defaultListNightlife.length; i++) {
+          properties.add(Property(
+            id: defaultListNightlife.elementAt(i).id,
+            name: defaultListNightlife.elementAt(i).name,
+            description: defaultListNightlife.elementAt(i).description,
+            imagePath: defaultListNightlife.elementAt(i).urlImage.toString(),
+            hour: getDayOfWeek(i), //set-orario
+            distance: getDistance(i), //set-distance
+            address: defaultListNightlife.elementAt(i).address.toString(),
+            latitudine: defaultListNightlife.elementAt(i).latitudine,
+            longitudine: defaultListNightlife.elementAt(i).longitutidine,
+            categories: defaultListNightlife.elementAt(i).categories,
+          ));
+        }
       }
+      properties.sort((a, b) => a.name.compareTo(b.name));
+    } else {
+      if (properties.length < defaultListNightlife.length) {
+        for (int i = 0; i < defaultListNightlife.length; i++) {
+          properties.add(Property(
+            id: defaultListNightlife.elementAt(i).id,
+            name: defaultListNightlife.elementAt(i).name,
+            description: defaultListNightlife.elementAt(i).description,
+            imagePath: defaultListNightlife.elementAt(i).urlImage.toString(),
+            hour: getDayOfWeek(i), //set-orario
+            distance: getDistance(i), //set-distance
+            address: defaultListNightlife.elementAt(i).address.toString(),
+            latitudine: defaultListNightlife.elementAt(i).latitudine,
+            longitudine: defaultListNightlife.elementAt(i).longitutidine,
+            categories: defaultListNightlife.elementAt(i).categories,
+          ));
+        }
+      }
+      preferencesNightlife();
     }
-    preferencesNightlife();
   }
 
   String getDayOfWeek(int index) {

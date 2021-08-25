@@ -1,11 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:ui';
 import 'package:bar_pub/models/property.dart';
 import 'package:bar_pub/screens/single_property_page.dart';
-import 'package:bar_pub/services/static_data.dart';
-import 'package:bar_pub/widgets/club_card.dart';
-import 'package:bar_pub/widgets/club_list.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:bar_pub/services/load_data_user.dart';
@@ -69,12 +65,13 @@ class _MyBarListState extends State<MyBarList> {
                 height: 25.0,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                //padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 2.5),
                 child: Text(
                   "Cerca il tuo\nlocale",
                   style: GoogleFonts.inter(
                     fontSize: 30.0,
-                    height: 1.5,
+                    //height: 1.5,
                     color: Color.fromRGBO(33, 45, 82, 1),
                     fontWeight: FontWeight.w600,
                   ),

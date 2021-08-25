@@ -1,5 +1,4 @@
-import 'package:bar_pub/screens/authenticate/register.dart';
-import 'package:bar_pub/screens/authenticate/sign_in.dart';
+/*NON PIÙ USATO=> MOVE TO TRASH */
 import 'package:flutter/material.dart';
 
 class Authenticate extends StatefulWidget {
@@ -16,10 +15,15 @@ class _AuthenticateState extends State<Authenticate> {
 
   @override
   Widget build(BuildContext context) {
-    if (showSignIn) {
-      return SignIn(toggleView: toggleView);
-    } else {
-      return Register(toggleView: toggleView);
-    }
+    throw UnimplementedError();
   }
+
+  /*@override
+  Widget build(BuildContext context) {
+    if (showSignIn) {
+      //return SignIn(toggleView: toggleView);
+    } else {
+      //return Register(toggleView: toggleView);
+    }
+  }*/
 }

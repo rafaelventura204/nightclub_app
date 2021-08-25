@@ -1,8 +1,6 @@
 import 'package:bar_pub/models/property.dart';
 import 'package:bar_pub/screens/single_property_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ClubList extends StatelessWidget {
   final Property club;

@@ -1,38 +1,42 @@
 import 'package:bar_pub/services/load_data_user.dart';
 import 'package:bar_pub/services/static_data.dart';
-import 'package:bar_pub/services/wrapper.dart';
 import 'package:bar_pub/widgets/club_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-//var myLatitudine, myLongitudine;
-
-class MyHomeScreen extends StatelessWidget {
+class MyHomeScreenGuest extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomeScreenPage(),
+      home: MyHomeScreenGuestPage(),
     );
   }
 }
 
-class MyHomeScreenPage extends StatefulWidget {
+class MyHomeScreenGuestPage extends StatefulWidget {
   @override
-  _MyHomeScreenPageState createState() => _MyHomeScreenPageState();
+  _MyHomeScreenGuestPageState createState() => _MyHomeScreenGuestPageState();
 }
 
-class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
+class _MyHomeScreenGuestPageState extends State<MyHomeScreenGuestPage> {
   LoadDataUser loadDataUser = LoadDataUser();
   StaticData staticData = StaticData();
 
   @override
-  Widget build(BuildContext context) {
-    loadDataUser.getUserNightlifeFromDB(finalName);
-    /*myLatitudine = 45.42573338550383;
-    myLongitudine = 9.202500141406698;*/
+  void initState() {
+    super.initState();
+    setState(() {
+      loadDataUser.getNightlifeFromDB();
+      staticData.addNightlife();
+    });
+  }
 
-    staticData.addNightlife();
+  @override
+  Widget build(BuildContext context) {
+    /*loadDataUser.getNightlifeFromDB();
+
+    staticData.addNightlife();*/
     ScreenUtil.init(
       BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width,
@@ -49,15 +53,20 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
               SizedBox(
                 height: 25.0,
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 2.5),
-                child: Text('Trova il tuo\nlocale\n',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      //height: 1.5,togliere o lasciare
-                      color: Color.fromRGBO(33, 45, 82, 1),
-                      fontWeight: FontWeight.w600,
-                    )),
+              Row(
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 24.0, vertical: 2.5),
+                    child: Text('Trova il tuo\nlocale\n',
+                        style: TextStyle(
+                          fontSize: 30.0,
+                          //height: 1.5,
+                          color: Color.fromRGBO(33, 45, 82, 1),
+                          fontWeight: FontWeight.w600,
+                        )),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 45.0,

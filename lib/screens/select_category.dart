@@ -29,8 +29,10 @@ class _SelectCategoryState extends State<SelectCategory> {
             children: [
               IconButton(
                 onPressed: () {
-                  addUserCategory();
-                  Navigator.pop(context);
+                  setState(() {
+                    addUserCategory();
+                    Navigator.pop(context);
+                  });
                 },
                 icon: Icon(Icons.arrow_back, color: Colors.white),
               ),

@@ -1,10 +1,22 @@
-import 'package:bar_pub/screens/home/home.dart';
-import 'package:bar_pub/services/auth.dart';
-import 'package:bar_pub/services/global_preferences.dart';
+import 'package:bar_pub/screens/authenticate/components/body.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 class SignIn extends StatefulWidget {
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Body(),
+    );
+  }
+}
+
+
+/*class SignIn extends StatefulWidget {
   final Function toggleView;
   SignIn({this.toggleView});
 
@@ -141,3 +153,4 @@ class _SignInState extends State<SignIn> {
     );
   }
 }
+*/

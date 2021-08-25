@@ -48,8 +48,11 @@ dependencies:
   location: ^2.3.5
   circular_profile_avatar: ^2.0.0
   flutter_string_encryption: ^0.3.1
+  flutter_svg: ^0.18.0
 
   
+dependency_overrides:
+  flutter_svg: 0.22.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +76,9 @@ flutter:
     - assets/images/profiloProva.png
     - assets/images/provaNavi2.png
     - assets/images/profiloDefault.jpg
+    - assets/icons/
+    - assets/images/
+    #- assets/images/login_bottom.png
     
     
   #   - images/a_dot_ham.jpeg

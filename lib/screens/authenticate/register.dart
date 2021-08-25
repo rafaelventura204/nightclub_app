@@ -1,8 +1,26 @@
-import 'package:bar_pub/services/auth.dart';
-import 'package:bar_pub/services/crypt_psw.dart';
+import 'package:bar_pub/screens/authenticate/components/body_register.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
+  @override
+  _RegisterState createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Body(
+          //child: Column(),
+          ),
+    );
+  }
+}
+
+
+
+
+/*class Register extends StatefulWidget {
   final Function toggleView;
   Register({this.toggleView});
 
@@ -124,3 +142,4 @@ class _RegisterState extends State<Register> {
     );
   }
 }
+*/

@@ -107,7 +107,9 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             alignment: Alignment(0.1, 0.1)),
                       ),
                       onTap: () {
-                        createAlertDialog(context, showUserCategory());
+                        setState(() {
+                          createAlertDialog(context, showUserCategory());
+                        });
                       },
                     ),
                   ),
@@ -144,17 +146,17 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
   //inizio
   Widget showUserCategory() {
-    return Container(
-      height: 450.0,
-      width: 350.0,
-      color: Colors.black,
-      child: ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: listUserCategory.length,
-        itemBuilder: (context, index) {
-          return listUserCategory.isNotEmpty
-              ? new Container(
+    return listUserCategory.isNotEmpty
+        ? Container(
+            height: 450.0,
+            width: 350.0,
+            color: Colors.black,
+            child: ListView.builder(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              itemCount: listUserCategory.length,
+              itemBuilder: (context, index) {
+                return new Container(
                   child: SafeArea(
                     child: SingleChildScrollView(
                       child: Center(
@@ -200,8 +202,8 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       ),
                     ),
                   ),
-                )
-              : new Container(
+                );
+                /*new Container(
                   child: SafeArea(
                     child: Center(
                       child: ListTile(
@@ -215,10 +217,38 @@ class _MyProfilePageState extends State<MyProfilePage> {
                       ),
                     ),
                   ),
-                );
-        },
-      ),
-    );
+                );*/
+              },
+            ),
+          )
+        : Container(
+            alignment: Alignment.center,
+            child: Text(
+              "Nessuna categoria selezionata!",
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            /*height: 450.0,
+        width: 350.0,
+        color: Colors.transparent,
+        child: SafeArea(
+          child: Center(
+            child: ListTile(
+              title: Text(
+                "Nessuna categoria selezionata",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),*/
+          ); //here
   }
   //fine
 }
