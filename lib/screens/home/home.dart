@@ -42,11 +42,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
+  /*@override
   void initState() {
-    loadDataUser.loadData();
     super.initState();
-  }
+    loadDataUser.loadData();
+    
+  }*/
 
   @override
   Widget build(BuildContext context) {

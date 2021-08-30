@@ -17,6 +17,7 @@ class _SelectCategoryState extends State<SelectCategory> {
           defaultListCategory.elementAt(_selectedItems.elementAt(i)).idCategory;
       loadDataUser.loadUserCategoryToDB(finalName, tmpId);
     }
+    loadDataUser.getUserCategoryFromDB(finalName);
   }
 
   @override
@@ -29,10 +30,8 @@ class _SelectCategoryState extends State<SelectCategory> {
             children: [
               IconButton(
                 onPressed: () {
-                  setState(() {
-                    addUserCategory();
-                    Navigator.pop(context);
-                  });
+                  addUserCategory();
+                  Navigator.pop(context);
                 },
                 icon: Icon(Icons.arrow_back, color: Colors.white),
               ),

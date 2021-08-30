@@ -19,7 +19,7 @@ class _TopBarState extends State<TopBar> {
         ? SafeArea(
             child: TextButton.icon(
             onPressed: () async {
-              finalName = null;
+              //finalName = null;
               //Navigator.pop(context);
               gPref.removeSF();
               SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -62,7 +62,7 @@ class _TopBarState extends State<TopBar> {
               color: Colors.black87,
             ),
             label: Text(
-              'LogIN',
+              'Login',
               style: TextStyle(color: Colors.black87),
             ),
           ));

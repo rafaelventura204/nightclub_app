@@ -5,11 +5,13 @@ import 'package:bar_pub/screens/authenticate/register.dart';
 import 'package:bar_pub/screens/home/home.dart';
 import 'package:bar_pub/services/auth.dart';
 import 'package:bar_pub/services/global_preferences.dart';
+import 'package:bar_pub/services/load_data_user.dart';
 import 'package:bar_pub/widgets/already_have_an_account_check.dart';
 import 'package:bar_pub/widgets/constants.dart';
 import 'package:bar_pub/widgets/text_field_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:bar_pub/services/wrapper.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -20,6 +22,8 @@ class _BodyState extends State<Body> {
   final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
   GlobalPreferences gPref = GlobalPreferences();
+  LoadDataUser loadDataUser = LoadDataUser();
+
   //text field state
   String email = "";
   String password = "";
@@ -100,12 +104,14 @@ class _BodyState extends State<Body> {
                                   "Email non registrata oppure non corretta");
                             } else {
                               gPref.addStringToSF(email);
-                              //setState(() async {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyHome()));
-                              //});
+                              setState(() {
+                                finalName = email;
+                              });
+                              loadDataUser.loadData().whenComplete(() =>
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MyHome())));
                             }
                           }
                         },
@@ -160,75 +166,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-
-/*class Body extends StatelessWidget {
-  const Body({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Background(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            "LOGIN",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: size.height * 0.03,
-          ),
-          SvgPicture.asset(
-            "assets/icons/login.svg",
-            height: size.height * 0.35,
-          ),
-          SizedBox(
-            height: size.height * 0.03,
-          ),
-          RoundedInputField(
-            hintText: "Your Email",
-            onChanged: (value) {},
-          ),
-          RoundedPasswordField(
-            onChanged: (value) {},
-          ),
-          RoundedButton(
-            text: "LOGIN",
-            press: () {},
-          ),
-          SizedBox(
-            height: size.height * 0.03,
-          ),
-          AlreadyHaveAnAccountCheck(
-            press: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Register();
-              }));
-            },
-          ),
-          OrDivider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                "Enter as ",
-                style: TextStyle(color: kPrimaryColor),
-              ),
-              GestureDetector(
-                onTap: () {},
-                child: Text(
-                  "Guest",
-                  style: TextStyle(
-                      color: kPrimaryColor, fontWeight: FontWeight.bold),
-                ),
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
-}
-*/

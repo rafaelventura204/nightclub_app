@@ -23,11 +23,20 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
       liked = !liked;
     });
     if (liked == true) {
-      print("true -> aggiungere elemento");
-      loadDataUser.loadUserNightlifeToDB(finalName, widget.club.id);
-    } else {
-      loadDataUser.removeUserNightlifeFromDB(finalName, widget.club.id);
-      print("false -> rimuovi elemento");
+      loadDataUser
+          .loadUserNightlifeToDB(finalName, widget.club.id)
+          .whenComplete(() => print("true -> aggiungere elemento"));
+      loadDataUser
+          .getUserNightlifeFromDB(finalName)
+          .whenComplete(() => print(""));
+    } else if (liked == false) {
+      loadDataUser
+          .removeUserNightlifeFromDB(finalName, widget.club.id)
+          .whenComplete(() => print("false -> rimuovi elemento"));
+
+      loadDataUser
+          .getUserNightlifeFromDB(finalName)
+          .whenComplete(() => print(""));
     }
   }
 
@@ -35,7 +44,6 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
   Widget build(BuildContext context) {
     for (var item in viewNightlife) {
       if (widget.club.id == item.id) {
-        print("wid: ${widget.club.id} night: ${item.id}");
         liked = true;
       }
     }
@@ -118,9 +126,10 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
                                       color: liked
                                           ? Colors.purple
                                           : Color(0xFFBA68C8)),
-                                  onPressed: () => _pressed(),
+                                  onPressed: () =>
+                                      finalName == null ? null : _pressed(),
                                 ),
-                              ),
+                              )
                             ],
                           ),
                           Container(

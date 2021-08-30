@@ -17,11 +17,16 @@ Queries queries = Queries();
 class LoadDataUser {
   GlobalPreferences gPref = GlobalPreferences();
 
-  loadData() {
+  Future loadData() async {
     if (finalName != null) {
-      getCategoriesFromDB();
-      getNightlifeFromDB();
-      getUserCategoryFromDB(finalName);
+      await getCategoriesFromDB();
+      await getNightlifeFromDB();
+      await getUserCategoryFromDB(finalName);
+      await loadDataUser.getUserNightlifeFromDB(finalName);
+      await staticData.addNightlife();
+    } else {
+      await getCategoriesFromDB();
+      await getNightlifeFromDB();
     }
   }
 

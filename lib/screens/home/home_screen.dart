@@ -26,13 +26,26 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
   LoadDataUser loadDataUser = LoadDataUser();
   StaticData staticData = StaticData();
 
+  /*@override
+  void initState() {
+    super.initState();
+    loadDataUser.getUserNightlifeFromDB(finalName);
+    staticData.addNightlife();
+  }*/
+
   @override
   Widget build(BuildContext context) {
-    loadDataUser.getUserNightlifeFromDB(finalName);
+    print(finalName);
+    //loadDataUser.getUserNightlifeFromDB(finalName);
     /*myLatitudine = 45.42573338550383;
     myLongitudine = 9.202500141406698;*/
 
-    staticData.addNightlife();
+    //staticData.addNightlife();
+    /*  setState(() {
+      loadDataUser.getUserNightlifeFromDB(finalName);
+      staticData.addNightlife();
+    });
+*/
     ScreenUtil.init(
       BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width,

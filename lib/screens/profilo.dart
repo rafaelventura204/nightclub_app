@@ -32,6 +32,12 @@ class _MyProfilePageState extends State<MyProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      loadDataUser
+          .getUserNightlifeFromDB(finalName)
+          .whenComplete(() => print(""));
+    });
+
     createAlertDialog(BuildContext context, Widget showUserCategory) {
       return showDialog(
         context: context,
@@ -48,13 +54,11 @@ class _MyProfilePageState extends State<MyProfilePage> {
       );
     }
 
-    //fine
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             StackContainer(),
-            //inizio
             Container(
               margin: EdgeInsets.only(top: 30),
               child: Row(
@@ -107,16 +111,13 @@ class _MyProfilePageState extends State<MyProfilePage> {
                             alignment: Alignment(0.1, 0.1)),
                       ),
                       onTap: () {
-                        setState(() {
-                          createAlertDialog(context, showUserCategory());
-                        });
+                        createAlertDialog(context, showUserCategory());
                       },
                     ),
                   ),
                 ],
               ),
             ),
-            //fine
             ListView.builder(
               physics: NeverScrollableScrollPhysics(),
               itemBuilder: (context, index) {
@@ -144,7 +145,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
     );
   }
 
-  //inizio
   Widget showUserCategory() {
     return listUserCategory.isNotEmpty
         ? Container(
@@ -203,21 +203,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
                     ),
                   ),
                 );
-                /*new Container(
-                  child: SafeArea(
-                    child: Center(
-                      child: ListTile(
-                        title: Text(
-                          "Nessuna categoria selezionata",
-                          style: TextStyle(
-                            color: Colors.pink,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );*/
               },
             ),
           )
@@ -231,24 +216,6 @@ class _MyProfilePageState extends State<MyProfilePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
-            /*height: 450.0,
-        width: 350.0,
-        color: Colors.transparent,
-        child: SafeArea(
-          child: Center(
-            child: ListTile(
-              title: Text(
-                "Nessuna categoria selezionata",
-                style: TextStyle(
-                  color: Colors.red,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),*/
-          ); //here
+          );
   }
-  //fine
 }
