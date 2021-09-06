@@ -1,8 +1,5 @@
 import 'dart:collection';
-
 import 'package:bar_pub/models/property.dart';
-/*import 'package:bar_pub/screens/home/home_screen.dart';
-import 'package:bar_pub/screens/Guest/home_screen_Guest.dart';*/
 import 'package:bar_pub/services/load_data_user.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:bar_pub/services/wrapper.dart';
@@ -10,7 +7,7 @@ import 'package:bar_pub/services/wrapper.dart';
 class StaticData {
   static final List<Property> properties = List<Property>();
   final LoadDataUser loadDataUser = LoadDataUser();
-  int prefAlgoritm = -1;
+  int prefAlgoritm = 0;
 
   addNightlife() {
     /*Algoritmo OSPITE */
@@ -79,16 +76,17 @@ class StaticData {
 
   preferencesNightlife() {
     /*Algoritmo di ordinamento in base a:
-        distance 1 
-        numero di categorie -1
-        neutro 0
+        A)distance1: acriveDistance è true e activeCategory è false , quindi attivo
+        B)Category-1:activeCategory e activeDistance è false è false, quindi attivo
+        C)Ibrido0:activeDistance e activeCategory sono true, quindi attivi
       Utile per possibili implementazioni future, dove sarà l'utente stesso a
       decidere quale 'algoritmo' applicare
     */
 
-    //NEUTRO
-    if (prefAlgoritm == 0) {
+    //Ibrido
+    if (activeDistance == true && activeCategory == true) {
       properties.sort((a, b) => a.distance.compareTo(b.distance));
+
       Map<String, int> totalCategories = Map<String, int>();
       List<String> B = listUserCategory;
 
@@ -119,13 +117,41 @@ class StaticData {
         swap(inf, sup);
         inf++;
       }
-    } else if (prefAlgoritm == 1) {
-      //DISTANCE
+      print("Ibrido1:");
+
+      for (int i = 0; i < properties.length; i++)
+        print(
+            "=> ${properties.elementAt(i).name} + ${properties.elementAt(i).distance} + ${totalCategories[properties.elementAt(i).name]}");
+
+      //CONTROLLO DELLA DISTANZA MAX
+      for (int i = 0; i < properties.length; i++) {
+        double primo = double.parse(properties.elementAt(i).distance);
+        for (int j = i + 1; j < properties.length; j++) {
+          double secondo = double.parse(properties.elementAt(j).distance);
+          if (totalCategories[properties.elementAt(j).name] > 0) {
+            if (primo > currentSliderValue && primo > secondo) {
+              //scambio primo con secondo
+              swap(i, j);
+            }
+          } else {
+            break;
+          }
+        }
+      }
+
+      print("Ibrido2:");
+
+      for (int i = 0; i < properties.length; i++)
+        print(
+            "=> ${properties.elementAt(i).name} + ${properties.elementAt(i).distance} + ${totalCategories[properties.elementAt(i).name]}");
+    } else if (activeDistance == true && activeCategory == false) {
+      //Distance
       properties.sort((a, b) => a.distance.compareTo(b.distance));
-    } else {
+    } else if (activeDistance == false && activeCategory == true) {
+      //Category
       //L'algoritmo ordina prima in base alle categorie poi successivamente
-      //in base alla distanza
-      //#CATEGORIES
+      //in base alla distanza (in questo modo anche se non ci sono tante categorie
+      //in comuni rimane in ordine )
       Map<String, int> totalCategories = Map<String, int>();
       List<String> B = listUserCategory;
 
@@ -179,6 +205,12 @@ class StaticData {
       // zero categorie in comuni
       //RISOLVERE PROBLEMA QUA
       if (foundLst.length > 0) sortSublist(found, properties.length);
+
+      print("Categorie:2");
+
+      for (int i = 0; i < properties.length; i++)
+        print(
+            "=> ${properties.elementAt(i).name} + ${properties.elementAt(i).distance} + ${totalCategories[properties.elementAt(i).name]}");
     }
   }
 

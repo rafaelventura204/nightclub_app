@@ -1,3 +1,4 @@
+import 'package:bar_pub/screens/setttingsProfile.dart';
 import 'package:bar_pub/services/global_preferences.dart';
 import 'package:bar_pub/services/wrapper.dart';
 import 'package:flutter/material.dart';
@@ -17,29 +18,47 @@ class _TopBarState extends State<TopBar> {
   Widget build(BuildContext context) {
     return finalName != null
         ? SafeArea(
-            child: TextButton.icon(
-            onPressed: () async {
-              //finalName = null;
-              //Navigator.pop(context);
-              gPref.removeSF();
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs?.clear();
-              Navigator.of(context, rootNavigator: true).pushReplacement(
-                MaterialPageRoute(builder: (context) => Wrapper()),
-              );
-              /*Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => Wrapper()),
-                  ModalRoute.withName("/Wrapper"));*/
-            },
-            icon: Icon(
-              Icons.person,
-              color: Colors.black87,
-            ),
-            label: Text(
-              'Logout',
-              style: TextStyle(color: Colors.black87),
-            ),
+            child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextButton.icon(
+                onPressed: () async {
+                  //finalName = null;
+                  //Navigator.pop(context);
+                  gPref.removeSF();
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  prefs?.clear();
+                  Navigator.of(context, rootNavigator: true).pushReplacement(
+                    MaterialPageRoute(builder: (context) => Wrapper()),
+                  );
+                  /*Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => Wrapper()),
+                      ModalRoute.withName("/Wrapper"));*/
+                },
+                icon: Icon(
+                  Icons.person,
+                  color: Colors.black87,
+                ),
+                label: Text(
+                  'Logout',
+                  style: TextStyle(color: Colors.black87),
+                ),
+              ),
+              IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black87,
+                  ),
+                  onPressed: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SettingsProfile()),
+                        ).then((value) => setState(() => {}))
+                      })
+            ],
           ))
         : SafeArea(
             child: TextButton.icon(

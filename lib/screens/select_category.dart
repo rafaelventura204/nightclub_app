@@ -25,6 +25,8 @@ class _SelectCategoryState extends State<SelectCategory> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          brightness: Brightness.light,
+          elevation: 0,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -33,9 +35,12 @@ class _SelectCategoryState extends State<SelectCategory> {
                   addUserCategory();
                   Navigator.pop(context);
                 },
-                icon: Icon(Icons.arrow_back, color: Colors.white),
+                icon: Icon(Icons.arrow_back, color: Colors.black),
               ),
-              Text('Seleziona categorie')
+              Text(
+                'Seleziona categoria',
+                style: TextStyle(color: Colors.black),
+              )
             ],
           ),
           backgroundColor: Colors.purple[300],

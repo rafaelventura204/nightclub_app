@@ -84,7 +84,13 @@ class _MyMapPolylinePageState extends State<MyMapPolylinePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('DOVE siamo'),
+        brightness: Brightness.light,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text(
+          'Dove siamo',
+          style: TextStyle(color: Colors.black),
+        ),
         backgroundColor: Colors.purple[300],
       ),
       body: Column(

@@ -35,7 +35,6 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(finalName);
     //loadDataUser.getUserNightlifeFromDB(finalName);
     /*myLatitudine = 45.42573338550383;
     myLongitudine = 9.202500141406698;*/
@@ -67,7 +66,7 @@ class _MyHomeScreenPageState extends State<MyHomeScreenPage> {
                 child: Text('Trova il tuo\nlocale\n',
                     style: TextStyle(
                       fontSize: 30.0,
-                      //height: 1.5,togliere o lasciare
+                      height: 1.5, //togliere o lasciare
                       color: Color.fromRGBO(33, 45, 82, 1),
                       fontWeight: FontWeight.w600,
                     )),

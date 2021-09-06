@@ -101,7 +101,8 @@ class _MyProfileGuestPageState extends State<MyProfileGuestPage> {
               child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    "Effettua il login per poter usufruire di tutti i vantaggi!!(frase da rivdere!)",
+                    // per poter usufruire di tutti i vantaggi!!(frase da rivdere!)"
+                    "Effettua il login!!",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.red,

@@ -7,6 +7,8 @@ import 'package:bar_pub/services/static_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String finalName = null;
+bool activeCategory = true, activeDistance = true;
+double currentSliderValue = 5;
 var myLatitudine = 45.42573338550383;
 var myLongitudine = 9.202500141406698;
 LoadDataUser loadDataUser = LoadDataUser();

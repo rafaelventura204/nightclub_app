@@ -21,22 +21,25 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
   _pressed() {
     setState(() {
       liked = !liked;
+      print("newStateLiked: $liked <---");
     });
     if (liked == true) {
       loadDataUser
           .loadUserNightlifeToDB(finalName, widget.club.id)
-          .whenComplete(() => print("true -> aggiungere elemento"));
-      loadDataUser
-          .getUserNightlifeFromDB(finalName)
-          .whenComplete(() => print(""));
+          .whenComplete(() => loadDataUser
+              .getUserNightlifeFromDB(finalName)
+              .whenComplete(() => print("")));
+      for (int i = 0; i < viewNightlife.length; i++)
+        print("nome locale: ${viewNightlife.elementAt(i).name}");
     } else if (liked == false) {
       loadDataUser
           .removeUserNightlifeFromDB(finalName, widget.club.id)
-          .whenComplete(() => print("false -> rimuovi elemento"));
+          .whenComplete(() => loadDataUser
+              .getUserNightlifeFromDB(finalName)
+              .whenComplete(() => print("")));
 
-      loadDataUser
-          .getUserNightlifeFromDB(finalName)
-          .whenComplete(() => print(""));
+      for (int i = 0; i < viewNightlife.length; i++)
+        print("nome locale: ${viewNightlife.elementAt(i).name}");
     }
   }
 
@@ -120,7 +123,7 @@ class _SinglePropertyPageState extends State<SinglePropertyPage> {
                                 color: Colors.transparent,
                                 child: IconButton(
                                   icon: Icon(
-                                      liked
+                                      liked == true
                                           ? Icons.favorite
                                           : Icons.favorite_border,
                                       color: liked

@@ -51,6 +51,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      loadDataUser.loadData().whenComplete(() => print("MEGA UPDATE"));
+    });
     return Scaffold(
       body: _widgetsPage.elementAt(_selectIndex),
       bottomNavigationBar: BottomNavigationBar(

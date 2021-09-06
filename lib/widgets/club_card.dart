@@ -98,7 +98,6 @@ class ClubCard extends StatelessWidget {
                                   fontSize: 13.0,
                                 )),
                           ])),
-
                           RichText(
                               text: TextSpan(children: [
                             TextSpan(
@@ -117,23 +116,6 @@ class ClubCard extends StatelessWidget {
                                   fontSize: 13.0,
                                 )),
                           ])),
-
-                          //Like(),
-                          /*GestureDetector(
-                            onTap: () => {},
-                            child: ListTile(
-                              leading: IconButton(
-                                onPressed: () => {},
-                                icon: Icon(
-                                    like
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                    color: like ? Colors.purple : Colors.grey),
-                              ),
-                              //color: Constants.primaryColor,
-                              //color: Color(0xFFBA68C8),
-                            ),
-                          )*/
                         ],
                       )
                     ],
