@@ -34,67 +34,67 @@ class _MyProfileGuestPageState extends State<MyProfileGuestPage> {
           children: <Widget>[
             StackContainer(),
             //inizio
-            Container(
-              margin: EdgeInsets.only(top: 30),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text(
-                    'Category ',
-                    style: TextStyle(
-                      fontSize: 21.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 25.0,
-                    width: 55.0,
-                    child: InkWell(
-                      child: Container(
-                        decoration: BoxDecoration(color: Colors.grey[600]),
-                        child: Align(
-                            child: Text(
-                              'Add',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 16.0),
-                            ),
-                            alignment: Alignment(0.1, 0.1)),
-                      ),
-                      onTap: () {
-                        //pop => effettua il login per poter selezinare la categoria!!!
-                        const snackBar =
-                            SnackBar(content: Text('Utente non trovato!'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    height: 25.0,
-                    width: 55.0,
-                    child: InkWell(
-                      child: Container(
-                        decoration: BoxDecoration(color: Colors.grey[600]),
-                        child: Align(
-                            child: Text(
-                              'View',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.0,
-                              ),
-                            ),
-                            alignment: Alignment(0.1, 0.1)),
-                      ),
-                      onTap: () {
-                        //pop => effettua il login per poter selezinare la categoria!!!
-                        const snackBar =
-                            SnackBar(content: Text('Utente non trovato!'));
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   margin: EdgeInsets.only(top: 30),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+            //     children: [
+            //       Text(
+            //         'Category ',
+            //         style: TextStyle(
+            //           fontSize: 21.0,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: 25.0,
+            //         width: 55.0,
+            //         child: InkWell(
+            //           child: Container(
+            //             decoration: BoxDecoration(color: Colors.grey[600]),
+            //             child: Align(
+            //                 child: Text(
+            //                   'Add',
+            //                   style: TextStyle(
+            //                       color: Colors.white, fontSize: 16.0),
+            //                 ),
+            //                 alignment: Alignment(0.1, 0.1)),
+            //           ),
+            //           onTap: () {
+            //             //pop => effettua il login per poter selezinare la categoria!!!
+            //             const snackBar =
+            //                 SnackBar(content: Text('Utente non trovato!'));
+            //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            //           },
+            //         ),
+            //       ),
+            //       SizedBox(
+            //         height: 25.0,
+            //         width: 55.0,
+            //         child: InkWell(
+            //           child: Container(
+            //             decoration: BoxDecoration(color: Colors.grey[600]),
+            //             child: Align(
+            //                 child: Text(
+            //                   'View',
+            //                   style: TextStyle(
+            //                     color: Colors.white,
+            //                     fontSize: 16.0,
+            //                   ),
+            //                 ),
+            //                 alignment: Alignment(0.1, 0.1)),
+            //           ),
+            //           onTap: () {
+            //             //pop => effettua il login per poter selezinare la categoria!!!
+            //             const snackBar =
+            //                 SnackBar(content: Text('Utente non trovato!'));
+            //             ScaffoldMessenger.of(context).showSnackBar(snackBar);
+            //           },
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             //fine
             Padding(
               padding: const EdgeInsets.all(30),
@@ -102,7 +102,7 @@ class _MyProfileGuestPageState extends State<MyProfileGuestPage> {
                   alignment: Alignment.center,
                   child: Text(
                     // per poter usufruire di tutti i vantaggi!!(frase da rivdere!)"
-                    "Effettua il login!!",
+                    "Effettua il login",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.red,

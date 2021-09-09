@@ -16,7 +16,7 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              "Welcome to myApp",
+              "Welcome to Nightlife",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(
